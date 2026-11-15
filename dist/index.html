@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Identifica y caracteriza análogos terrestres de regiones de la Luna y Marte con datos abiertos.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1319">
+  <title>GeoTwin Explorer</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+  <svg class="symbols" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-brand" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.1"/><path d="M5.6 13.5c-1.3 1.9-1.6 3.4-.8 4.1 1.3 1.3 5.5-.6 9.3-4.2s5.8-7.8 4.5-9.1c-.7-.7-2.2-.4-4.1.7M9 8h.01m6 7h.01"/><circle cx="20.5" cy="14.5" r=".8" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/></symbol>
+    <symbol id="i-orbit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><ellipse cx="12" cy="12" rx="11" ry="3.5" transform="rotate(-35 12 12)"/><circle cx="18" cy="5" r="1.3" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-earth" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2"/><path d="m5.2 7.4 1.9-1.3 2.4.4 1.1 1.2-1.2 1.1-.3 1.3-1.7.4-.8 1.2-1.3-.6.2-1.7-1-1zm3.5 3.6 1.3.6.3 1.6-.7 2-.8 2.4-1-.9.3-2.2-.8-1.8zm2.7-4.7 2.6-.5 2.5 1.2 2 1.9-.5 1.4-2.2-.5-1.2.9-1.9-.6-1.4.8-.9-1.6 1-1.1zm1.4 4.7 1.4-.2 1.2 1.4-.7 2.4-1.3 2-1.1-1.7-.5-2.4zm4.2 4.5 1.5.4.8 1-.7.8-1.5-.3-.6-1z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 15A8.8 8.8 0 0 1 9 3.5 9 9 0 1 0 20.5 15z"/></symbol>
+    <symbol id="i-mars" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M5.1 8.1c1.6.8 2.8.8 4.3.1 1.7-.7 3.1-.6 4.7.3 1.4.8 2.9.9 4.8.2M3.7 12c2-.5 3.7-.3 5.5.3 1.9.7 3.7.8 5.5.1 1.9-.6 3.7-.6 5.6.1M5.4 16.2c1.4-.7 2.6-.7 3.8-.2 1.4.6 2.7.8 4 .4 1.5-.4 2.9-.2 4.3.5"/><circle cx="8.4" cy="10.4" r="1.1"/><circle cx="15.8" cy="14.8" r=".7"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 2v5m0 10v5M2 12h5m10 0h5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 10.5-8 10.5S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5zm-9 9 9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M8 16l4-5 3 2 5-7"/></symbol>
+    <symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 7h5m4 0h7M4 17h9m4 0h3"/><circle cx="11" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M13 5h6v6m0-6-9 9m8 0v5H5V6h5"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3m-4 4v3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6M3 3l6 6m12-6-6 6M3 21l6-6m12 6-6-6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6a8 8 0 0 0-9-1v14a8 8 0 0 1 9 1 8 8 0 0 1 9-1V5a8 8 0 0 0-9 1v14"/></symbol>
+  </svg>
+    <section class="welcome-intro" id="welcome-intro" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-description" aria-hidden="true" hidden>
+      <div class="welcome-cosmos" aria-hidden="true">
+        <div class="welcome-orbit welcome-orbit-one"></div>
+        <div class="welcome-orbit welcome-orbit-two"></div>
+        <figure class="welcome-planet welcome-planet-earth"><img src="assets/earth-globe.webp" alt=""></figure>
+        <figure class="welcome-planet welcome-planet-moon"><img src="assets/moon-globe.webp" alt=""></figure>
+        <figure class="welcome-planet welcome-planet-mars"><img src="assets/mars-globe.webp" alt=""></figure>
+        <span class="welcome-star welcome-star-one"></span><span class="welcome-star welcome-star-two"></span>
+        <span class="welcome-star welcome-star-three"></span><span class="welcome-star welcome-star-four"></span>
+      </div>
+      <div class="welcome-content">
+        <div class="welcome-brand">
+          <span class="welcome-brand-icon"><svg aria-hidden="true"><use href="#i-brand"/></svg></span>
+          <span>GEOTWIN <strong>EXPLORER</strong></span>
+        </div>
+        <p class="welcome-eyebrow">UN ATLAS · TRES MUNDOS · NUEVAS PERSPECTIVAS</p>
+        <h1 id="welcome-title">La Tierra es solo<br>el comienzo.</h1>
+        <p class="welcome-description" id="welcome-description">Explora paisajes de la Luna y Marte. Encuentra sus análogos en la Tierra y compara el relieve con datos abiertos.</p>
+        <div class="welcome-worlds" aria-label="Mundos explorables">
+          <span><svg aria-hidden="true"><use href="#i-earth"/></svg>Tierra</span>
+          <i aria-hidden="true"></i><span><svg aria-hidden="true"><use href="#i-moon"/></svg>Luna</span>
+          <i aria-hidden="true"></i><span><svg aria-hidden="true"><use href="#i-mars"/></svg>Marte</span>
+        </div>
+        <div class="welcome-actions">
+          <button type="button" class="welcome-enter" data-intro-dismiss="enter">Explorar el atlas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="welcome-skip" data-intro-dismiss="skip">Omitir introducción</button>
+        </div>
+        <p class="welcome-attribution">Texturas: <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a><span>·</span><a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO</a><span>·</span><a href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL · Marte</a></p>
+        <p class="welcome-note">Visualización comparativa; tamaños y movimientos no representan escalas ni períodos astronómicos.</p>
+      </div>
+    </section>
+  <a class="skip-link" href="#contenido" data-intro-background>Ir al contenido</a>
+    <header class="sidebar" data-intro-background>
+    <a href="#inicio" class="brand" aria-label="GeoTwin Explorer, inicio"><span class="brand-icon"><svg aria-hidden="true"><use href="#i-brand"/></svg></span><span><strong>GeoTwin</strong><small>Análogos planetarios</small></span></a>
+    <nav aria-label="Navegación principal">
+      <a class="nav-link" href="#inicio" aria-current="page"><svg aria-hidden="true"><use href="#i-brand"/></svg><span>Atlas 3D</span></a>
+      <a class="nav-link" href="#buscar"><svg aria-hidden="true"><use href="#i-search"/></svg><span>Descubrir</span></a>
+      <a class="nav-link" href="#evaluar"><svg aria-hidden="true"><use href="#i-cross"/></svg><span>Área piloto</span></a>
+      <a class="nav-link" href="#comparar"><svg aria-hidden="true"><use href="#i-layers"/></svg><span>Comparar</span></a>
+      <a class="nav-link" href="#fuentes"><svg aria-hidden="true"><use href="#i-book"/></svg><span>Fuentes</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <span class="private"><svg aria-hidden="true"><use href="#i-lock"/></svg> Acceso privado</span>
+      <p>NASA Space Apps<br>Challenge 2026</p>
+    </div>
+  </header>
+  <main class="workspace" id="contenido" tabindex="-1" data-intro-background>
+    <section class="workspace-page" data-page="atlas" aria-labelledby="title">
+      <header class="workspace-heading" id="inicio">
+        <div>
+          <p class="page-context">Tierra <span></span> Luna <span></span> Marte</p>
+          <h1 id="title" tabindex="-1">Atlas planetario</h1>
+          <p class="page-description">Explora el relieve de los tres mundos y encuentra análogos terrestres de regiones lunares y marcianas.</p>
+        </div>
+      </header>
+      <section class="panel atlas" id="atlas" tabindex="-1" aria-labelledby="atlas-title">
+        <div class="atlas-bar">
+          <h2 id="atlas-title"><svg aria-hidden="true"><use href="#i-orbit"/></svg> Visor planetario</h2>
+          <button type="button" class="outline viewer-expand" id="globe-expand" aria-label="Ampliar visor planetario" title="Ampliar visor planetario" aria-expanded="false" aria-controls="viewer-dialog"><svg aria-hidden="true"><use href="#i-expand"/></svg><span data-expand-label>Ampliar</span></button>
+          <div class="world-switch" role="group" aria-label="Cambiar vista planetaria">
+            <button type="button" id="atlas-overview-view" data-atlas-view="overview" aria-pressed="true">Vista conjunta</button>
+            <button type="button" data-world="Earth" aria-pressed="true"><svg aria-hidden="true"><use href="#i-earth"/></svg> Tierra</button>
+            <button type="button" data-world="Moon" aria-pressed="false"><svg aria-hidden="true"><use href="#i-moon"/></svg> Luna</button>
+            <button type="button" data-world="Mars" aria-pressed="false"><svg aria-hidden="true"><use href="#i-mars"/></svg> Marte</button>
+          </div>
+        </div>
+        <div class="atlas-layout">
+          <div class="atlas-scene">
+            <div class="planet-gallery" id="map" role="group" aria-label="Visor conjunto de Tierra, Luna y Marte">
+              <section id="planet-overview" class="planet-overview" aria-labelledby="planet-overview-title">
+                <header class="overview-heading">
+                  <div><span class="overview-kicker">RED DE ANÁLOGOS</span><h3 id="planet-overview-title">La Tierra, eje central de comparación</h3></div>
+                  <p>Selecciona un planeta para acercarlo y explorar sus regiones aquí mismo.</p>
+                  <button type="button" class="outline" id="overview-spin" aria-pressed="true" title="Giro visual de las esferas">Pausar giro</button>
+                </header>
+                <div class="planet-network" role="group" aria-label="Tierra al centro, con la Luna y Marte a los lados">
+                  <div class="overview-world overview-earth" data-overview-card="Earth">
+                    <button type="button" class="overview-orb" data-overview-world="Earth" aria-label="Seleccionar un punto de la Tierra" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Earth" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Earth" aria-hidden="true"></span><span class="overview-status" data-overview-status="Earth" role="status">Cargando esfera…</span></button>
+                    <button type="button" class="overview-open-world" data-world="Earth">Tierra</button><small>Eje central</small>
+                  </div>
+                  <div class="overview-world overview-moon" data-overview-card="Moon">
+                    <button type="button" class="overview-orb" data-overview-world="Moon" aria-label="Seleccionar un punto de la Luna" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Moon" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Moon" aria-hidden="true"></span><span class="overview-status" data-overview-status="Moon" role="status">Cargando esfera…</span></button>
+                    <button type="button" class="overview-open-world" data-world="Moon">Luna</button><small>Relieve y cráteres</small>
+                  </div>
+                  <div class="overview-world overview-mars" data-overview-card="Mars">
+                    <button type="button" class="overview-orb" data-overview-world="Mars" aria-label="Seleccionar un punto de Marte" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Mars" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Mars" aria-hidden="true"></span><span class="overview-status" data-overview-status="Mars" role="status">Cargando esfera…</span></button>
+                    <button type="button" class="overview-open-world" data-world="Mars">Marte</button><small>Ambientes volcánicos y áridos</small>
+                  </div>
+                </div>
+                <p class="overview-note">Los puntos señalan ubicaciones del catálogo y tu selección en la cara visible. El giro automático es visual, sin representar períodos físicos de rotación.</p>
+                <p class="planet-gallery-help" id="overview-help">Explora directamente sobre las tres esferas. Selecciona un planeta para acercarlo; arrastra para girar y pulsa para elegir un punto. Usa las flechas, +, − o Inicio con teclado. El giro se pausa al inspeccionar. Vista conjunta recupera el encuadre general.</p>
+              </section>
+              <div id="surface-view" hidden aria-hidden="true">
+              <div class="planet-cards">
+                <section class="planet-card" aria-labelledby="earth-globe-title">
+                  <div class="planet-card-head"><h3 id="earth-globe-title">Tierra</h3><span data-region-count="Earth"></span></div>
+                  <div class="map-viewport" data-globe="Earth" data-world="Earth" tabindex="0" role="region" aria-label="Globo 3D de la Tierra" aria-describedby="globe-help globe-keyboard">
+                    <canvas id="planet-canvas-earth" class="planet-canvas" aria-hidden="true"></canvas>
+                    <svg id="sector-overlay" class="sector-overlay" aria-label="Sectores prospectivos de la Tierra" hidden></svg>
+                    <div data-markers="Earth"></div><div class="selection-pin" data-selection-pin="Earth" aria-hidden="true" hidden></div>
+                    <p data-globe-status class="globe-status" role="status"></p>
+                    <a class="map-source" href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a>
+                  </div>
+                </section>
+                <section class="planet-card" aria-labelledby="moon-globe-title">
+                  <div class="planet-card-head"><h3 id="moon-globe-title">Luna</h3><span data-region-count="Moon"></span></div>
+                  <div class="map-viewport" data-globe="Moon" data-world="Moon" tabindex="0" role="region" aria-label="Globo 3D de la Luna" aria-describedby="globe-help globe-keyboard">
+                    <canvas id="planet-canvas-moon" class="planet-canvas" aria-hidden="true"></canvas>
+                    <div data-markers="Moon"></div><div class="selection-pin" data-selection-pin="Moon" aria-hidden="true" hidden></div>
+                    <p data-globe-status class="globe-status" role="status"></p>
+                    <a class="map-source" href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO</a>
+                  </div>
+                </section>
+                <section class="planet-card" aria-labelledby="mars-globe-title">
+                  <div class="planet-card-head"><h3 id="mars-globe-title">Marte</h3><span data-region-count="Mars"></span></div>
+                  <div class="map-viewport" data-globe="Mars" data-world="Mars" tabindex="0" role="region" aria-label="Globo 3D de Marte" aria-describedby="globe-help globe-keyboard">
+                    <canvas id="planet-canvas-mars" class="planet-canvas" aria-hidden="true"></canvas>
+                    <div data-markers="Mars"></div><div class="selection-pin" data-selection-pin="Mars" aria-hidden="true" hidden></div>
+                    <p data-globe-status class="globe-status" role="status"></p>
+                    <a class="map-source" href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL · Viking</a>
+                  </div>
+                </section>
+              </div>
+              <p class="planet-gallery-help" id="globe-help">Arrastra el globo para ver sus regiones, también las del hemisferio oculto. Pulsa un marcador o un punto de la superficie para seleccionarlo.</p>
+              <span class="sr-only" id="globe-keyboard">Enfoca un globo y usa las flechas para girarlo, + o − para el zoom y Enter para seleccionar el punto central.</span>
+              </div>
+              <div class="atlas-controls" id="atlas-controls" aria-label="Controles del globo activo">
+                <span>Globo activo: <strong id="active-globe-label">Tierra</strong></span>
+                <button type="button" id="zoom-in" aria-label="Acercar" title="Acercar"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+                <button type="button" id="zoom-out" aria-label="Alejar" title="Alejar"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
+                <button type="button" id="reset-map" aria-label="Restablecer vista" title="Restablecer vista"><svg aria-hidden="true"><use href="#i-cross"/></svg></button>
+                <button type="button" id="reset-all-globes" class="outline">Restablecer vistas</button>
+              </div>
+            </div>
+            <div class="atlas-catalog">
+              <div class="atlas-catalog-head">
+                <h3>Zonas del catálogo</h3>
+                <span class="atlas-count" id="atlas-count"></span>
+              </div>
+              <div class="atlas-sites" id="atlas-sites" role="group" aria-label="Regiones del globo"></div>
+            </div>
+            <div id="atlas-sectors" class="atlas-catalog" hidden>
+              <div class="atlas-catalog-head"><h3>Sectores prospectivos de la búsqueda</h3><a class="outline" href="#busqueda-espacial">Ver búsqueda</a></div>
+              <div id="atlas-sector-detail" class="atlas-sector-detail"></div>
+              <div id="atlas-sector-buttons" class="atlas-sites" role="group" aria-label="Seleccionar sector prospectivo"></div>
+            </div>
+            <div class="atlas-foot" id="atlas-foot">
+              <div class="legend" aria-label="Niveles de similitud"><span><i class="dot high"></i> Alta</span><span><i class="dot mid"></i> Media</span><span><i class="dot low"></i> Baja</span></div>
+              <div class="select-wrap filter-wrap"><select id="atlas-region" aria-label="Filtrar atlas terrestre por región"></select><svg><use href="#i-down"/></svg></div>
+            </div>
+          </div>
+          <aside class="area-panel" id="area-panel" aria-label="Área seleccionada">
+            <p class="area-label"><svg aria-hidden="true"><use href="#i-pin"/></svg> Área seleccionada</p>
+            <p class="sr-only" id="area-announcement" aria-live="polite"></p>
+            <div class="area-picker select-wrap"><select id="area-list" aria-label="Zonas del catálogo"></select><svg aria-hidden="true"><use href="#i-down"/></svg></div>
+            <div id="area-empty" class="area-empty"><h3>Sin área seleccionada</h3><p>Elige una región en cualquiera de los tres globos o en el catálogo. Aquí aparecerán su ficha y el visor de relieve.</p></div>
+            <div id="area-details" class="area-details" hidden>
+            <div class="area-information">
+            <div id="focus-site"></div>
+            <div id="area-primary"></div>
+            <div id="atlas-sector-card" hidden></div>
+            </div>
+            <section class="terrain-viewer" id="area-viewer" aria-label="Visor de área">
+              <div class="terrain-toolbar">
+                <div class="terrain-modes" role="group" aria-label="Vista del área">
+                  <button type="button" data-view-mode="relief" aria-pressed="true">Relieve 3D</button>
+                  <button type="button" data-view-mode="photo" aria-pressed="false">Imagen</button>
+                </div>
+                <div class="terrain-zoom" id="terrain-tools" role="group" aria-label="Escala del relieve">
+                  <button type="button" id="terrain-far" aria-label="Alejar relieve" title="Alejar relieve"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
+                  <span id="terrain-extent"></span>
+                  <button type="button" id="terrain-near" aria-label="Acercar relieve" title="Acercar relieve"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
+                </div>
+                <button type="button" class="outline viewer-expand" id="terrain-expand" aria-label="Ampliar visor de relieve" title="Ampliar visor de relieve" aria-expanded="false" aria-controls="viewer-dialog"><svg aria-hidden="true"><use href="#i-expand"/></svg><span data-expand-label>Ampliar</span></button>
+              </div>
+              <div class="terrain-scene" id="terrain-scene">
+                <canvas id="terrain-canvas" width="530" height="275" tabindex="0" aria-label="Modelo de relieve interactivo" aria-describedby="terrain-help"></canvas>
+                <p id="terrain-status" role="status"></p>
+                <button type="button" id="terrain-retry" class="mini-action" hidden>Reintentar</button>
+                <span class="sr-only" id="terrain-help">Arrastra o usa las flechas para girar. Pulsa sobre la superficie para consultar una cota.</span>
+                <button type="button" class="terrain-reset" id="terrain-reset" aria-label="Restablecer orientación del relieve" title="Restablecer orientación"><svg aria-hidden="true"><use href="#i-cross"/></svg></button>
+              </div>
+              <div id="terrain-image" hidden>
+                <div id="photo-map" class="photo-map" tabindex="0" role="group" aria-label="Mapa de imágenes orbitales" aria-describedby="photo-help">
+                  <canvas id="terrain-mosaic" width="420" height="210" aria-hidden="true"></canvas>
+                  <div id="photo-tiles" aria-hidden="true"></div>
+                </div>
+                <div class="photo-info">
+                  <p id="photo-status" role="status"></p>
+                  <a id="photo-source" target="_blank" rel="noopener"></a>
+                  <button type="button" id="photo-reset" class="mini-action" hidden>Centrar en el área</button>
+                </div>
+                <p id="photo-help">Arrastra o usa las flechas para desplazarte. Usa + y − para cambiar la escala.</p>
+                <details id="photo-reference" hidden>
+                  <summary>Ver foto de referencia</summary>
+                  <figure class="area-photo">
+                    <img id="terrain-photo" alt="" loading="lazy">
+                    <figcaption id="photo-caption"></figcaption>
+                  </figure>
+                </details>
+              </div>
+              <div id="terrain-data">
+                <div id="terrain-measurements" hidden>
+                  <div class="terrain-metrics"><div><small>Mínima</small><strong id="terrain-min"></strong></div><div><small>Centro</small><strong id="terrain-center"></strong></div><div><small>Máxima</small><strong id="terrain-max"></strong></div></div>
+                  <div class="terrain-legend" aria-label="Escala de color de menor a mayor elevación"><span>Baja</span><i></i><span>Alta</span></div>
+                  <p class="terrain-point" id="terrain-point"></p>
+                  <div class="terrain-profile-head"><label for="profile-position">Perfil O–E</label><output id="profile-reading" for="profile-position"></output></div>
+                  <canvas id="terrain-profile" width="470" height="70" aria-hidden="true"></canvas>
+                  <input id="profile-position" type="range" min="0" max="48" value="24" aria-label="Posición en el perfil de elevación">
+                  <p class="terrain-credit"><a id="terrain-source" target="_blank" rel="noopener"></a> · <span id="terrain-resolution"></span></p>
+                  <details class="terrain-options">
+                    <summary>Referencia y realce vertical</summary>
+                    <label for="terrain-exaggeration">Realce vertical</label>
+                    <input id="terrain-exaggeration" type="range" min="0.4" max="1.7" step="0.1" value="1">
+
+                    <p id="terrain-datum"></p>
+                    <p id="terrain-detail"></p>
+                  </details>
+                </div>
+              </div>
+            </section>
+            <a class="outline study-link" href="#delimitar">Delimitar área seleccionada <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <details class="area-summary" id="area-summary">
+              <summary>Por qué sirve para el reto</summary>
+              <div id="area-evidence-content"></div>
+            </details>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section class="panel study-panel" id="delimitar" aria-labelledby="draw-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-cross"/></svg></span><div><h2 id="draw-title">Delimitar área de estudio</h2><p id="draw-context"></p></div></div>
+        <div class="study-layout">
+          <div>
+            <div class="study-map-tools" role="group" aria-label="Herramientas del mapa local">
+              <button type="button" class="outline" id="study-draw" aria-pressed="true">Dibujar</button>
+              <button type="button" class="outline" id="study-pan" aria-pressed="false">Desplazar mapa</button>
+              <button type="button" class="outline" id="study-transect" aria-pressed="false">Trazar perfil</button>
+              <button type="button" class="outline" id="study-center">Centrar contorno</button>
+            </div>
+            <div class="study-map-frame">
+              <canvas id="study-map" width="460" height="460" tabindex="0" aria-label="Mapa local de delimitación" aria-describedby="study-map-help study-cursor"></canvas>
+              <p id="study-map-state" class="study-map-state" role="status">Cargando relieve del área seleccionada…</p>
+              <span class="study-north" aria-hidden="true">↑ N</span>
+              <span id="study-scale" class="study-scale" aria-hidden="true"></span>
+            </div>
+            <p id="study-cursor" class="study-note"></p>
+            <p id="study-map-help" class="study-note">Marca al menos tres vértices. Pulsa el primero o «Cerrar y medir». Arrastra un vértice para corregirlo. Con teclado, mueve el cursor con las flechas y marca con Enter.</p>
+          </div>
+          <div class="study-controls">
+            <div class="field"><label for="study-width">Ancho del mapa</label><select id="study-width"><option value="0.5">500 m</option><option value="1">1 km</option><option value="2">2 km</option><option value="6">6 km</option><option value="20" selected>20 km</option><option value="40">40 km</option><option value="80">80 km</option></select></div>
+            <div class="field"><label for="study-layer">Capa de análisis</label><select id="study-layer"><option value="elevation">Elevación</option><option value="slope">Pendiente</option><option value="evidence">Evidencia geológica y ambiental</option><option value="peru-geology">INGEMMET · geología de Andahua y Huambo</option></select></div>
+            <div class="field"><label for="study-limit">Pendiente límite (°)</label><input id="study-limit" type="number" min="0" max="90" step="any" value="12"></div>
+            <p id="study-layer-credit" class="study-note"></p>
+            <button type="button" class="outline" id="study-map-retry" hidden>Volver a cargar mapa</button>
+            <div class="study-toolbar">
+              <button type="button" class="primary" id="study-measure">Cerrar y medir</button>
+              <button type="button" class="outline" id="study-undo">Deshacer</button>
+              <button type="button" class="outline" id="study-clear">Limpiar</button>
+              <button type="button" class="outline" id="study-square">Usar cuadrado central</button>
+            </div>
+            <p class="form-status" id="study-status" role="status"></p>
+            <div id="study-values" aria-live="polite"></div>
+            <fieldset class="study-library">
+              <legend>Polígonos guardados</legend>
+              <div class="field"><label for="study-library">Abrir polígono en el atlas</label><select id="study-library"></select></div>
+              <div id="study-metadata" hidden>
+                <div class="field"><label for="study-name">Nombre del polígono</label><input id="study-name" maxlength="80"></div>
+                <div class="field"><label for="study-evidence-url">Fuente del rasgo (URL)</label><input type="url" id="study-evidence-url" placeholder="https://…"></div>
+                <div class="field"><label for="study-justification">Qué rasgo reproduce y qué falta comprobar</label><textarea id="study-justification" maxlength="700" rows="2"></textarea></div>
+                <div class="study-toolbar"><button class="outline" type="button" id="study-metadata-save">Guardar ficha</button><button class="outline" type="button" id="study-pilot-save" hidden>Elegir como área piloto terrestre</button></div>
+              </div>
+              <button class="outline" type="button" id="study-new">Dibujar otro polígono</button>
+              <p class="form-status" id="study-library-status" role="status"></p>
+            </fieldset>
+            <a class="outline" id="study-scan" href="#busqueda-espacial">Buscar sectores terrestres comparables <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+      </section>
+      <section class="guided-cases" aria-labelledby="guided-title">
+        <h2 id="guided-title">Recorridos guiados</h2>
+        <div class="case-grid" role="group" aria-label="Elegir recorrido">
+          <button type="button" class="case-card case-moon" data-guided-case="Moon" aria-pressed="false" aria-controls="recorrido">
+            <span class="case-planet" aria-hidden="true"></span>
+            <span class="case-content">
+              <strong>Relieve polar en la Luna</strong>
+              <span>Malapert, Mons Mouton y Connecting Ridge</span>
+            </span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </button>
+          <button type="button" class="case-card case-mars" data-guided-case="Mars" aria-pressed="false" aria-controls="recorrido">
+            <span class="case-planet" aria-hidden="true"></span>
+            <span class="case-content">
+              <strong>Muestreo de hielo en Marte</strong>
+              <span>Arcadia–Amazonis y Deuteronilus Mensae</span>
+            </span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </button>
+        </div>
+        <section class="panel guided-route" id="recorrido" tabindex="-1" aria-labelledby="route-title" hidden>
+          <h2 id="route-title"></h2>
+          <p id="route-task"></p>
+          <ol>
+            <li><button type="button" class="outline" id="route-atlas">Explorar regiones en 3D</button></li>
+            <li><a class="outline" href="#descubrimiento">Buscar análogos terrestres</a></li>
+            <li><a class="primary" href="#ficha-piloto">Elegir área piloto <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          </ol>
+        </section>
+      </section>
+    </section>
+    <section class="workspace-page" data-page="discover" id="buscar" aria-labelledby="discover-heading" hidden>
+      <header class="workspace-heading">
+          <div>
+            <h1 id="discover-heading">Descubrir análogos</h1>
+            <p class="page-description">Busca desiertos, terrenos volcánicos, regiones polares o cuevas según el rasgo que quieras reproducir.</p>
+          </div>
+        <div class="workspace-actions"><a class="outline" href="#busqueda-espacial"><svg aria-hidden="true"><use href="#i-search"/></svg> Ir al mapa de búsqueda</a></div>
+      </header>
+      <section class="panel discovery-panel" id="descubrimiento" tabindex="-1" aria-labelledby="discovery-title">
+        <div class="panel-head">
+          <span class="tile"><svg aria-hidden="true"><use href="#i-layers"/></svg></span>
+          <div><h2 id="discovery-title">Región y rasgo de referencia</h2><p>Elige la región lunar o marciana y el rasgo que quieres comparar. Puedes revisar el catálogo o buscar sectores nuevos.</p></div>
+        </div>
+        <form id="discovery-form">
+          <div class="field">
+            <label for="discovery-case">Destino y rasgo a comparar</label>
+            <div class="select-wrap"><select id="discovery-case"></select><svg aria-hidden="true"><use href="#i-down"/></svg></div>
+          </div>
+          <div class="field">
+            <label for="discovery-region">Región terrestre</label>
+            <div class="select-wrap"><select id="discovery-region"></select><svg aria-hidden="true"><use href="#i-down"/></svg></div>
+          </div>
+          <div class="field">
+            <label for="discovery-slope">Diferencia máxima de pendiente (°)</label>
+            <input id="discovery-slope" type="number" min="0" max="90" step="any" placeholder="Opcional">
+          </div>
+          <button type="submit" class="primary">Revisar catálogo <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </form>
+        <div id="discovery-criteria" class="discovery-criteria"></div>
+        <p><a class="primary discovery-cta" href="#busqueda-espacial">Buscar sectores nuevos <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        <p id="discovery-status" class="form-status" role="status"></p>
+        <p class="discovery-scope">La búsqueda cruza un inventario georreferenciado con modelos de elevación y evidencia publicada. Los candidatos de GeoTwin requieren verificación de campo.</p>
+        <div id="discovery-results"></div>
+        <details class="area-summary" id="discovery-exclusions" hidden><summary id="discovery-exclusions-label"></summary><div id="discovery-excluded"></div></details>
+      </section>
+      <section class="panel study-panel" id="busqueda-espacial" aria-labelledby="scan-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-search"/></svg></span><div><h2 id="scan-title">Buscar fuera del catálogo</h2><p id="scan-target"></p></div></div>
+        <button type="button" class="outline" id="scan-use-mission" hidden>Usar la región de referencia</button>
+        <form id="scan-form">
+          <div class="field"><label for="scan-boundary">Límite de búsqueda</label><select id="scan-boundary"><option value="">Ventana regional de 60 × 60 km</option></select></div>
+          <div class="study-form">
+            <div class="field"><label for="scan-lat">Latitud terrestre</label><input id="scan-lat" type="number" min="-89" max="89" step="any" required></div>
+            <div class="field"><label for="scan-lon">Longitud terrestre</label><input id="scan-lon" type="number" min="-180" max="180" step="any" required></div>
+            <div class="field"><label for="scan-slope">Pendiente límite (°)</label><input id="scan-slope" type="number" min="0" max="90" step="any" value="12" required></div>
+            <div class="field"><label for="scan-geology">Rasgo para verificar</label><select id="scan-geology"><option value="relieve">Relieve y pendiente</option><option value="volcánico">Volcanismo</option><option value="polar">Permafrost circunártico</option><option value="árido">Clima árido o estepario</option><option value="cueva">Tubos de lava documentados</option><option value="mineralógico">Mineralogía documentada</option></select></div>
+          </div>
+          <div class="study-toolbar"><button type="button" class="outline" id="scan-earth">Usar punto del atlas terrestre</button><button class="primary" type="submit">Buscar sectores</button></div>
+        </form>
+        <div class="study-library" id="scan-official-geology" hidden><p id="scan-official-geology-note" class="study-note"></p><button class="outline" id="scan-geology-example" type="button">Ubicar zona de ejemplo en Hawaiʻi</button></div>
+        <p class="study-note">La ventana regional compara nueve sectores de 20 × 20 km. Un polígono terrestre limita el muestreo a las celdas dentro de su contorno. Se excluyen los sectores con sitios del catálogo. Exige al menos 80 % de celdas terrestres según Natural Earth y conserva las depresiones bajo el nivel del mar. Para volcanismo, consulta también puntos del Smithsonian Global Volcanism Program. Fuera de los recortes Copernicus, intenta cargar elevaciones de Terrain Tiles y recurre a NOAA si esa cobertura falla.</p>
+        <details class="area-summary"><summary>Incorporar evidencia cartográfica en GeoJSON</summary>
+          <p class="study-note">Carga polígonos terrestres WGS 84 del rasgo seleccionado. Indica la fuente para registrar la intersección como evidencia aportada por el usuario.</p>
+          <div class="study-form study-import">
+            <div class="field"><label for="scan-file">Polígonos GeoJSON</label><input id="scan-file" type="file" accept=".geojson,.json,application/geo+json,application/json"></div>
+            <div class="field"><label for="scan-source">URL de la fuente</label><input id="scan-source" type="url" placeholder="https://…"></div>
+          </div>
+          <button type="button" class="outline" id="scan-clear-evidence">Quitar capa cargada</button>
+        </details>
+        <p class="form-status" id="scan-status" role="status"></p>
+        <div id="scan-results"></div>
+      </section>
+    </section>
+    <section class="workspace-page" data-page="evaluate" id="evaluar" aria-labelledby="evaluate-heading" hidden>
+      <header class="workspace-heading">
+          <div>
+            <h1 id="evaluate-heading">Análogos y área piloto</h1>
+            <p class="page-description">Revisa la evidencia de la región de destino y elige un área piloto terrestre según lo que quieras ensayar.</p>
+          </div>
+        <div class="workspace-actions"><a class="outline" href="#descubrimiento"><svg aria-hidden="true"><use href="#i-search"/></svg> Cambiar región o rasgo</a></div>
+      </header>
+      <div class="reference-strip">
+        <span>Región de referencia</span><strong id="reference-context"></strong>
+      </div>
+      <section class="panel base-assessment" id="evaluacion-base" tabindex="-1" aria-labelledby="base-title">
+        <div class="panel-head">
+          <span class="tile"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+          <div><h2 id="base-title">Evidencia de la región de referencia</h2><p id="base-region"></p></div>
+        </div>
+        <p class="base-summary" id="base-summary"></p>
+        <h3>Rasgos documentados</h3>
+        <ul id="base-pairs" class="area-factors"></ul>
+        <div class="area-actions">
+          <button class="outline" id="base-target" type="button">Ver región en el Atlas 3D <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <a class="outline" href="#ficha-piloto">Elegir área piloto terrestre</a>
+        </div>
+      </section>
+      <section class="results" id="resultados" aria-labelledby="results-title">
+        <div class="section-head">
+          <div><h2 id="results-title">Análogos terrestres</h2><p id="results-subtitle"></p></div>
+          <button type="button" class="outline" id="compare-jump"><svg><use href="#i-layers"/></svg> Comparar sitios <span id="compare-count">0</span></button>
+        </div>
+        <div class="select-wrap filter-wrap results-filter"><select id="region" aria-label="Filtrar resultados por región"></select><svg aria-hidden="true"><use href="#i-down"/></svg></div>
+        <div class="result-grid" id="result-grid"></div>
+        <p class="study-note">El índice resume coincidencias de etiquetas. El respaldo distingue rasgos con evidencia local, regional o pendiente; ninguno de estos valores es una probabilidad de validez científica.</p>
+        <button type="button" class="show-all outline" id="show-all"></button>
+      </section>
+      <section class="panel study-panel" id="ficha-piloto" aria-labelledby="pilot-brief-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-pin"/></svg></span><div><h2 id="pilot-brief-title">Ficha del área piloto</h2><p id="pilot-brief-reference"></p></div></div>
+        <div id="pilot-brief"></div>
+      </section>
+      <section class="panel base-assessment" id="area-piloto" tabindex="-1" aria-labelledby="pilot-title">
+        <div class="panel-head">
+          <span class="tile"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+          <div><h2 id="pilot-title">Área piloto del catálogo</h2><p id="pilot-objective"></p></div>
+        </div>
+        <div class="field pilot-field">
+          <label for="pilot-choice">Elige dónde realizar el ensayo</label>
+          <div class="select-wrap"><select id="pilot-choice"></select><svg aria-hidden="true"><use href="#i-down"/></svg></div>
+        </div>
+        <p id="pilot-why" class="base-summary" aria-live="polite"></p>
+        <p id="pilot-source" class="study-note"></p>
+        <div class="field pilot-field"><label for="pilot-note">Justificación propia</label><textarea id="pilot-note" rows="2" maxlength="1000"></textarea></div>
+        <div class="table-wrap" role="region" aria-label="Alternativas para el área piloto" tabindex="0">
+          <table><thead><tr><th scope="col">Área terrestre</th><th scope="col">Qué ensayar y qué verificar</th></tr></thead><tbody id="pilot-alternatives"></tbody></table>
+        </div>
+        <button type="button" class="outline" id="pilot-compare">Comparar alternativas con el destino <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </section>
+      <section class="panel study-panel" id="piloto-espacial" aria-labelledby="spatial-pilot-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-pin"/></svg></span><div><h2 id="spatial-pilot-title">Área piloto de los sectores nuevos</h2><p>Contrasta los sectores para el mismo ensayo y registra por qué eliges uno.</p></div></div>
+        <div class="study-library" id="study-pilot-record" hidden>
+          <h3 id="study-pilot-name"></h3><p id="study-pilot-why"></p><p id="study-pilot-source" class="study-note"></p>
+          <button class="outline" type="button" id="study-pilot-open">Ver polígono piloto</button>
+          <button class="outline" type="button" id="study-pilot-remove">Quitar selección piloto</button>
+        </div>
+        <div id="spatial-pilot"></div>
+        <div class="field" id="spatial-pilot-note-wrap" hidden><label for="spatial-pilot-note">Justificación propia</label><textarea id="spatial-pilot-note" rows="3" maxlength="1000"></textarea></div>
+      </section>
+      <section class="panel study-panel" id="guardar-analisis" aria-labelledby="save-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-layers"/></svg></span><div><h2 id="save-title">Guardar y exportar</h2><p>Recupera la sesión en este navegador y descarga los resultados para SIG.</p></div></div>
+        <div class="study-toolbar">
+          <button type="button" class="outline" id="study-save">Guardar en este navegador</button>
+          <button type="button" class="outline" id="study-restore">Recuperar análisis</button>
+          <button type="button" class="primary" id="project-export">Descargar proyecto completo</button>
+          <button type="button" class="outline" id="study-export-earth">GeoJSON terrestre</button>
+          <button type="button" class="outline" id="study-export-planet">Geometría lunar o marciana</button>
+          <button type="button" class="outline" id="study-export-candidates">CSV comparativo de sectores</button>
+          <button type="button" class="outline" id="study-export-report">Descargar ficha de análisis</button>
+        </div>
+        <div class="field"><label for="project-import">Abrir proyecto GeoTwin (.geotwin.json)</label><input id="project-import" type="file" accept=".json,application/json"></div>
+        <p class="study-note">El proyecto conserva la referencia, selección, polígonos, contornos en edición, fuentes, resultados, parámetros y planes de ensayo. Al abrirlo se reemplaza la sesión de trabajo. Los modelos de elevación y la cartografía oficial se leen de los datos incluidos en GeoTwin. El GeoJSON terrestre usa WGS 84; las geometrías lunares y marcianas se descargan en CSV.</p>
+        <p class="form-status" id="study-save-status" role="status"></p>
+      </section>
+    </section>
+    <section class="workspace-page" data-page="compare" id="comparar" aria-labelledby="compare-heading" hidden>
+      <header class="workspace-heading">
+          <div>
+            <h1 id="compare-heading">Comparar sitios</h1>
+            <p class="page-description">Contrasta la geología, el ambiente y el relieve de los análogos. Revisa qué observaciones faltan para sostener la comparación.</p>
+          </div>
+        <div class="workspace-actions"><a class="outline" href="#resultados"><svg aria-hidden="true"><use href="#i-pin"/></svg> Elegir sitios</a><a class="outline" href="#caso-peru">Caso Perú</a><a class="outline" href="#sensibilidad">Probar sensibilidad</a></div>
+      </header>
+      <section class="panel study-panel showcase-panel" id="caso-peru" aria-labelledby="showcase-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-brand"/></svg></span><div><p class="case-kicker">Caso guiado · hipótesis geomorfológica</p><h2 id="showcase-title">Andahua–Orcopampa ↔ Ulysses Colles</h2><p>Un campo volcánico de Arequipa como candidato para practicar reconocimiento cartográfico de paisajes marcianos.</p></div></div>
+        <div class="case-grid">
+          <div><h3>Qué se compara</h3><p>Conos y coladas documentados en cada región, más pendiente, relieve y rugosidad calculados a escala común. La propuesta del par peruano pertenece a GeoTwin y requiere comprobación de campo.</p></div>
+          <div><h3>Qué se podría ensayar</h3><p>Planificación de un reconocimiento regional y selección de zonas para cartografía. Se comparan Andahua, Huambo y dos controles; los umbrales son supuestos de demostración.</p></div>
+        </div>
+        <details class="area-summary"><summary>Fundamento, procesos y diferencias</summary><div class="case-details">
+          <p>INGEMMET documenta conos de ceniza y escoria y coladas en Andahua–Orcopampa, con composición variable. NASA describe formas volcánicas en Ulysses Colles y advierte diferencias de formación asociadas a la gravedad y presión atmosférica.</p>
+          <p>Esta comparación mide el entorno regional. La ventana de 20 × 20 km no es el contorno de un cono. Faltan geometrías individuales, mineralogía comparable, cronología y comprobación de campo. La presencia de conos no demuestra recursos ni habitabilidad.</p>
+          <ul class="case-sources"><li><a href="https://app.ingemmet.gob.pe/biblioteca/pdf/CPG15-199.pdf" target="_blank" rel="noopener">INGEMMET · cartografiado de Andahua–Orcopampa</a></li><li><a href="https://volcano.si.edu/volcano.cfm?vn=354004" target="_blank" rel="noopener">Smithsonian · coordenada regional</a></li><li><a href="https://science.nasa.gov/earth/earth-observatory/scoria-cones-on-earth-and-mars/" target="_blank" rel="noopener">NASA · conos terrestres y marcianos</a> · la comparación publicada usa Arizona; no valida el par peruano.</li></ul>
+        </div></details>
+        <div class="study-toolbar"><button class="outline" type="button" id="showcase-open">Explorar el candidato en el atlas</button><button class="primary" type="button" id="showcase-run">Calcular caso con datos incluidos</button><a class="outline" href="#sensibilidad">Variar escala y umbrales</a><a class="outline" href="#geologia-peru">Geología peruana</a><a class="outline" href="#conos">Medir conos individuales</a></div>
+        <p id="showcase-status" class="form-status" role="status"></p>
+        <div id="showcase-results"></div>
+        <div class="study-toolbar" id="showcase-downloads" hidden><button class="outline" type="button" id="showcase-export-json">Descargar caso JSON</button><button class="outline" type="button" id="showcase-export-csv">Descargar mediciones CSV</button><button class="outline" type="button" id="showcase-export-md">Descargar ficha científica</button></div>
+        <details class="area-summary"><summary>Ejemplo calculado y guía para la demostración</summary><div class="case-details"><p>El ejemplo se puede consultar antes de recalcular. Conserva fuentes, geometrías, parámetros y resultados de los escenarios.</p><div class="study-toolbar"><a class="outline" href="examples/andahua-ulysses.json" download>Ejemplo JSON</a><a class="outline" href="examples/andahua-ulysses.csv" download>Ejemplo CSV</a><a class="outline" href="examples/andahua-ulysses.md" download>Ficha científica</a><a class="outline" href="examples/GUIA_DEMO.md" download>Guía de demostración</a></div></div></details>
+      </section>
+      <section class="panel study-panel" id="geologia-peru" aria-labelledby="peru-geology-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-layers"/></svg></span><div><h2 id="peru-geology-title">Cartografía geológica de Perú</h2><p>Intersecta una huella con las unidades oficiales de INGEMMET a 1:100 000.</p></div></div>
+        <div class="field"><label for="peru-geology-area">Región o polígono terrestre</label><select id="peru-geology-area"></select></div>
+        <div class="study-toolbar"><button class="primary" id="peru-geology-run" type="button">Calcular cobertura y unidades</button><button class="outline" id="peru-geology-map" type="button">Ver capa en el atlas</button><button class="outline" id="peru-geology-export" type="button" disabled>Descargar intersección GeoJSON</button></div>
+        <p class="study-note">Dos recortes incluidos: Andahua–Orcopampa y Huambo. Se conservan los atributos originales, las hojas, las consultas y la fecha de obtención. La cartografía regional describe materiales y unidades; los contornos individuales se interpretan en el comparador de conos.</p>
+        <p class="form-status" id="peru-geology-status" role="status"></p><div id="peru-geology-results"></div>
+      </section>
+      <section class="panel study-panel" id="conos" aria-labelledby="cone-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-chart"/></svg></span><div><h2 id="cone-title">Comparar conos individuales</h2><p>Delimita la base y, si es visible, el borde del cráter en cada mundo.</p></div></div>
+        <p class="study-note">En el <a href="#delimitar">atlas</a>, acerca la vista, dibuja y mide la base. Dale un nombre y pulsa «Nuevo polígono» para delimitar el cráter por separado. Selecciona los contornos aquí; puedes medir un cono o comparar dos. Los contornos son interpretaciones del usuario, no detecciones automáticas.</p>
+        <div class="study-form">
+          <div class="field"><label for="cone-earth-base">Tierra · base del cono</label><select id="cone-earth-base"></select></div>
+          <div class="field"><label for="cone-earth-crater">Tierra · borde del cráter (opcional)</label><select id="cone-earth-crater"></select></div>
+          <div class="field"><label for="cone-target-base">Luna o Marte · base del cono</label><select id="cone-target-base"></select></div>
+          <div class="field"><label for="cone-target-crater">Luna o Marte · borde del cráter (opcional)</label><select id="cone-target-crater"></select></div>
+        </div>
+        <div class="study-toolbar"><button class="primary" id="cone-run" type="button">Medir y comparar conos</button><button class="outline" id="cone-export" type="button" disabled>Descargar morfometría JSON</button></div>
+        <p class="form-status" id="cone-status" role="status"></p><div id="cone-results"></div>
+      </section>
+      <section class="panel compare" id="comparacion" tabindex="-1" aria-labelledby="compare-title">
+        <div class="panel-head"><span class="tile"><svg><use href="#i-layers"/></svg></span><div><h2 id="compare-title">Evidencia y similitud por criterio</h2><p>Selecciona hasta tres sitios para ver sus diferencias.</p></div></div>
+        <div id="comparison"></div>
+        <section id="terrain-comparison" aria-labelledby="terrain-compare-title" hidden>
+          <h3 id="terrain-compare-title">Topografía a escala común</h3>
+          <p>El área objetivo y los sitios terrestres se muestrean en ventanas de 20 × 20 km con puntos cada 2 km. Se comparan el relieve relativo, la pendiente mediana, el P90 de pendiente y la rugosidad local en vecindades de 3 × 3 celdas.</p>
+          <div id="terrain-comparison-data" aria-live="polite"></div>
+        </section>
+        <p id="compare-status" class="form-status" aria-live="polite"></p>
+      </section>
+      <section class="panel study-panel" id="sensibilidad" aria-labelledby="validation-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-chart"/></svg></span>
+          <div><h2 id="validation-title">Sensibilidad de la elección</h2><p>Compara cómo cambia el primer candidato al variar la ventana, la pendiente límite o la prioridad del ensayo.</p></div>
+        </div>
+        <form id="validation-form">
+          <div class="study-form validation-form">
+            <div class="field"><label for="validation-case">Caso reproducible</label><select id="validation-case"><option value="andahua-ulysses">Perú · Andahua y Ulysses Colles</option><option value="marius-basalt">Luna · Marius Hills</option><option value="ulysses-scoria">Marte · Ulysses Colles y Hawaiʻi</option></select></div>
+            <div class="field"><label for="validation-width">Ventana de comparación</label><select id="validation-width"><option value="5">5 × 5 km</option><option value="10">10 × 10 km</option><option value="20" selected>20 × 20 km</option></select></div>
+            <div class="field"><label for="validation-limit">Pendiente límite del escenario (°)</label><input type="number" id="validation-limit" min="0" max="90" step="any" value="12" required></div>
+            <div class="field"><label for="validation-priority">Criterio prioritario</label><select id="validation-priority"><option value="geology">Superficie que respalda el rasgo</option><option value="terrain">Cercanía de la pendiente mediana</option></select></div>
+            <div class="field"><label for="validation-slope-margin">Margen de decisión en pendiente (°)</label><input type="number" id="validation-slope-margin" min="0" max="90" step="any" value="0.1" required></div>
+            <div class="field"><label for="validation-geology-margin">Margen cartográfico (puntos porcentuales)</label><input type="number" id="validation-geology-margin" min="0" max="100" step="any" value="1" required></div>
+          </div>
+          <p class="study-note">Los márgenes agrupan diferencias pequeñas para decidir el orden. Son supuestos ajustables, no errores instrumentales ni intervalos de confianza. La fracción bajo el umbral usa un margen de 1 punto porcentual.</p>
+          <div class="study-toolbar"><button class="primary" type="submit">Calcular caso</button><button class="outline" type="button" id="validation-use-scan" disabled>Comparar sectores de mi búsqueda</button></div>
+        </form>
+        <p id="validation-status" role="status" class="form-status"></p>
+        <div id="validation-matrix" class="validation-matrix"></div>
+        <div id="validation-results"></div>
+        <div id="validation-exports" hidden>
+          <div class="field"><label for="validation-note">Justificación para la ficha</label><textarea id="validation-note" rows="2" maxlength="1000"></textarea></div>
+          <div class="study-toolbar"><button class="outline" type="button" id="validation-export-csv">Descargar CSV del escenario</button><button class="outline" type="button" id="validation-export-json">Descargar ficha y polígonos (JSON)</button></div>
+        </div>
+      </section>
+      <section class="panel study-panel" id="plan-ensayo" aria-labelledby="mission-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-cross"/></svg></span><div><h2 id="mission-title">Plan y resultado del ensayo</h2><p id="mission-context"></p></div></div>
+        <p class="study-note">El plan se vincula al piloto del catálogo, o al sitio seleccionado si todavía no hay piloto. Define un criterio medible y registra el origen de la observación.</p>
+        <form id="mission-form" onsubmit="return false">
+          <div class="field"><label for="mission-objective">Objetivo de exploración</label><input id="mission-objective" maxlength="300" required></div>
+          <div class="field"><label for="mission-protocol">Instrumento, procedimiento y escala</label><textarea id="mission-protocol" rows="3" maxlength="2000" required></textarea></div>
+          <div class="study-form validation-form">
+            <div class="field"><label for="mission-metric">Métrica</label><input id="mission-metric" maxlength="200" required></div>
+            <div class="field"><label for="mission-unit">Unidad</label><input id="mission-unit" maxlength="30" value="%" required></div>
+            <div class="field"><label for="mission-operator">Criterio</label><select id="mission-operator"><option value="<=">Menor o igual que</option><option value=">=">Mayor o igual que</option></select></div>
+            <div class="field"><label for="mission-threshold">Umbral de éxito</label><input type="number" step="any" id="mission-threshold" required></div>
+            <div class="field"><label for="mission-observed">Resultado observado (vacío si pendiente)</label><input type="number" step="any" id="mission-observed"></div>
+          </div>
+          <div class="field"><label for="mission-notes">Fuente de la medición y notas</label><textarea id="mission-notes" rows="2" maxlength="2000"></textarea></div>
+          <p class="study-note" id="mission-origin"></p><p class="mission-assessment" id="mission-assessment" role="status"></p>
+          <div class="study-toolbar"><button class="outline" type="button" id="mission-apply-case" disabled>Usar la medición regional del caso Perú</button><button class="outline" type="button" id="mission-save">Guardar planes en este navegador</button><button class="outline" type="button" id="mission-export">Descargar plan y resultado</button></div>
+          <p class="form-status" id="mission-status" role="status"></p>
+        </form>
+        <details class="area-summary" open><summary>Qué reproduce el análogo y qué requiere otro ensayo</summary><div class="case-details"><ul id="mission-limits"></ul><p id="mission-limits-source"></p></div></details>
+      </section>
+      <section class="panel study-panel" id="perfiles" aria-labelledby="study-profile-title">
+        <div class="panel-head"><span class="tile"><svg aria-hidden="true"><use href="#i-chart"/></svg></span><div><h2 id="study-profile-title">Comparar relieve y transectos</h2><p>Compara dos polígonos guardados a una escala común. En el atlas, «Trazar perfil» permite marcar dos puntos dentro de cada contorno.</p></div></div>
+        <div class="study-form study-pair">
+          <div class="field"><label for="study-pair-target">Polígono lunar o marciano</label><select id="study-pair-target"></select></div>
+          <div class="field"><label for="study-pair-earth">Polígono terrestre</label><select id="study-pair-earth"></select></div>
+        </div>
+        <div id="study-pair-result" aria-live="polite"></div>
+        <div id="study-profile"></div>
+      </section>
+      <section class="panel recommendations" id="verificacion" aria-labelledby="advice-title">
+        <div class="panel-head"><span class="tile"><svg><use href="#i-chart"/></svg></span><div><h2 id="advice-title">Qué falta verificar</h2><p id="advice-summary"></p></div></div>
+        <div id="advice-grid" class="advice-grid"></div>
+      </section>
+    </section>
+    <section class="workspace-page" data-page="sources" id="fuentes" aria-labelledby="sources-heading" hidden>
+      <header class="workspace-heading">
+          <div>
+            <h1 id="sources-heading">Fuentes y metodología</h1>
+            <p class="page-description">Consulta los datos de cada comparación, la escala de las mediciones y los límites del análisis.</p>
+          </div>
+
+      </header>
+      <section id="metodologia" class="panel methodology" aria-labelledby="method-title">
+        <div class="panel-head"><span class="tile"><svg><use href="#i-info"/></svg></span><div><h2 id="method-title">Cómo se evalúa la similitud</h2></div></div>
+        <div class="method-grid">
+          <div><h3>Coincidencia y respaldo</h3><p>El índice temático de 0 a 100 promedia las coincidencias de etiquetas por grupo; los grupos tienen el mismo peso. No es una probabilidad. El respaldo cuenta los rasgos solicitados con evidencia registrada, distinguiendo publicaciones locales de referencias regionales. Los rasgos no registrados quedan pendientes, sin inferir que estén ausentes.</p><p>Las pendientes y el relieve se muestran por separado, con escala, cobertura y fuente. La sensibilidad declara los márgenes de decisión y las equivalencias. La frecuencia de un candidato entre escenarios no es confianza estadística.</p></div>
+          <div><h3>Alcance</h3><p>Cada análogo terrestre reproduce rasgos concretos de la región de referencia. La selección del área piloto depende del rasgo, la calidad de la evidencia y las diferencias observadas.</p><p>Los niveles de similitud son alta (75–100), media (45–74) y baja (0–44). Los globos usan mosaicos con iluminación ilustrativa. El visor muestra la resolución y el datum de cada modelo de elevación.</p></div>
+          <div><h3>Fuentes de referencia</h3><ul>
+            <li><a href="https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/?tab=resources" target="_blank" rel="noopener">NASA Space Apps 2026 · recursos del reto ↗</a></li>
+            <li><a href="https://science.nasa.gov/solar-system/analog-explorer/" target="_blank" rel="noopener">NASA Planetary Analog Explorer ↗</a></li>
+            <li><a href="https://www.nps.gov/places/the-lava-tube-at-mojave.htm" target="_blank" rel="noopener">NPS · registro del tubo de lava de Mojave ↗</a> · <a href="https://nsidc.org/data/nsidc-0529/versions/1" target="_blank" rel="noopener">NSIDC · sondeos de suelo cementado por hielo ↗</a></li>
+            <li><a href="https://www.usgs.gov/data/known-terrestrial-analog-sites-planetary-science" target="_blank" rel="noopener">USGS · inventario de análogos ↗</a></li>
+            <li><a href="https://science.nasa.gov/moon/facts/" target="_blank" rel="noopener">NASA · Luna ↗</a> · <a href="https://science.nasa.gov/mars/facts/" target="_blank" rel="noopener">NASA · Marte ↗</a></li>
+            <li><a href="https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM" target="_blank" rel="noopener">Copernicus DEM · elevación ↗</a></li>
+            <li>Elevación global · <a href="https://coastwatch.pfeg.noaa.gov/erddap/griddap/etopo180.html" target="_blank" rel="noopener">NOAA ETOPO1 ↗</a> · <a href="https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/" target="_blank" rel="noopener">NASA LOLA ↗</a> · <a href="https://pds-geosciences.wustl.edu/missions/mgs/megdr.html" target="_blank" rel="noopener">NASA MOLA ↗</a></li>
+            <li>Elevación local · <a href="https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/" target="_blank" rel="noopener">NASA LOLA, Shackleton y Malapert (5 m) ↗</a> · <a href="https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/" target="_blank" rel="noopener">NASA LOLA polar, Cabeus y Malapert (20 m) ↗</a> · <a href="https://www.usgs.gov/media/images/jezero-crater-0" target="_blank" rel="noopener">USGS CTX, Jezero (20 m) ↗</a></li>
+            <li>Relieve regional de Marte · <a href="https://fdp.astrogeology.usgs.gov/fdp/mars/" target="_blank" rel="noopener">USGS HRSC–MOLA (200 m nominales) ↗</a></li>
+            <li>Catálogo orbital NASA PDS · <a href="https://ode.rsl.wustl.edu/moon/productsearch" target="_blank" rel="noopener">ODE Luna ↗</a> · <a href="https://ode.rsl.wustl.edu/mars/productsearch" target="_blank" rel="noopener">ODE Marte ↗</a></li>
+            <li><a href="https://geodata.hawaii.gov/arcgis/rest/services/Terrestrial/MapServer/28" target="_blank" rel="noopener">Unidades geológicas de Hawaiʻi ↗</a> · USGS OFR 2007-1089, 1:250 000 en la isla de Hawaiʻi. Se cruza la huella de cada sector con los polígonos de la capa y se estima superficie con una proyección local equivalente.</li>
+            <li><a href="https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_MAPAS_GEOLOGICOS/MapServer/11" target="_blank" rel="noopener">INGEMMET · Geología 100K empalmados ↗</a> · escala 1:100 000; 902 entidades recortadas a Andahua y Huambo. Códigos, litología y hojas originales. <a href="assets/peru-geology-provenance.json" download>Descargar procedencia y consultas</a>.</li>
+            <li><a href="https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer" target="_blank" rel="noopener">USGS 3DEP · elevación de Hawaiʻi ↗</a> · recorte a 100 m usado en los casos reproducibles.</li>
+            <li>Andahua–Orcopampa, Arequipa · <a href="https://app.ingemmet.gob.pe/biblioteca/pdf/CPG15-199.pdf" target="_blank" rel="noopener">INGEMMET · geología ↗</a> · <a href="https://volcano.si.edu/volcano.cfm?vn=354004" target="_blank" rel="noopener">Smithsonian · coordenadas ↗</a></li>
+            <li>Clima y permafrost · <a href="https://doi.org/10.1038/sdata.2018.214" target="_blank" rel="noopener">Beck et al. · Köppen–Geiger, 1980–2016 ↗</a> · <a href="https://nsidc.org/data/ggd318/versions/2" target="_blank" rel="noopener">NSIDC · mapa circunártico v2 ↗</a> · <a href="https://www.ilamb.org/datasets.html" target="_blank" rel="noopener">ILAMB · derivado rasterizado ↗</a></li>
+            <li>Búsqueda espacial · <a href="https://www.naturalearthdata.com/downloads/50m-physical-vectors/" target="_blank" rel="noopener">Natural Earth · tierra y lagos a 1:50 millones ↗</a> · <a href="https://doi.org/10.5479/si.GVP.VOTW5-2026.5.4" target="_blank" rel="noopener">Smithsonian GVP · volcanes holocenos ↗</a> · <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Mapzen · Terrain Tiles ↗</a></li>
+            <li>Superficies 3D · <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA Blue Marble ↗</a> · <a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO (Ernie Wright y Noah Petro) ↗</a> · <a href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL-Caltech · Viking ↗</a></li>
+          </ul><p class="data-credit" lang="en">Produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.</p><p class="data-credit" lang="en">Produced using Copernicus WorldDEM-90 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.</p></div>
+        </div>
+        <p class="study-note">Alcance de la búsqueda: se revisan 20 fichas y las ventanas o polígonos elegidos por el usuario. El visor global no implica una búsqueda exhaustiva del planeta. Las capas de clima y permafrost describen condiciones terrestres; temperatura, polvo, iluminación y bioseñales no se cuantifican sistemáticamente.</p>
+        <div class="study-toolbar"><a class="outline" href="examples/DATOS_Y_CREDITOS.md" download>Datos y créditos</a><a class="outline" href="examples/GUIA_DEMO.md" download>Guía de demostración</a></div>
+        <details class="area-summary challenge-evidence">
+          <summary>Qué evidencia respalda cada comparación</summary>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th scope="col">Dimensión</th><th scope="col">Uso en GeoTwin</th><th scope="col">Fuente o dato por verificar</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Geología y materiales</th><td>Rasgos documentados en las fichas del destino y los análogos.</td><td>Fuentes geológicas por sitio. La mineralogía local requiere cartografía, espectros o muestras.</td></tr>
+                <tr><th scope="row">Topografía</th><td>Relieve 3D, pendiente máxima terrestre a escala local y comparación a escala común.</td><td>Copernicus GLO-90, NOAA ETOPO1 y altimetría NASA LOLA y MOLA. La tabla indica la resolución usada.</td></tr>
+                <tr><th scope="row">Ambiente y recursos</th><td>Contexto cualitativo cuando existe evidencia, como sombra polar o hielo.</td><td>Faltan capas comparables de temperatura, polvo, iluminación y recursos para estimarlos de forma sistemática.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+    </section>
+    <footer class="workspace-footer">GeoTwin Explorer · NASA Space Apps Challenge 2026</footer>
+  </main>
+  <div id="viewer-backdrop" class="viewer-backdrop" hidden></div>
+  <dialog id="viewer-dialog" class="viewer-dialog" aria-labelledby="viewer-dialog-title" aria-describedby="viewer-dialog-context" aria-modal="true">
+    <div class="viewer-dialog-header">
+      <div class="viewer-dialog-heading"><h2 id="viewer-dialog-title">Vista ampliada</h2><p id="viewer-dialog-context"></p></div>
+      <div id="viewer-dialog-tools"></div>
+      <button type="button" class="outline" id="viewer-dialog-close" aria-label="Cerrar vista ampliada">Cerrar <span aria-hidden="true">×</span></button>
+    </div>
+    <div id="viewer-dialog-content" class="viewer-dialog-content"></div>
+    <p class="viewer-dialog-hint">Usa los controles del visor para explorar. Esc cierra la vista ampliada.</p>
+  </dialog>
+</body>
+</html>

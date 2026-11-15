@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visor principal · Tierra, Luna y Marte</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #03060d;
+      --panel: rgba(9, 14, 26, 0.78);
+      --panel-soft: rgba(15, 23, 42, 0.72);
+      --panel-strong: rgba(8, 12, 18, 0.95);
+      --line: rgba(148, 163, 184, 0.2);
+      --text: #e5edf7;
+      --muted: #9aa8b6;
+      --sky: #38bdf8;
+      --moon: #cbd5e1;
+      --mars: #f97316;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #fb7185;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top, #071118 0%, #03060d 32%, #02050a 100%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    body { position: relative; }
+
+    .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
+
+    .hud-glass {
+      background: var(--panel);
+      border: 1px solid rgba(59, 130, 246, 0.22);
+      box-shadow: 0 16px 34px rgba(2,6,23,0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    #scene {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 25%, rgba(59, 130, 246, 0.20), transparent 32%),
+        radial-gradient(circle at 15% 50%, rgba(34, 197, 94, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 45%, rgba(251, 146, 60, 0.12), transparent 20%),
+        #02070d;
+    }
+
+    .stars, .stars::before, .stars::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.9) 0 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(148,163,184,0.8) 0 0.7px, transparent 1.4px),
+        radial-gradient(circle, rgba(96,165,250,0.55) 0 0.9px, transparent 1.5px);
+      background-position: 0 0, 16px 18px, 32px 12px;
+      background-size: 180px 180px;
+      opacity: 0.9;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      border: 1px solid rgba(148,163,184,0.22);
+      border-radius: 9999px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.08);
+    }
+
+    .planet-orbit {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 9999px;
+      border: 1px solid rgba(148,163,184,0.18);
+      pointer-events: none;
+    }
+
+    .planet {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: inset -16px -18px 30px rgba(0,0,0,0.25), inset 12px 10px 18px rgba(255,255,255,0.12), 0 0 28px rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .planet:hover { transform: translate(-50%, -50%) scale(1.05); }
+
+    .planet[data-body="earth"] { background: radial-gradient(circle at 30% 30%, #7dd3fc, #2563eb 45%, #0f172a 100%); }
+    .planet[data-body="moon"] { background: radial-gradient(circle at 35% 35%, #f8fafc, #cbd5e1 45%, #7f8ea3 100%); }
+    .planet[data-body="mars"] { background: radial-gradient(circle at 30% 30%, #fda4af, #f97316 38%, #7c2d12 100%); }
+
+    .planet-label {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(148,163,184,0.38);
+      background: rgba(8, 12, 18, 0.75);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      transform: translate(-50%, -150%);
+      pointer-events: auto;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .planet-label:hover { transform: translate(-50%, -160%) scale(1.04); }
+    .planet-label[data-body="earth"] { border-color: rgba(56, 189, 248, 0.55); color: #bae6fd; }
+    .planet-label[data-body="moon"] { border-color: rgba(203,213,225,0.7); color: #e2e8f0; }
+    .planet-label[data-body="mars"] { border-color: rgba(251,146,60,0.6); color: #fed7aa; }
+    .dot {
+      width: 0.5rem; height: 0.5rem; border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+    }
+
+    .planet-label[data-body="earth"] .dot { background: var(--sky); box-shadow: 0 0 10px rgba(56,189,248,0.8); }
+    .planet-label[data-body="moon"] .dot { background: var(--moon); }
+    .planet-label[data-body="mars"] .dot { background: var(--mars); box-shadow: 0 0 10px rgba(251,146,60,0.8); }
+
+    .analog-node {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(251, 191, 36, 0.9);
+      box-shadow: 0 0 13px rgba(251, 191, 36, 0.8);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .analog-link {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(251, 191, 36, 0.2), rgba(251, 191, 36, 0.7), rgba(251, 191, 36, 0.2));
+      transform-origin: 0 50%;
+      pointer-events: none;
+    }
+
+    .hud-panel {
+      position: absolute;
+      top: 5.8rem;
+      right: 1rem;
+      width: min(27rem, calc(100vw - 1rem));
+      max-height: calc(100vh - 8rem);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .hud-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid rgba(148,163,184,0.18);
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    .hud-tabbar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 0.38rem 0.7rem;
+      border: 1px solid transparent;
+      border-radius: 0.75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      color: #dbeafe;
+      border-color: rgba(56, 189, 248, 0.35);
+      background: rgba(14, 116, 144, 0.18);
+    }
+
+    .icon-btn {
+      width: 2rem; height: 2rem;
+      border-radius: 0.7rem;
+      border: 1px solid rgba(148,163,184,0.2);
+      background: rgba(15, 23, 42, 0.4);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+    }
+
+    .hud-content {
+      padding: 1rem;
+      overflow: auto;
+      max-height: calc(100vh - 16rem);
+    }
+
+    .body-header {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .space-badge {
+      display: inline-block;
+      padding: 0.28rem 0.5rem;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(14, 116, 144, 0.18);
+      color: var(--sky);
+      font-weight: 700;
+      margin-bottom: 0.55rem;
+    }
+
+    .sphere-orb {
+      width: 2.8rem; height: 2.8rem; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: inset -8px -8px 16px rgba(0,0,0,0.2), inset 8px 8px 16px rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    .stat-box {
+      background: rgba(15, 23, 42, 0.58);
+      padding: 0.72rem 0.8rem;
+      border-radius: 0.8rem;
+      border: 1px solid rgba(148,163,184,0.12);
+    }
+    .stat-box .kicker {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+    .stat-box .value {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .hero-copy {
+      margin-top: 0.8rem;
+      padding: 0.8rem 0.9rem;
+      border-radius: 0.9rem;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #cfe1f1;
+      background: rgba(15, 23, 42, 0.52);
+      border: 1px solid rgba(148,163,184,0.12);
+    }
+
+    .analog-list {
+      display: grid;
+      gap: 0.7rem;
+      margin-top: 0.8rem;
+    }
+
+    .analog-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+      padding: 0.8rem 0.75rem;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(148,163,184,0.15);
+      background: rgba(15,23,42,0.42);
+      align-items: center;
+    }
+    .analog-item strong { font-size: 12px; }
+    .analog-item span { font-size: 10px; color: var(--muted); }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.24rem 0.52rem;
+      border-radius: 9999px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .pill.sky { background: rgba(14,116,144,0.18); border: 1px solid rgba(56,189,248,0.38); color: #bae6fd; }
+    .pill.moon { background: rgba(148,163,184,0.16); border: 1px solid rgba(203,213,225,0.4); color: #e2e8f0; }
+    .pill.mars { background: rgba(194,65,12,0.13); border: 1px solid rgba(251,146,60,0.38); color: #fed7aa; }
+
+    .controls-top {
+      position: absolute;
+      top: 1rem; left: 1rem; right: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .brand-box {
+      display: flex; align-items: center; gap: 0.75rem;
+      pointer-events: auto;
+    }
+
+    .brand-icon {
+      width: 2.3rem; height: 2.3rem;
+      border-radius: 0.8rem;
+      background: rgba(14, 116, 144, 0.14);
+      border: 1px solid rgba(56,189,248,0.4);
+      display: grid; place-items: center;
+      color: var(--sky);
+    }
+
+    .controls-row {
+      display: flex; align-items: center; gap: 0.65rem; pointer-events: auto;
+      flex-wrap: wrap;
+    }
+
+    .cam-btn, .toggle-btn {
+      border: 1px solid rgba(148,163,184,0.1);
+      border-radius: 0.85rem;
+      padding: 0.5rem 0.7rem;
+      background: rgba(15, 23, 42, 0.68);
+      color: #dfeaf8;
+      font-size: 11px;
+      font-weight: 600;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .cam-btn.active {
+      background: rgba(59,130,246,0.2);
+      border-color: rgba(56,189,248,0.5);
+      color: #eafcff;
+    }
+
+    .toggle-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+    }
+    .toggle-btn.active {
+      background: rgba(52,211,153,0.08);
+      border-color: rgba(52,211,153,0.38);
+      color: #dcfce7;
+    }
+    .toggle-btn.warn.active {
+      background: rgba(251,191,36,0.08);
+      border-color: rgba(251,191,36,0.40);
+      color: #fef3c7;
+    }
+
+    .fader {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 7rem;
+      background: linear-gradient(to top, rgba(2,7,13,0.8), transparent);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* response */
+    @media (max-width: 900px) {
+      .hud-panel {
+        width: min(22rem, calc(100vw - 1rem));
+        top: auto; bottom: 1rem; max-height: 42vh;
+      }
+      .controls-top { padding-right: 0.25rem; }
+      .controls-row { max-width: 65%; justify-content: flex-end; }
+      .brand-box .label-block { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="scene" aria-label="Visor principal de Tierra, Luna y Marte">
+    <div class="stars"></div>
+
+    <div class="orbit-ring" id="orbit-earth" style="width: 44vw; height: 44vw; left: 50%; top: 50%;"></div>
+    <div class="orbit-ring" id="orbit-moon" style="width: 17vw; height: 17vw; left: 50%; top: 50%;"></div>
+    <div class="orbit-ring" id="orbit-mars" style="width: 66vw; height: 66vw; left: 50%; top: 50%;"></div>
+
+    <div class="planet-label" data-body="earth" id="label-earth" style="left: 61%; top: 48%;"><span class="dot"></span><span>Tierra</span></div>
+    <div class="planet-label" data-body="moon" id="label-moon" style="left: 32%; top: 45%;"><span class="dot"></span><span>Luna</span></div>
+    <div class="planet-label" data-body="mars" id="label-mars" style="left: 72%; top: 41%;"><span class="dot"></span><span>Marte</span></div>
+
+    <div id="analog-layer" aria-hidden="true"></div>
+
+    <div class="planet" data-body="earth" id="planet-earth" style="width: 11rem; height: 11rem; left: 52%; top: 51%;"></div>
+    <div class="planet" data-body="moon" id="planet-moon" style="width: 3.4rem; height: 3.4rem; left: 34%; top: 55%;"></div>
+    <div class="planet" data-body="mars" id="planet-mars" style="width: 7rem; height: 7rem; left: 71%; top: 40%;"></div>
+  </div>
+
+  <div class="controls-top">
+    <div class="brand-box hud-glass" style="padding: 0.6rem 0.85rem; border-radius: 1rem;">
+      <div class="brand-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="7.1"/><path d="M5.6 13.5c-1.3 1.9-1.6 3.4-.8 4.1 1.3 1.3 5.5-.6 9.3-4.2s5.8-7.8 4.5-9.1c-.7-.7-2.2-.4-4.1.7M9 8h.01m6 7h.01"/><circle cx="20.5" cy="14.5" r="0.8" fill="currentColor" stroke="none"/></svg></div>
+      <div class="label-block">
+        <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.03em;">Visor principal</div>
+        <div class="font-mono-tech" style="font-size: 9px; color: var(--muted); letter-spacing: 0.08em;">TIERRA · LUNA · MARTE</div>
+      </div>
+    </div>
+
+    <div class="controls-row">
+      <button class="cam-btn active" data-focus="overview">Vista general</button>
+      <button class="cam-btn" data-focus="earth">Tierra</button>
+      <button class="cam-btn" data-focus="moon">Luna</button>
+      <button class="cam-btn" data-focus="mars">Marte</button>
+      <button class="toggle-btn active" id="toggle-orbits">Órbitas</button>
+      <button class="toggle-btn warn active" id="toggle-analogs">Red de análogos 3D</button>
+    </div>
+  </div>
+
+  <aside class="hud-panel hud-glass">
+    <div class="hud-header">
+      <div class="hud-tabbar">
+        <button class="tab-btn active" data-tab="detail">Ficha física</button>
+        <button class="tab-btn" data-tab="analogs">Análogos y sitios (12)</button>
+        <button class="tab-btn" data-tab="compare">Comparativa</button>
+      </div>
+      <button class="icon-btn" aria-label="Minimizar panel" type="button">⌃</button>
+    </div>
+
+    <div class="hud-content">
+      <div data-panel="detail">
+        <div class="body-header">
+          <div>
+            <span id="body-badge" class="space-badge">Planeta telúrico</span>
+            <h2 id="body-name" style="margin:0; font-size: 1.8rem; font-weight: 800;">La Tierra</h2>
+            <div id="body-subtitle" style="font-size:11px; color: var(--muted); margin-top: 0.18rem;">Tercer planeta desde el Sol • referencia de habitabilidad</div>
+          </div>
+          <div class="sphere-orb" id="body-orb" style="background: radial-gradient(circle at 35% 35%, #7dd3fc, #2563eb 55%, #0f172a 100%);"></div>
+        </div>
+
+        <div class="hero-copy" id="body-desc">
+          Posee una hidrosfera líquida que cubre el 71% de su superficie, tectónica de placas activa, un núcleo metálico que genera una magnetosfera protectora y una atmósfera rica en nitrógeno y oxígeno.
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-box"><span class="kicker">Diámetro</span><div class="value" id="stat-diameter">12,742 km</div></div>
+          <div class="stat-box"><span class="kicker">Masa</span><div class="value" id="stat-mass">5.972 × 10²⁴ kg</div></div>
+          <div class="stat-box"><span class="kicker">Gravedad</span><div class="value" id="stat-gravity">9.807 m/s²</div></div>
+          <div class="stat-box"><span class="kicker">Temp media</span><div class="value" id="stat-temp">+15 °C</div></div>
+          <div class="stat-box"><span class="kicker">Órbita</span><div class="value" id="stat-orbit">365.256 días</div></div>
+          <div class="stat-box"><span class="kicker">Rotación</span><div class="value" id="stat-rotation">23h 56m 4s</div></div>
+        </div>
+
+        <div style="margin-top: 0.8rem; display: grid; gap: 0.7rem;">
+          <div class="stat-box"><span class="kicker">Distancia orbital</span><div class="value" id="stat-distance">149.6 millones km (1.00 UA)</div></div>
+          <div class="stat-box"><span class="kicker">Atmósfera</span><div class="value" id="stat-atmosphere">78.08% N₂ · 20.95% O₂</div></div>
+        </div>
+      </div>
+
+      <div data-panel="analogs" style="display:none;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.8rem;">
+          <h3 style="margin:0; font-size: 1rem;">Análogos y sitios</h3>
+          <span class="pill sky">12</span>
+        </div>
+        <div class="analog-list">
+          <div class="analog-item">
+            <div><strong>Ulysses Colles</strong><br><span>Scoria cones • Perú</span></div>
+            <span class="pill sky">Tierra</span>
+          </div>
+          <div class="analog-item">
+            <div><strong>Malapert</strong><br><span>Relieve polar • Luna</span></div>
+            <span class="pill moon">Luna</span>
+          </div>
+          <div class="analog-item">
+            <div><strong>Arcadia Planitia</strong><br><span>Hielo bajo el suelo • Marte</span></div>
+            <span class="pill mars">Marte</span>
+          </div>
+          <div class="analog-item">
+            <div><strong>Marius Hills</strong><br><span>Lava tubes / skylights</span></div>
+            <span class="pill moon">Luna</span>
+          </div>
+          <div class="analog-item">
+            <div><strong>Huambo</strong><br><span>Geo y topografía • Perú</span></div>
+            <span class="pill sky">Tierra</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-panel="compare" style="display:none;">
+        <h3 style="margin:0 0 0.8rem; font-size:1rem;">Comparativa</h3>
+        <div class="stat-box"><span class="kicker">Tierra vs Luna</span><div class="value">Relieve similar, gravedad muy distinta; requieren modelos de locomoción y soporte de carga.</div></div>
+        <div style="margin-top: 0.75rem; display:grid; gap:0.7rem;">
+          <div class="stat-box"><span class="kicker">Tierra vs Marte</span><div class="value">Se comparte clima antiguo y ambientes áridos, pero la presión atmosférica y la composición difieren.</div></div>
+          <div class="stat-box"><span class="kicker">Riesgo</span><div class="value">No se toma como prueba la analogía por sí sola; requiere verificación de campo y evidencia local.</div></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="fader"></div>
+
+  <script>
+    const bodies = {
+      earth: {
+        badge: 'Planeta telúrico',
+        name: 'La Tierra',
+        subtitle: 'Tercer planeta desde el Sol • referencia de habitabilidad',
+        desc: 'Posee una hidrosfera líquida que cubre el 71% de su superficie, tectónica de placas activa, un núcleo metálico que genera una magnetosfera protectora y una atmósfera rica en nitrógeno y oxígeno.',
+        diameter: '12,742 km',
+        mass: '5.972 × 10²⁴ kg',
+        gravity: '9.807 m/s² (1g)',
+        temp: '+15 °C (288 K)',
+        orbit: '365.256 días',
+        rotation: '23h 56m 4s',
+        distance: '149.6 millones km (1.00 UA del Sol)',
+        atmosphere: '78.08% N₂ · 20.95% O₂ · 0.93% Ar · 0.04% CO₂',
+        color: 'radial-gradient(circle at 35% 35%, #7dd3fc, #2563eb 55%, #0f172a 100%)'
+      },
+      moon: {
+        badge: 'Satélite natural',
+        name: 'La Luna',
+        subtitle: 'Satélite principal de la Tierra • relieve y cráteres',
+        desc: 'La Luna carece de atmósfera significativa, tiene una superficie marcada por impactos y un ciclo de iluminación casi estacional que condiciona la estabilidad térmica y el acceso a sombra.',
+        diameter: '3,474 km',
+        mass: '7.342 × 10²² kg',
+        gravity: '1.62 m/s² (0.165g)',
+        temp: '-20 °C (253 K)',
+        orbit: '27.321 días sidéreos',
+        rotation: '27.321 días',
+        distance: '384,400 km (0.00257 UA)',
+        atmosphere: 'Vacío casi total · no hay atmósfera sustentable',
+        color: 'radial-gradient(circle at 35% 35%, #f8fafc, #cbd5e1 45%, #7f8ea3 100%)'
+      },
+      mars: {
+        badge: 'Planeta rojo',
+        name: 'Marte',
+        subtitle: 'Cuarto planeta desde el Sol • ambientes áridos y antiguos',
+        desc: 'Marte presenta una corteza volcánica, valles, grandes volcanes y minerales que sugieren agua líquida antigua. Su atmósfera es tenue y su clima combina frío extremo con tormentas regionales.',
+        diameter: '6,779 km',
+        mass: '6.417 × 10²³ kg',
+        gravity: '3.711 m/s² (0.376g)',
+        temp: '-60 °C (213 K)',
+        orbit: '687 días',
+        rotation: '24h 37m 22s',
+        distance: '227.9 millones km (1.52 UA)',
+        atmosphere: '95.3% CO₂ · 2.7% N₂ · 1.6% Ar',
+        color: 'radial-gradient(circle at 35% 35%, #fda4af, #f97316 40%, #7c2d12 100%)'
+      }
+    };
+
+    const badge = document.getElementById('body-badge');
+    const nameEl = document.getElementById('body-name');
+    const subtitle = document.getElementById('body-subtitle');
+    const desc = document.getElementById('body-desc');
+    const orb = document.getElementById('body-orb');
+    const statDiameter = document.getElementById('stat-diameter');
+    const statMass = document.getElementById('stat-mass');
+    const statGravity = document.getElementById('stat-gravity');
+    const statTemp = document.getElementById('stat-temp');
+    const statOrbit = document.getElementById('stat-orbit');
+    const statRotation = document.getElementById('stat-rotation');
+    const statDistance = document.getElementById('stat-distance');
+    const statAtmosphere = document.getElementById('stat-atmosphere');
+
+    const focusState = { current: 'earth' };
+    const orbitToggle = document.getElementById('toggle-orbits');
+    const analogToggle = document.getElementById('toggle-analogs');
+    const analogLayer = document.getElementById('analog-layer');
+
+    function setBody(bodyKey) {
+      const data = bodies[bodyKey];
+      focusState.current = bodyKey;
+      badge.textContent = data.badge;
+      nameEl.textContent = data.name;
+      subtitle.textContent = data.subtitle;
+      desc.textContent = data.desc;
+      orb.style.background = data.color;
+      statDiameter.textContent = data.diameter;
+      statMass.textContent = data.mass;
+      statGravity.textContent = data.gravity;
+      statTemp.textContent = data.temp;
+      statOrbit.textContent = data.orbit;
+      statRotation.textContent = data.rotation;
+      statDistance.textContent = data.distance;
+      statAtmosphere.textContent = data.atmosphere;
+
+      document.querySelectorAll('.cam-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.focus === bodyKey || (btn.dataset.focus === 'overview' && bodyKey === 'earth'));
+      });
+    }
+
+    document.querySelectorAll('.cam-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.focus;
+        if (target === 'overview') {
+          setBody('earth');
+          return;
+        }
+        setBody(target);
+      });
+    });
+
+    function toggleOrbits() {
+      const active = orbitToggle.classList.toggle('active');
+      document.querySelectorAll('.orbit-ring').forEach(el => {
+        el.style.opacity = active ? '1' : '0';
+      });
+    }
+
+    function drawAnalogLinks() {
+      analogLayer.innerHTML = '';
+      const points = [
+        { id: 'u', x: 59, y: 52 },
+        { id: 'm', x: 34, y: 53 },
+        { id: 'a', x: 71, y: 40 },
+        { id: 'mar', x: 72, y: 52 },
+        { id: 'hu', x: 63, y: 47 }
+      ];
+
+      for (let i = 0; i < points.length; i++) {
+        const node = document.createElement('div');
+        node.className = 'analog-node';
+        node.style.left = `${points[i].x}%`;
+        node.style.top = `${points[i].y}%`;
+        node.style.background = i % 2 === 0 ? 'rgba(251, 191, 36, 0.9)' : 'rgba(251,146,60,0.9)';
+        analogLayer.appendChild(node);
+      }
+
+      const links = [
+        [points[0], points[4]],
+        [points[0], points[2]],
+        [points[1], points[3]],
+        [points[2], points[3]],
+        [points[0], points[1]]
+      ];
+
+      links.forEach(([a, b]) => {
+        const el = document.createElement('div');
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const length = Math.hypot(dx, dy);
+        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+        el.className = 'analog-link';
+        el.style.left = `${a.x}%`;
+        el.style.top = `${a.y}%`;
+        el.style.width = `${length}%`;
+        el.style.transform = `rotate(${angle}deg)`;
+        analogLayer.appendChild(el);
+      });
+    }
+
+    orbitToggle.addEventListener('click', () => {
+      orbitToggle.classList.toggle('active');
+      toggleOrbits();
+    });
+
+    analogToggle.addEventListener('click', () => {
+      const active = analogToggle.classList.toggle('active');
+      analogLayer.style.display = active ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('[data-panel]').forEach(panel => {
+          panel.style.display = panel.dataset.panel === tab ? 'block' : 'none';
+        });
+      });
+    });
+
+    setBody('earth');
+    drawAnalogLinks();
+  </script>
+</body>
+</html>

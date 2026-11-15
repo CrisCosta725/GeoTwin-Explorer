@@ -1,0 +1,12 @@
+{
+  "file": "hawaii-3dep",
+  "projection": "geographic",
+  "west": -155.96955188679246,
+  "north": 20.179882075471692,
+  "dx": 0.0008962264150943289,
+  "dy": 0.0008962264150943302,
+  "resolution": 100,
+  "source": "usgs3dep",
+  "width": 1060,
+  "height": 1150
+}

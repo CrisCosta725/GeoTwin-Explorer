@@ -1,0 +1,284 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -72.42333084343358,
+              -15.509912647915382
+            ],
+            [
+              -72.23666915656639,
+              -15.509912647915382
+            ],
+            [
+              -72.2367499335491,
+              -15.33004841744255
+            ],
+            [
+              -72.42325006645086,
+              -15.33004841744255
+            ],
+            [
+              -72.42333084343358,
+              -15.509912647915382
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "andagua",
+        "label": "Andahua–Orcopampa",
+        "role": "Candidato peruano",
+        "center": {
+          "lat": -15.42,
+          "lon": -72.33
+        },
+        "source": {
+          "name": "Copernicus · GLO-90",
+          "datum": "Geoide EGM2008",
+          "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+        },
+        "context": "Punto regional del campo. INGEMMET documenta conos y coladas; la ventana no delimita un cono individual.",
+        "sourceReference": "https://app.ingemmet.gob.pe/biblioteca/pdf/CPG15-199.pdf",
+        "points": null,
+        "stats": {
+          "area": 400,
+          "samples": 1600,
+          "slopeP90": 23.505863100949753,
+          "roughness": 64.40740956939554,
+          "roughnessCoverage": 0.9025,
+          "elevationCoverage": 1,
+          "slopeCoverage": 1,
+          "slope": 9.334328025786325,
+          "pass": 0.60625,
+          "relief": 1194.4768134314222,
+          "min": 2997.3475803509646,
+          "max": 5157.613252434326
+        },
+        "step": 0.5,
+        "resolution": 90,
+        "coverage": 1,
+        "pass": 0.60625,
+        "delta": 7.303850831455091,
+        "exclusions": [
+          "Menos del 75 % de las celdas evaluables bajo el umbral"
+        ],
+        "eligible": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -72.09595947408894,
+              -15.791579273712276
+            ],
+            [
+              -71.90904052591105,
+              -15.791579273712276
+            ],
+            [
+              -71.90912296702282,
+              -15.611715043893113
+            ],
+            [
+              -72.09587703297717,
+              -15.611715043893113
+            ],
+            [
+              -72.09595947408894,
+              -15.791579273712276
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "huambo",
+        "label": "Huambo · Cerro Keyocc",
+        "role": "Alternativa peruana",
+        "center": {
+          "lat": -15.701667,
+          "lon": -72.0025
+        },
+        "source": {
+          "name": "Copernicus · GLO-90",
+          "datum": "Geoide EGM2008",
+          "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+        },
+        "context": "Comparación regional centrada en el punto del catálogo.",
+        "sourceReference": "https://volcano.si.edu/volcano.cfm?vn=354005",
+        "points": null,
+        "stats": {
+          "area": 400,
+          "samples": 1600,
+          "slopeP90": 26.432594174821485,
+          "roughness": 69.93979599551255,
+          "roughnessCoverage": 0.9025,
+          "elevationCoverage": 1,
+          "slopeCoverage": 1,
+          "slope": 10.541548888529569,
+          "pass": 0.573125,
+          "relief": 1288.9556869164621,
+          "min": 2236.4979657587273,
+          "max": 5239.649790592552
+        },
+        "step": 0.5,
+        "resolution": 90,
+        "coverage": 1,
+        "pass": 0.573125,
+        "delta": 8.511071694198336,
+        "exclusions": [
+          "Menos del 75 % de las celdas evaluables bajo el umbral"
+        ],
+        "eligible": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -155.56564914892425,
+              19.909906671281288
+            ],
+            [
+              -155.5655409899719,
+              19.730042452733635
+            ],
+            [
+              -155.37445901002803,
+              19.730042452733635
+            ],
+            [
+              -155.37435085107592,
+              19.909906671281288
+            ],
+            [
+              -155.56564914892425,
+              19.909906671281288
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "known",
+        "label": "Mauna Kea · conos documentados",
+        "center": {
+          "lat": 19.82,
+          "lon": -155.47
+        },
+        "source": {
+          "name": "USGS · 3DEP, recorte Hawaiʻi (100 m)",
+          "datum": "Elevación del servicio 3DEP, en metros",
+          "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
+        },
+        "context": "Centro regional del sector de cumbre. USGS documenta conos de escoria en el entorno.",
+        "model": "hawaii",
+        "role": "Control volcánico documentado",
+        "sourceReference": "https://www.usgs.gov/volcanoes/mauna-kea/",
+        "points": null,
+        "stats": {
+          "area": 400,
+          "samples": 1600,
+          "slopeP90": 17.51815395359468,
+          "roughness": 83.73602823873969,
+          "roughnessCoverage": 0.9025,
+          "elevationCoverage": 1,
+          "slopeCoverage": 1,
+          "slope": 11.457338960966462,
+          "pass": 0.5375,
+          "relief": 1639.9273873812986,
+          "min": 1504.813232322177,
+          "max": 4140.868290069742
+        },
+        "step": 0.5,
+        "resolution": 100,
+        "coverage": 1,
+        "pass": 0.5375,
+        "delta": 9.426861766635227,
+        "exclusions": [
+          "Menos del 75 % de las celdas evaluables bajo el umbral"
+        ],
+        "eligible": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -70.02858899853237,
+              -24.189900529787824
+            ],
+            [
+              -69.83141100146764,
+              -24.189900529787824
+            ],
+            [
+              -69.83154934720068,
+              -24.010036326793244
+            ],
+            [
+              -70.02845065279934,
+              -24.010036326793244
+            ],
+            [
+              -70.02858899853237,
+              -24.189900529787824
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "control",
+        "label": "Atacama · control de procedimiento",
+        "role": "Control de relieve árido",
+        "center": {
+          "lat": -24.1,
+          "lon": -69.93
+        },
+        "source": {
+          "name": "Copernicus · GLO-90",
+          "datum": "Geoide EGM2008",
+          "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+        },
+        "context": "Control de procedimiento; no se interpreta como prueba de volcanismo.",
+        "sourceReference": "https://science.nasa.gov/solar-system/analog-explorer/",
+        "points": null,
+        "stats": {
+          "area": 400,
+          "samples": 1600,
+          "slopeP90": 9.865107671542582,
+          "roughness": 20.47006825525449,
+          "roughnessCoverage": 0.9025,
+          "elevationCoverage": 1,
+          "slopeCoverage": 1,
+          "slope": 2.820896455730061,
+          "pass": 0.943125,
+          "relief": 291.4881391811523,
+          "min": 952,
+          "max": 1705.291953539294
+        },
+        "step": 0.5,
+        "resolution": 90,
+        "coverage": 1,
+        "pass": 0.943125,
+        "delta": 0.790419261398827,
+        "exclusions": [],
+        "eligible": true
+      }
+    }
+  ]
+}
