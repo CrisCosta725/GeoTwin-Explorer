@@ -4,7 +4,7 @@
 
 Abre [GeoTwin Explorer en GitHub Pages](https://criscosta725.github.io/GeoTwin-Explorer/). La introducción presenta GeoTwin Explorer con Tierra, Luna y Marte al fondo y enlaza las fuentes de sus texturas. Entra con **Explorar el atlas**, **Omitir introducción** o **Esc**. Después, el atlas muestra los tres mundos juntos, con la Tierra como eje central de comparación. No hay un área seleccionada al inicio. En un navegador compatible, instala la app desde **Instalar app** en el panel lateral.
 
-Las tres superficies son esferas con sombreado y puntos geográficos en la cara visible. Pulsa el nombre de un planeta para acercarlo en la misma escena: los otros dos siguen visibles y el giro automático se pausa. Arrastra para girar, pulsa una superficie para seleccionar un punto o elige una región del catálogo. La selección libre también aparece como un punto destacado. Las flechas, **+**, **−** e **Inicio** controlan la esfera activa; **Restablecer vistas** restablece las tres cámaras. **Vista conjunta** recupera el encuadre general y **Activar giro** reanuda el movimiento ilustrativo. La inspección, la selección y el zoom permanecen en el mismo visor. El relieve espera una región explícita.
+Las tres superficies son esferas con sombreado y puntos geográficos en la cara visible. Pulsa el nombre de un planeta para acercarlo suavemente en la misma escena: los otros dos siguen visibles y el giro continúa. Arrastra para girar, pulsa una superficie para seleccionar un punto o elige una región del catálogo. La selección libre también aparece como un punto destacado. Las flechas, **+**, **−** e **Inicio** controlan la esfera activa; **Restablecer orientación de las esferas** recupera las tres cámaras. **Vista conjunta** vuelve al encuadre general. La inspección, la selección y el zoom permanecen en el mismo visor. El relieve espera una región explícita.
 
 El catálogo muestra las 20 zonas con su numeración, país y aplicación principal. Selecciona Isabella–Chotén y Sucre para revisar sus coordenadas y cotas aportadas: 3664 m y 3189 m. Ambas fichas deben indicar que el origen geológico sigue por verificar. No se deben interpretar como cráteres de impacto confirmados ni como pilotos validados.
 
@@ -58,8 +58,8 @@ Recalcula Marius Hills y Ulysses Colles frente a Hawaiʻi. La cartografía digit
 
 - Probar la introducción animada, sus créditos NASA/JPL y las opciones de entrar, omitir y cerrar con Esc; confirmar movimiento reducido y pantalla estrecha.
 - Revisar el globo, etiquetas y tablas en escritorio y pantalla estrecha.
-- Comprobar el borde completo de las tres esferas, su sombreado y el desplazamiento de la superficie al girar. Probar pausa, arrastre, teclado, zoom y selección de puntos. Con movimiento reducido, el giro automático debe comenzar desactivado.
-- Cambiar entre Tierra, Luna y Marte; verificar que se muestra una superficie cada vez y conserva sus marcadores.
+- Comprobar el borde completo de las tres esferas, su sombreado y el desplazamiento continuo de la superficie al girar. Al elegir un planeta, confirmar que el acercamiento sea suave y la esfera completa quede dentro del marco. Probar arrastre, teclado, zoom y selección de puntos durante el giro. Con movimiento reducido, el giro automático debe comenzar desactivado.
+- Inspeccionar Tierra, Luna y Marte desde sus esferas dentro de la vista conjunta; verificar que el acercamiento, la selección de puntos y los marcadores permanecen en la misma escena.
 - Revisar las 20 zonas terrestres en el orden de la lista, sus aplicaciones y los dos marcadores aportados de Cajamarca. Comprobar sus avisos y la recuperación al abrir un proyecto.
 - Ampliar el globo y el relieve, cambiar el tamaño de la ventana y cerrar con Esc. Comprobar nitidez, selección de puntos, perfil y devolución del foco al botón de apertura.
 - Recorrer los controles con teclado y comprobar el foco visible.

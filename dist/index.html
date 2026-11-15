@@ -99,12 +99,7 @@
         <div class="atlas-bar">
           <h2 id="atlas-title"><svg aria-hidden="true"><use href="#i-orbit"/></svg> Visor planetario</h2>
           <button type="button" class="outline viewer-expand" id="globe-expand" aria-label="Ampliar visor planetario" title="Ampliar visor planetario" aria-expanded="false" aria-controls="viewer-dialog"><svg aria-hidden="true"><use href="#i-expand"/></svg><span data-expand-label>Ampliar</span></button>
-          <div class="world-switch" role="group" aria-label="Cambiar vista planetaria">
-            <button type="button" id="atlas-overview-view" data-atlas-view="overview" aria-pressed="true">Vista conjunta</button>
-            <button type="button" data-world="Earth" aria-pressed="true"><svg aria-hidden="true"><use href="#i-earth"/></svg> Tierra</button>
-            <button type="button" data-world="Moon" aria-pressed="false"><svg aria-hidden="true"><use href="#i-moon"/></svg> Luna</button>
-            <button type="button" data-world="Mars" aria-pressed="false"><svg aria-hidden="true"><use href="#i-mars"/></svg> Marte</button>
-          </div>
+          <button type="button" class="outline" id="atlas-overview-view" data-atlas-view="overview" aria-label="Volver al encuadre conjunto" title="Volver al encuadre conjunto">Vista conjunta</button>
         </div>
         <div class="atlas-layout">
           <div class="atlas-scene">
@@ -112,8 +107,7 @@
               <section id="planet-overview" class="planet-overview" aria-labelledby="planet-overview-title">
                 <header class="overview-heading">
                   <div><span class="overview-kicker">RED DE ANÁLOGOS</span><h3 id="planet-overview-title">La Tierra, eje central de comparación</h3></div>
-                  <p>Selecciona un planeta para acercarlo y explorar sus regiones aquí mismo.</p>
-                  <button type="button" class="outline" id="overview-spin" aria-pressed="true" title="Giro visual de las esferas">Pausar giro</button>
+                  <p>Selecciona un planeta para acercarlo suavemente y explorar sus regiones aquí mismo.</p>
                 </header>
                 <div class="planet-network" role="group" aria-label="Tierra al centro, con la Luna y Marte a los lados">
                   <div class="overview-world overview-earth" data-overview-card="Earth">
@@ -130,7 +124,7 @@
                   </div>
                 </div>
                 <p class="overview-note">Los puntos señalan ubicaciones del catálogo y tu selección en la cara visible. El giro automático es visual, sin representar períodos físicos de rotación.</p>
-                <p class="planet-gallery-help" id="overview-help">Explora directamente sobre las tres esferas. Selecciona un planeta para acercarlo; arrastra para girar y pulsa para elegir un punto. Usa las flechas, +, − o Inicio con teclado. El giro se pausa al inspeccionar. Vista conjunta recupera el encuadre general.</p>
+                <p class="planet-gallery-help" id="overview-help">Explora directamente sobre las tres esferas. Selecciona un planeta para acercarlo; arrastra para girar y pulsa para elegir un punto. Usa las flechas, +, − o Inicio con teclado. El giro continúa mientras inspeccionas y seleccionas puntos. Vista conjunta recupera el encuadre general.</p>
               </section>
               <div id="surface-view" hidden aria-hidden="true">
               <div class="planet-cards">
@@ -166,12 +160,12 @@
               <p class="planet-gallery-help" id="globe-help">Arrastra el globo para ver sus regiones, también las del hemisferio oculto. Pulsa un marcador o un punto de la superficie para seleccionarlo.</p>
               <span class="sr-only" id="globe-keyboard">Enfoca un globo y usa las flechas para girarlo, + o − para el zoom y Enter para seleccionar el punto central.</span>
               </div>
-              <div class="atlas-controls" id="atlas-controls" aria-label="Controles del globo activo">
-                <span>Globo activo: <strong id="active-globe-label">Tierra</strong></span>
+              <div class="atlas-controls" id="atlas-controls" aria-label="Controles de la vista conjunta">
+                <span>Planeta enfocado: <strong id="active-globe-label">Tierra</strong></span>
                 <button type="button" id="zoom-in" aria-label="Acercar" title="Acercar"><svg aria-hidden="true"><use href="#i-plus"/></svg></button>
                 <button type="button" id="zoom-out" aria-label="Alejar" title="Alejar"><svg aria-hidden="true"><use href="#i-minus"/></svg></button>
-                <button type="button" id="reset-map" aria-label="Restablecer vista" title="Restablecer vista"><svg aria-hidden="true"><use href="#i-cross"/></svg></button>
-                <button type="button" id="reset-all-globes" class="outline">Restablecer vistas</button>
+                <button type="button" id="reset-map" aria-label="Restablecer esfera" title="Restablecer esfera"><svg aria-hidden="true"><use href="#i-cross"/></svg></button>
+                <button type="button" id="reset-all-globes" class="outline">Restablecer orientación de las esferas</button>
               </div>
             </div>
             <div class="atlas-catalog">

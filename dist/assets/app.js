@@ -115,7 +115,7 @@ const areaState = {
 const viewer = new PlanetAtlas(map,updateGlobe,pickArea,id=>showWorld(id));
 const areaViewer = new AreaViewer(byId('area-viewer'),viewer);
 const viewerExpansion=bindViewerExpansion({
-  globe:{target:map,button:byId('globe-expand'),tools:document.querySelector('.atlas-bar .world-switch'),
+  globe:{target:map,button:byId('globe-expand'),tools:byId('atlas-overview-view'),
     title:'Vista conjunta · Tierra, Luna y Marte',label:'Ampliar visor planetario',context:()=>viewer.focusedWorld?byId('draw-context').textContent:'Tierra al centro de la comparación con la Luna y Marte.',
     focus:()=>map.querySelector('[data-overview-world="'+viewer.world+'"]'),resize:()=>viewer.requestDraw()},
   terrain:{target:byId('area-viewer'),button:byId('terrain-expand'),
@@ -167,7 +167,7 @@ const study = new Study({
   snapshot:()=>({config,activeSearch,compared,selected,pilots:[...pilotChoices],pilotNotes:[...pilotNotes],
     pilot:byId('pilot-choice').value ? byId('pilot-choice').selectedOptions[0]?.textContent : null,
     pilotReason:byId('pilot-choice').value ? [byId('pilot-why').textContent,byId('pilot-note').value.trim()].filter(Boolean).join(' ') : null,
-    missionPlans:missionPanel?.snapshot(),atlasWorld:viewer.world,atlasView:viewer.viewMode,atlasFocus:viewer.focusedWorld,atlasSpin:viewer.autoRotate,atlasCameras:viewer.snapshot(),areaState}),
+    missionPlans:missionPanel?.snapshot(),atlasWorld:viewer.world,atlasView:viewer.viewMode,atlasFocus:viewer.focusedWorld,atlasCameras:viewer.snapshot(),areaState}),
   restore:(snapshot,polygons)=>{
     pilotChoices.clear();
     for (const [reference,id] of snapshot.pilots ?? []) {
@@ -205,7 +205,6 @@ const study = new Study({
     const focus=snapshot.atlasFocus??(snapshot.atlasView==='surface'?snapshot.atlasWorld:null);
     if (['Earth','Moon','Mars'].includes(focus)) viewer.focusWorld(focus);
     viewer.restore(snapshot.atlasCameras);
-    if (typeof snapshot.atlasSpin==='boolean') viewer.setAutoRotate(snapshot.atlasSpin);
     updateAll();
     missionPanel?.restore(snapshot.missionPlans);
   },
@@ -379,7 +378,6 @@ function updateGlobe(view) {
 function showWorld(id) {
   const world = worlds[id];
   const isEarth = id==='Earth';
-  document.querySelectorAll('.world-switch [data-world]').forEach(button=>button.setAttribute('aria-pressed',button.dataset.world===id));
   map.dataset.world = id;
   byId('active-globe-label').textContent=world.label;
   byId('atlas-foot').hidden = !isEarth;

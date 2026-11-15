@@ -298,7 +298,7 @@ export class PlanetAtlas {
     this.world='Earth';
     this.viewMode='overview';
     this.autoRotate=!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    this.overviewFrame=0;this.overviewLast=null;this.overviewPauses=new Set();
+    this.overviewFrame=0;this.overviewLast=null;
     this.focusedWorld=null;
     this.overviewLocations=Object.fromEntries(Object.keys(worlds).map(world=>[world,[]]));
     this.onActivate=onActivate;
@@ -311,7 +311,6 @@ export class PlanetAtlas {
       viewport.addEventListener('focus',()=>{if (this.world!==world) onActivate(world);});
       this.bindOverviewControls(world,viewer,onPick,onActivate);
     }
-    document.getElementById('overview-spin').addEventListener('click',()=>this.setAutoRotate(!this.autoRotate));
     document.addEventListener('visibilitychange',()=>{this.overviewLast=null;this.requestOverviewDraw();});
     this.showOverview();
     window.addEventListener('resize',()=>this.requestDraw());
@@ -320,7 +319,6 @@ export class PlanetAtlas {
   get isOverview() {return this.viewMode==='overview';}
   get camera() {return this.active.camera;}
   get view() {return this.active.view;}
-  setAutoRotate(value) {this.autoRotate=value;this.overviewLast=null;this.syncControls();this.requestOverviewDraw();}
   setOverviewWorld(world) {
     if (!this.isOverview || !this.planets.has(world)) return;
     if (this.world!==world) this.onActivate(world);
@@ -361,15 +359,6 @@ export class PlanetAtlas {
       this.focusWorld(world,()=>{onActivate(world);onPick(point,world);});
     };
     control.addEventListener('focus',()=>this.setOverviewWorld(world));
-    const pause=(reason,value)=>{
-      const key=world+':'+reason;
-      if (value) this.overviewPauses.add(key);else this.overviewPauses.delete(key);
-      this.overviewLast=null;this.requestOverviewDraw();
-    };
-    control.addEventListener('pointerenter',()=>pause('hover',true));
-    control.addEventListener('pointerleave',()=>pause('hover',false));
-    control.addEventListener('focus',()=>pause('focus',true));
-    control.addEventListener('blur',()=>pause('focus',false));
     control.addEventListener('pointerdown',event=>{
       if (!event.isPrimary || event.button!==0) return;
       suppressClick=false;
@@ -377,7 +366,6 @@ export class PlanetAtlas {
       drag={id:event.pointerId,x:event.clientX,y:event.clientY,moved:false};
       control.setPointerCapture(event.pointerId);
       control.classList.add('dragging');
-      pause('drag',true);
     });
     control.addEventListener('pointermove',event=>{
       if (drag?.id!==event.pointerId) return;
@@ -396,7 +384,6 @@ export class PlanetAtlas {
         suppressClick=drag.moved;
         drag=null;
         control.classList.remove('dragging');
-        pause('drag',false);
         if (pick) selectPoint(event.clientX,event.clientY);
       });
     }
@@ -436,14 +423,10 @@ export class PlanetAtlas {
     for (const viewer of this.planets.values()) viewer.viewport.closest('.planet-card').hidden=true;
     this.viewport.querySelector('.planet-network').dataset.focusedWorld=this.focusedWorld??'';
     this.viewport.dataset.focusedWorld=this.focusedWorld??'';
-    document.getElementById('atlas-overview-view').setAttribute('aria-pressed',String(!this.focusedWorld));
-    document.querySelectorAll('.world-switch [data-world]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.world===this.world)));
     this.overviewLast=null;
     this.syncControls();
   }
   syncControls() {
-    const spin=document.getElementById('overview-spin');
-    spin.textContent=this.autoRotate?'Pausar giro':'Activar giro';spin.setAttribute('aria-pressed',String(this.autoRotate));
     document.getElementById('active-globe-label').textContent=worlds[this.world].label;
     document.getElementById('zoom-in').disabled=this.camera.zoom>=2.4;
     document.getElementById('zoom-out').disabled=this.camera.zoom<=.8;
@@ -472,14 +455,35 @@ export class PlanetAtlas {
       const view={world,zoom:viewer.camera.zoom,radius,width,height};
       viewer.view=view;
       if (viewer.textures.get(world)?.status==='ready') viewer.onView(view);
+      const visible=[];
+      const clusterMargin=Math.min(width,height)/2-12;
       for (const [index,site] of (this.overviewLocations[world]??[]).entries()) {
         const point=viewer.project(site.lat,site.lon,view);
         const marker=layer.children[index];
         marker.hidden=point.z<=.06;
+        marker.classList.remove('cluster','cluster-member');
+        marker.classList.toggle('selected',Boolean(site.selected));
+        marker.removeAttribute('data-cluster-count');
         if (!marker.hidden) {
           marker.style.left=point.x+'px';
           marker.style.top=point.y+'px';
+          const clusterable=Math.hypot(point.x-width/2,point.y-height/2)<=clusterMargin;
+          visible.push({marker,point,selected:Boolean(site.selected),clusterable});
         }
+      }
+      const clusters=[];
+      for (const item of visible.filter(candidate=>candidate.clusterable)) {
+        const cluster=clusters.find(group=>group.every(other=>Math.hypot(item.point.x-other.point.x,item.point.y-other.point.y)<=11));
+        if (cluster) cluster.push(item);
+        else clusters.push([item]);
+      }
+      for (const cluster of clusters) {
+        if (cluster.length<2) continue;
+        const leader=cluster.find(item=>item.selected)??cluster[0];
+        leader.marker.classList.add('cluster');
+        leader.marker.classList.toggle('selected',cluster.some(item=>item.selected));
+        leader.marker.dataset.clusterCount=String(cluster.length);
+        for (const item of cluster) if (item!==leader) item.marker.classList.add('cluster-member');
       }
     }
   }
@@ -491,7 +495,7 @@ export class PlanetAtlas {
         [...this.viewport.querySelectorAll('[data-overview-world]')].some(node=>node.getBoundingClientRect().width>0);
       if (!visible) {this.overviewLast=null;return;}
       const ready=[...this.planets.values()].some(viewer=>viewer.textures.get(viewer.world)?.status==='ready');
-      const moving=this.autoRotate && !this.overviewPauses.size && ready;
+      const moving=this.autoRotate && ready;
       if (moving && this.overviewLast!==null) {
         const degrees=(time-this.overviewLast)*.004;
         for (const viewer of this.planets.values()) viewer.camera.lon=(viewer.camera.lon+degrees+540)%360-180;
@@ -506,7 +510,6 @@ export class PlanetAtlas {
     if (!this.planets.has(world)) return;
     this.focusedWorld=world;
     this.show(world);
-    this.setAutoRotate(false);
     this.drawOverview();
     afterFocus?.();
   }
