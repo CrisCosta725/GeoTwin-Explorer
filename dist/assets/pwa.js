@@ -30,6 +30,15 @@ installButton.addEventListener('click',async()=>{
 });
 
 if('serviceWorker' in navigator) {
+  const hadController=Boolean(navigator.serviceWorker.controller);
+  if(hadController) {
+    let reloading=false;
+    navigator.serviceWorker.addEventListener('controllerchange',()=>{
+      if(reloading)return;
+      reloading=true;
+      window.location.reload();
+    });
+  }
   const workerUrl=new URL('../service-worker.js',import.meta.url);
   const appScope=new URL('../',import.meta.url).pathname;
   navigator.serviceWorker.register(workerUrl,{scope:appScope}).catch(error=>{
