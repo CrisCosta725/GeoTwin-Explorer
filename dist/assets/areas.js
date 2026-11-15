@@ -1,4 +1,5 @@
 import {hasCoordinates} from './coordinates.js';
+import {lunarMatrix} from './lunar-matrix.js';
 
 export const worldMaps = {
   Earth:{label:'NASA Worldview',url:'https://worldview.earthdata.nasa.gov/'},
@@ -164,6 +165,23 @@ export const planetaryAreas = {
       ], limit:'El origen de los depósitos de Firsoff se evalúa con estratigrafía y mineralogía orbital. El carácter hidrotermal se trata como hipótesis.'}
   ]
 };
+
+for (const group of lunarMatrix) for (const row of group.rows.filter(hasCoordinates)) {
+  planetaryAreas.Moon.push({
+    id:row.code.toLowerCase(),profile:'impact',name:row.name,lat:row.lat,lon:row.lon,range:row.diameterKm/2,
+    type:'Cráter · '+group.period+' según matriz aportada',source:null,
+    features:[['Matriz del usuario',row.code+' · diámetro '+row.diameterKm+' km · profundidad '+row.depthKm+' km · '+row.morphology],
+      ['Coordenadas aportadas',row.lat+'°, '+row.lon+'° · longitud positiva interpretada al este'],
+      ['Objetivo propuesto',row.reason??group.purpose]],
+    limit:'Coordenadas aportadas por el usuario. La clasificación temporal, dimensiones, morfología y referencia cartográfica requieren contrastarse con la fuente original.'
+  });
+}
+
+// Active destinations selected by the user. Other reference areas remain available
+// internally for saved analyses, but are not offered as map/catalog locations.
+export function activePlanetaryAreas(world) {
+  return (planetaryAreas[world]??[]).filter(area=>world!=='Moon' || area.id==='apollo' || /^(csn|cse|csc)\d+$/i.test(area.id));
+}
 
 export const earthImages = {
   atacama:{id:'atacama',caption:'Salar de Atacama, contexto regional · NASA Earth Observatory, Landsat 7.',source:'https://science.nasa.gov/earth/earth-observatory/salar-de-atacama-chile-76518/'}

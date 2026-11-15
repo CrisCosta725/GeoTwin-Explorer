@@ -1,9 +1,11 @@
-# GeoTwin Explorer
+# GeoTwin Explorer · atlas sin GIS
 
-An interactive atlas for exploring Earth, Moon, and Mars, finding geological analogs, and comparing terrain with included datasets.
+La aplicación principal contiene las tres esferas interactivas, catálogo terrestre y planetario, fichas de semejanzas, matriz lunar y criterios operativos de Marte. El motor GIS, el delimitador, DEM, capas y exportaciones espaciales se retiraron de esta versión.
 
-**[Open GeoTwin Explorer](https://criscosta725.github.io/GeoTwin-Explorer/)** · [Guía en español](LEEME.md) · [Data sources and credits](dist/examples/DATOS_Y_CREDITOS.md)
+Abre `Iniciar_GeoTwin.bat`, o ejecuta `npm start`. Se sirve únicamente `dist` en http://127.0.0.1:8000/.
 
-The web app is installable as a Progressive Web App from its in-app **Install app** button when supported by the browser. After opening it online once, the app shell and previously visited resources remain available offline.
+La carpeta `C:\Users\ccost\Downloads\GIS` conserva una copia ejecutable con las funciones anteriores y sus datos. Para abrirla por separado: `node C:\Users\ccost\Downloads\GIS\iniciar_geotwin.mjs --puerto 8001`. No se incluye en la publicación ni en el ZIP de la app principal.
 
-GeoTwin is a comparative research and exploration tool. Results do not validate landing sites, routes, or scientific analogies. Consult the [demo guide](dist/examples/GUIA_DEMO.md) and [catalog](dist/examples/ZONAS_Y_UBICACIONES.md) for scope and limitations.
+Las fichas distinguen datos aportados, evidencia regional y variables sin medir. Las comparaciones no certifican equivalencia científica ni seguridad operativa. Los datos, texturas y publicaciones conservan sus atribuciones originales.
+
+Validación principal: `npm test`. La suite histórica y sus funciones GIS se conservan en la carpeta separada. Los proyectos GIS anteriores deben abrirse allí; el atlas principal ya no ofrece importación de proyectos ni medición.

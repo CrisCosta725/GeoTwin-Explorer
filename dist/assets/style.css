@@ -444,7 +444,7 @@ body {
 .marker-tag {background: #111c24;border-color: #607680;font-size: 11px}
 .atlas-catalog {padding: 12px 14px;border-top: 1px solid var(--line)}
 .atlas-catalog-head {display: flex;align-items: center;justify-content: space-between;gap: 8px;margin-bottom: 8px}
-.atlas-catalog h3 {font: 650 13px/1.25 var(--heading)}
+.atlas-catalog h2,.atlas-catalog h3 {font: 650 13px/1.25 var(--heading)}
 .atlas-count {color: var(--muted);background: none;border: 0;border-radius: 0;padding: 0;font-weight: 600}
 .atlas-sites {padding: 0;max-height: 128px;overflow: auto}
 .atlas-sites .outline {font-size: 11px;min-height: 29px;padding: 4px 8px}
@@ -766,7 +766,7 @@ tbody small {margin-top: 4px}
 .planet-overview {position:relative;overflow:hidden;padding:18px 22px 14px;background:radial-gradient(ellipse at 50% 48%,#112a36 0,#091721 46%,#071019 100%);color:var(--text)}
 .overview-heading {display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 16px;position:relative;z-index:2}
 .overview-kicker {display:block;margin-bottom:5px;color:#75d8e5;font-size:10px;font-weight:750;letter-spacing:.15em}
-.overview-heading h3 {font:650 clamp(18px,2.1vw,25px)/1.2 var(--heading)}
+.overview-heading h2 {font:650 clamp(18px,2.1vw,25px)/1.2 var(--heading)}
 .overview-heading p {max-width:38ch;color:var(--muted);font-size:12px;line-height:1.45}
 .planet-network {position:relative;container-type:size;width:100%;height:clamp(340px,38vw,480px);min-height:320px;margin-top:3px;overflow:hidden;background-image:radial-gradient(circle,#d8e8f480 .7px,transparent 1px),radial-gradient(circle,#8fa8c966 .6px,transparent 1px);background-size:113px 97px,167px 139px;background-position:13px 20px,60px 53px}
 .overview-world {position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:100px;padding:4px 8px 7px;color:var(--text);transform:translate(-50%,-50%);transition:left 1.1s cubic-bezier(.42,0,.58,1),top 1.1s cubic-bezier(.42,0,.58,1),min-width 1.1s cubic-bezier(.42,0,.58,1),max-width 1.1s cubic-bezier(.42,0,.58,1),transform .35s ease}
@@ -910,3 +910,737 @@ tbody small {margin-top: 4px}
 @media(prefers-reduced-motion:reduce) {
   .welcome-intro *,.welcome-intro *::before,.welcome-intro *::after {animation:none!important;scroll-behavior:auto!important;transition:none!important}
 }
+
+@media (min-width: 861px) {
+  :root {--rail-width:0px;--gutter:clamp(16px,2vw,28px)}
+  .sidebar {
+    position:sticky;
+    inset:auto;
+    top:0;
+    width:100%;
+    height:58px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:clamp(12px,2vw,28px);
+    padding:0 clamp(16px,2vw,28px);
+    background:#080d13ed;
+    border-right:0;
+    border-bottom:1px solid #25313b;
+    backdrop-filter:blur(16px);
+  }
+  .sidebar .brand {margin:0;gap:9px}
+  .sidebar .brand-icon {width:34px;height:34px;border-radius:10px}
+  .sidebar .brand-icon svg {width:22px;height:22px}
+  .sidebar .brand strong {font-size:20px}
+  .sidebar .brand small {font-size:7px}
+  .sidebar nav {flex:1;justify-content:center;flex-direction:row;gap:3px;min-width:0;margin:0;padding:0 3px;overflow-x:auto}
+  .nav-link {min-height:36px;padding:6px 9px;gap:6px;border-radius:6px;font-size:12px}
+  .nav-link svg {width:15px;height:15px}
+  .nav-link[aria-current="page"] {background:transparent;border-color:transparent;color:#9be9df}
+  .nav-link[aria-current="page"]::before {inset:auto 10px -11px;width:auto;height:2px;border-radius:2px 2px 0 0}
+  .sidebar-foot {flex:none;margin:0;padding:0;border:0}
+  .sidebar-foot p {display:none}
+  #install-app {width:auto;margin:0;white-space:nowrap}
+  .workspace {margin-left:0;min-height:calc(100vh - 58px);padding:20px var(--gutter) 0}
+  .workspace-page,.workspace-footer {max-width:1680px}
+  .workspace-heading {margin-bottom:14px}
+  .workspace-heading h1 {font-size:clamp(28px,3vw,40px);line-height:1.05;letter-spacing:-.045em}
+  .page-context {margin-bottom:4px;font-size:9px}
+  .page-description {margin-top:5px;font-size:12px}
+}
+
+.atlas {background:#0b1118;border-color:#26323d;border-radius:10px}
+.atlas-bar {min-height:49px;gap:10px;padding:8px 12px;background:#0b1118}
+.atlas-bar h2 {margin-right:auto;font-size:14px;letter-spacing:0}
+.atlas-bar h2 svg {width:16px;height:16px}
+.atlas-bar .outline {min-height:30px;padding:5px 8px;font-size:11px}
+.atlas-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"scene" "area";
+  align-items:stretch;
+}
+.atlas-sidebar {grid-area:catalog;min-width:0;background:#0b1118}
+.atlas-scene {grid-area:scene;min-width:0}
+.atlas-layout > .area-panel {grid-area:area;min-width:0}
+.atlas-sidebar .atlas-catalog {padding:12px;border-top:0;border-bottom:1px solid #25313b}
+.atlas-sidebar .atlas-catalog-head {margin-bottom:10px}
+.atlas-sidebar .atlas-catalog h2,.atlas-sidebar .atlas-catalog h3 {color:#e4edf4;font-size:11px;letter-spacing:.055em;text-transform:uppercase}
+.atlas-sidebar .atlas-count {font-size:10px}
+#atlas-sites:has(.catalog-site) {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  max-height:none;
+  overflow:visible;
+}
+#atlas-sites:not(:has(.catalog-site)) {display:grid;grid-template-columns:1fr;gap:6px}
+.atlas-sidebar .atlas-sites > button {width:100%;min-height:34px;justify-content:flex-start;text-align:left}
+#atlas-sites .catalog-site {
+  gap:3px;
+  padding:8px 9px;
+  border-color:#26343f;
+  background:#101820;
+}
+#atlas-sites .catalog-site:hover {background:#16242d}
+#atlas-sites .catalog-site[aria-pressed="true"] {border-color:#69bdb1;background:#132a2b;color:#d9fff6}
+.catalog-site strong {font-size:12px}
+.catalog-site span,.catalog-site small {font-size:10px}
+.atlas-sidebar .atlas-sector-detail svg {max-height:190px}
+.atlas-sidebar .atlas-foot {
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:10px;
+  padding:11px 12px;
+  border-top:0;
+}
+.atlas-sidebar .legend {justify-content:space-between;gap:6px;font-size:10px}
+.atlas-sidebar .filter-wrap select {height:33px}
+.planet-gallery {background:#080e14}
+.planet-overview {
+  padding:14px 14px 10px;
+  background:radial-gradient(ellipse at 50% 48%,#11232d 0,#09141d 50%,#070d13 100%);
+}
+.overview-heading h2 {font-size:clamp(16px,1.35vw,20px)}
+.overview-heading p {max-width:31ch;font-size:11px}
+.planet-network {height:clamp(350px,30vw,440px);min-height:330px;margin-top:8px}
+.overview-note {font-size:9px}
+.atlas-controls {padding:8px 10px;background:#0c141c}
+.atlas-controls>span {font-size:11px}
+.planet-gallery-help {padding:6px 12px 9px;font-size:10px}
+.atlas-layout > .area-panel {
+  border:0;
+  border-left:1px solid #25313b;
+  border-radius:0;
+  padding:13px;
+  background:#0b1118;
+}
+.area-label {font-size:10px}
+.area-picker {max-width:none;margin:8px 0 12px}
+.area-picker select {height:34px}
+.area-empty {padding:13px 0 20px}
+.area-empty h3 {font-size:17px}
+.area-empty p {font-size:11px;line-height:1.5}
+.area-details {display:flex;flex-direction:column;gap:10px}
+.area-heading h3 {font-size:20px}
+.area-text p,.area-factors {font-size:11px}
+.area-photo img,.area-photo canvas {height:145px}
+.atlas-layout > .area-panel .terrain-viewer {width:100%;margin-top:2px}
+.atlas-layout > .area-panel .terrain-toolbar {justify-content:flex-start}
+.atlas-layout > .area-panel .terrain-modes button {font-size:10px}
+.atlas-layout > .area-panel .terrain-zoom {margin-left:auto}
+.atlas-layout > .area-panel .viewer-expand {font-size:10px}
+.atlas-layout > .area-panel .study-link {width:100%;min-height:34px;font-size:11px}
+.atlas-layout > .area-panel .area-summary {width:100%}
+
+@media (min-width: 1200px) {
+  .atlas-layout {
+    grid-template-columns:minmax(0,1fr) minmax(280px,320px);
+    grid-template-areas:"scene area";
+  }
+  .atlas-layout > .area-panel {max-height:calc(100vh - 230px);overflow-y:auto;overscroll-behavior:contain}
+}
+
+@media (min-width: 861px) and (max-width: 1199px) {
+  .atlas-layout {
+    grid-template-columns:minmax(330px,1.5fr) minmax(220px,.82fr);
+    grid-template-areas:"scene area";
+  }
+  .atlas-layout > .area-panel {max-height:calc(100vh - 230px);overflow-y:auto;overscroll-behavior:contain}
+  .atlas-layout > .area-panel {border-left:1px solid #25313b}
+  .planet-network {height:clamp(350px,38vw,440px)}
+  .overview-moon {left:18%}
+  .overview-earth .overview-orb {width:clamp(126px,14vw,160px);height:clamp(126px,14vw,160px)}
+  .overview-moon .overview-orb {width:clamp(72px,8vw,96px);height:clamp(72px,8vw,96px)}
+  .overview-mars .overview-orb {width:clamp(100px,11vw,132px);height:clamp(100px,11vw,132px)}
+}
+
+@media (min-width: 721px) and (max-width: 860px) {
+  .atlas-layout {
+    grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+    grid-template-areas:"scene area";
+  }
+  .atlas-layout > .area-panel {max-height:520px;overflow-y:auto;border-top:1px solid #25313b}
+  .planet-network {height:clamp(380px,48vw,480px)}
+}
+
+@media (max-width: 720px) {
+  .atlas-bar h2 {font-size:14px}
+  .atlas-layout {grid-template-columns:minmax(0,1fr);grid-template-areas:"scene" "area"}
+  .atlas-layout > .area-panel {max-height:none;overflow:visible;border-left:0;border-top:1px solid #25313b}
+  .planet-network {height:clamp(370px,98vw,430px);min-height:350px}
+}
+
+@media (max-width: 500px) {
+  .sidebar nav {flex-wrap:wrap;justify-content:flex-start;overflow:visible;margin:9px 0 4px;padding:0}
+}
+
+.catalog-search {position:relative;display:flex;align-items:center;margin:0 0 8px}
+.catalog-search svg {position:absolute;left:9px;width:14px;height:14px;color:#90a4b2;pointer-events:none}
+.catalog-search input {
+  width:100%;
+  min-width:0;
+  height:34px;
+  padding:0 9px 0 30px;
+  border:1px solid #2a3944;
+  border-radius:7px;
+  background:#080e14;
+  color:var(--text);
+  font-size:11px;
+}
+.catalog-search input::placeholder {color:#738594}
+.catalog-empty {padding:12px 8px;color:var(--muted);font-size:11px}
+.rotation-indicator {display:inline-flex;align-items:center;gap:6px;color:#a8c0ca;font-size:10px;white-space:nowrap}
+.rotation-indicator i {width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 8px #34d39988}
+
+@media (min-width: 861px) {
+  .workspace {padding:0 var(--gutter)}
+  .workspace-heading {
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip-path:inset(50%);
+    white-space:nowrap;
+  }
+  #atlas {height:calc(100vh - 58px);min-height:540px;margin-top:0;border-radius:0 0 10px 10px}
+  .atlas-layout {height:100%;min-height:0}
+  .atlas-layout > * {height:100%;min-height:0}
+  .atlas-sidebar {display:flex;flex-direction:column;overflow:hidden}
+  .atlas-sidebar .atlas-catalog:not(#atlas-sectors) {display:flex;flex:1;flex-direction:column;min-height:0}
+  .atlas-sidebar #atlas-sites {flex:1;min-height:0;max-height:none;overflow:auto}
+  #atlas-sites:has(.catalog-site),#atlas-sites:not(:has(.catalog-site)) {flex-wrap:nowrap}
+  .atlas-sidebar #atlas-search-empty {flex:none}
+  .atlas-sidebar .atlas-foot {flex:none;margin-top:auto}
+  .atlas-scene {position:relative;display:flex;flex-direction:column;overflow:hidden}
+  .atlas-scene > .atlas-bar {
+    position:absolute;
+    z-index:5;
+    top:9px;
+    right:10px;
+    min-height:0;
+    gap:6px;
+    padding:5px;
+    border:1px solid #293943;
+    border-radius:8px;
+    background:#09121bd9;
+    backdrop-filter:blur(10px);
+  }
+  .atlas-scene > .atlas-bar h2 {
+    position:absolute;
+    width:1px;
+    height:1px;
+    margin:-1px;
+    overflow:hidden;
+    clip-path:inset(50%);
+    white-space:nowrap;
+  }
+  .atlas-scene > .atlas-bar .outline {min-height:29px;padding:4px 7px;font-size:10px}
+  .planet-gallery {flex:1;min-height:0}
+  .planet-overview {display:flex;flex:1;flex-direction:column;min-height:0}
+  .overview-heading {
+    position:absolute;
+    top:10px;
+    left:12px;
+    z-index:4;
+    display:block;
+    max-width:34ch;
+    padding:9px 11px;
+    border:1px solid #263b46;
+    border-radius:8px;
+    background:#09121bd9;
+    backdrop-filter:blur(10px);
+  }
+  .overview-heading h2 {font-size:14px}
+  .overview-heading p {margin-top:3px;font-size:10px}
+  .planet-network {flex:1 1 0;height:auto;min-height:0;max-height:none;margin-top:0}
+  .overview-note {display:none}
+  .planet-gallery-help {flex:none;max-height:34px;overflow:hidden;padding:5px 12px 7px;font-size:9px}
+  .atlas-controls {flex:none}
+  .atlas-layout > .area-panel,.atlas-sidebar {max-height:none;overflow-y:auto}
+  .atlas-sidebar .filter-wrap select {height:34px}
+}
+
+@media (min-width: 1200px) {
+  .overview-earth {left:50%;top:50%}
+  .overview-moon {left:16%;top:60%}
+  .overview-mars {left:84%;top:50%}
+  .overview-earth .overview-orb {width:clamp(230px,40cqw,430px);height:clamp(230px,40cqw,430px)}
+  .overview-moon .overview-orb {width:clamp(150px,21cqw,280px);height:clamp(150px,21cqw,280px)}
+  .overview-mars .overview-orb {width:clamp(180px,26cqw,340px);height:clamp(180px,26cqw,340px)}
+}
+
+@media (min-width: 861px) and (max-width: 1199px) {
+  .atlas-scene > .atlas-bar {position:relative;top:auto;right:auto;justify-content:flex-end}
+}
+
+.planet-switcher {
+  display:inline-flex;
+  flex:none;
+  align-items:center;
+  gap:2px;
+  padding:2px;
+  border:1px solid #26323d;
+  border-radius:9px;
+  background:#080e14;
+}
+.planet-switcher button {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  min-height:28px;
+  padding:4px 8px;
+  border:1px solid transparent;
+  border-radius:7px;
+  background:transparent;
+  color:#9aaab7;
+  font-size:11px;
+  font-weight:600;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.planet-switcher button:hover {color:#f2f7fb}
+.planet-switcher button[aria-pressed="true"] {border-color:#397079;background:#10252c;color:#a8f4f4}
+.planet-switcher i {width:6px;height:6px;border-radius:50%}
+.planet-switcher .earth-dot {background:#42d9e8;box-shadow:0 0 7px #42d9e877}
+.planet-switcher .moon-dot {background:#d6dbe2}
+.planet-switcher .mars-dot {background:#ff9677}
+.catalog-filters {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+.catalog-filters .select-wrap {min-width:0}
+.catalog-filters select {width:100%;min-width:0}
+
+@media (min-width:861px) {
+  .sidebar {height:48px}
+  .sidebar .planet-switcher {margin-inline:0}
+  .workspace {min-height:calc(100vh - 48px)}
+  #atlas {height:calc(100vh - 48px)}
+}
+
+@media (min-width:1200px) {
+  .atlas-layout {grid-template-columns:minmax(270px,290px) minmax(0,1fr) minmax(280px,320px)}
+}
+
+@media (max-width:930px) {
+  .sidebar .planet-switcher {grid-column:1/-1;grid-row:3;justify-self:center;margin:4px 0 8px}
+}
+
+@media (min-width:861px) {
+  .sidebar .planet-switcher {grid-column:auto;grid-row:auto;justify-self:auto;margin:0}
+}
+
+@media (max-width:500px) {
+  .planet-switcher button {min-height:27px;padding-inline:7px}
+  .catalog-filters {grid-template-columns:1fr}
+  .planet-switcher {display:none}
+}
+
+.sidebar.appbar {
+  position:sticky;
+  inset:auto;
+  top:0;
+  z-index:20;
+  width:100%;
+  height:auto;
+  min-height:48px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+  padding:4px 7px;
+  background:#080d13ed;
+  border:0;
+  border-bottom:1px solid #25313b;
+  backdrop-filter:blur(16px);
+}
+.brand-section {display:flex;align-items:center;gap:8px;min-width:0}
+.sidebar.appbar .brand {flex:none;margin:0;gap:7px;width:auto}
+.sidebar.appbar .brand-icon {width:27px;height:27px;border-radius:8px}
+.sidebar.appbar .brand-icon svg {width:19px;height:19px}
+.sidebar.appbar .brand strong {font-size:13px;letter-spacing:-.02em;white-space:nowrap}
+.brand-challenge {
+  flex:none;
+  padding:4px 7px;
+  border:1px solid #087985;
+  border-radius:4px;
+  color:#33d9e8;
+  font-size:9px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.025em;
+  white-space:nowrap;
+}
+.sidebar.appbar .planet-switcher {grid-column:2;justify-self:center;margin:0}
+.sidebar .app-toolbar {
+  grid-column:3;
+  grid-row:auto;
+  justify-self:end;
+  display:flex;
+  flex:initial;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+  min-width:0;
+  margin:0;
+  padding:0;
+  overflow:visible;
+}
+.app-action {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  min-height:28px;
+  padding:4px 8px;
+  border:1px solid #263541;
+  border-radius:7px;
+  background:#080e14;
+  color:#d5e0e9;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:600;
+  line-height:1.1;
+  white-space:nowrap;
+  cursor:pointer;
+}
+.app-action svg {width:13px;height:13px}
+.app-action:hover {border-color:#3c6570;background:#10202a;color:#fff}
+.app-action:focus-visible,.app-more summary:focus-visible {outline:2px solid #42d9e8;outline-offset:2px}
+.app-action-primary {border-color:#0395a2;color:#65ebf3}
+.app-action-primary:hover {background:#0d252c}
+.sidebar .app-toolbar .nav-link {min-height:28px;padding:4px 8px;border-radius:7px;font-size:10px}
+.sidebar .app-toolbar .nav-link[aria-current="page"] {border-color:#263541;background:#080e14;color:#d5e0e9}
+.sidebar .app-toolbar .nav-link[aria-current="page"]::before {display:none}
+.rotation-indicator {
+  min-height:28px;
+  padding:4px 8px;
+  border:1px solid #263541;
+  border-radius:7px;
+  background:#080e14;
+  color:#d5e0e9;
+  font-size:10px;
+}
+.rotation-indicator i {background:#34d399}
+.app-more {position:relative;flex:none}
+.app-more summary {list-style:none}
+.app-more summary::-webkit-details-marker {display:none}
+.app-more-menu {
+  position:absolute;
+  top:calc(100% + 6px);
+  right:0;
+  z-index:30;
+  min-width:132px;
+  padding:4px;
+  border:1px solid #263541;
+  border-radius:8px;
+  background:#0b1219;
+  box-shadow:0 12px 30px #0008;
+}
+.sidebar .app-toolbar .app-more-menu .nav-link {
+  display:flex;
+  width:100%;
+  min-height:32px;
+  justify-content:flex-start;
+  padding:7px 9px;
+  border:0;
+  border-radius:5px;
+  font-size:11px;
+}
+.sidebar .app-toolbar .app-more-menu .nav-link:hover {background:#172630}
+.sidebar .app-toolbar .app-more-menu .nav-link[aria-current="page"] {color:#65ebf3}
+.sidebar #install-app {width:auto;margin:0;font-family:inherit;font-size:10px;font-weight:600;line-height:1.1}
+
+@media (max-width:860px) {
+  .sidebar.appbar {
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"brand install" "worlds worlds" "actions actions";
+    gap:6px 8px;
+    padding:7px 10px;
+  }
+  .brand-section {grid-area:brand}
+  .sidebar.appbar .planet-switcher {grid-area:worlds;grid-column:auto}
+  .sidebar .app-toolbar {grid-area:actions;grid-column:auto;justify-self:stretch;justify-content:center;flex-wrap:wrap}
+  .sidebar #install-app {grid-area:install;justify-self:end}
+}
+
+@media (min-width:861px) and (max-width:880px) {
+  .sidebar.appbar {grid-template-columns:minmax(0,1fr) auto auto}
+}
+
+@media (max-width:500px) {
+  .sidebar.appbar {padding:7px 8px}
+  .brand-section {gap:5px}
+  .sidebar.appbar .brand strong {font-size:12px}
+  .brand-challenge {padding:4px 5px;font-size:8px}
+  .sidebar.appbar .planet-switcher {display:inline-flex}
+  .sidebar .app-toolbar {gap:3px}
+  .app-action,.rotation-indicator {min-height:27px;padding:4px 6px}
+  .sidebar .app-toolbar .nav-link {min-height:27px;padding:4px 6px}
+}
+
+.gis-overview {padding:18px}
+.gis-site-head {display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.gis-eyebrow {margin:0 0 5px;color:#8ce3d1;font-size:11px;font-weight:700;letter-spacing:.1em}
+.gis-site-head h2 {margin:0;font-size:clamp(20px,3vw,27px)}
+.gis-coordinates {margin:5px 0 0;color:var(--muted);font-size:13px}
+.gis-site-actions {display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.gis-status {padding:6px 10px;border:1px solid #41655f;border-radius:20px;color:#baf4e8;background:#172d2c;font-size:12px}
+.gis-metrics {margin-top:16px}
+.gis-metrics > .study-values {grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gis-values div {min-width:0;padding:11px 12px;border:1px solid #314550;border-radius:8px;background:#121e26}
+.gis-values dt {color:var(--muted);font-size:12px}
+.gis-values dd {margin:4px 0 0;color:#baf4e8;font-size:17px;font-weight:700}
+.gis-empty-metrics {margin:0;padding:12px;border:1px dashed #35454e;border-radius:8px;color:var(--muted);font-size:13px}
+.gis-page .study-panel {margin-top:14px}
+.gis-page .study-panel .panel-head {margin-bottom:12px}
+.gis-page .study-map-tools {gap:7px}
+.gis-page .study-map-tools button {min-width:74px}
+.gis-page .study-panel [hidden] {display:none!important}
+.gis-layers {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:12px 0}
+.gis-layer-button {min-height:38px;padding:7px 9px;border:1px solid #35454e;border-radius:7px;color:var(--text);background:#101920;font:inherit;font-size:12px;text-align:left;cursor:pointer}
+.gis-layer-button:hover {border-color:#5a9c95}
+.gis-layer-button[aria-pressed="true"] {border-color:#5a9c95;color:#c1f3e8;background:#234346}
+.gis-slope-control {margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:8px;background:#121e26}
+.gis-slope-control > div {display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+.gis-slope-control label {color:var(--muted);font-size:12px}
+.gis-slope-control output {color:#baf4e8;font-size:13px;font-weight:700}
+.gis-slope-control input[type="range"] {display:block;width:100%;accent-color:#70d9c8}
+.gis-page .study-controls > .field {margin-bottom:10px}
+.gis-page .study-toolbar {margin-top:12px}
+.gis-extra-metrics {margin:14px 0;padding:10px;border:1px solid var(--line);border-radius:8px;background:#121e26}
+.gis-extra-metrics summary {color:#baf4e8;font-size:13px;font-weight:600;cursor:pointer}
+.gis-extra-metrics .study-values {margin-top:10px}
+.gis-terrain-panel {margin-top:14px;padding:16px}
+.gis-terrain-panel .panel-head {margin-bottom:12px}
+.gis-terrain-panel .terrain-viewer {width:100%;margin:0}
+.gis-page #study-save-status:empty {display:none}
+
+@media (min-width:861px) {
+  .gis-page > .workspace-heading {position:relative;width:auto;height:auto;margin:26px var(--gutter) 18px;overflow:visible;clip-path:none;white-space:normal}
+}
+@media (max-width:840px) {
+  .gis-metrics > .study-values {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px) {
+  .gis-site-head {flex-direction:column}
+  .gis-site-actions {justify-content:flex-start}
+  .gis-terrain-panel {padding:12px}
+}
+@media (max-width:420px) {
+  .gis-overview {padding:13px}
+  .gis-metrics > .study-values {grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .gis-values div {padding:9px}
+  .gis-values dd {font-size:15px}
+  .gis-page .study-map-tools button {min-width:0}
+}
+
+.catalog-page-panel {overflow:visible}
+.catalog-quick-select {max-width:420px;margin:0 0 14px}
+.catalog-quick-select label {display:block;margin-bottom:5px;color:#dce6f1;font-size:12px;font-weight:700}
+.catalog-page-panel .atlas-sidebar {
+  display:block;
+  max-height:none;
+  overflow:visible;
+  border:1px solid #26323d;
+  border-radius:9px;
+}
+.catalog-page-panel .atlas-sidebar .atlas-catalog:not(#atlas-sectors) {display:block;flex:none;min-height:0;padding:14px}
+.catalog-page-panel .atlas-sidebar #atlas-sites {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));
+  gap:8px;
+  flex:none;
+  max-height:none;
+  overflow:visible;
+}
+.catalog-page-panel .atlas-sidebar .atlas-sites > button {width:100%;min-height:48px;justify-content:flex-start;text-align:left}
+
+@media (min-width:861px) {
+  .catalog-page > .workspace-heading {
+    position:relative;
+    width:auto;
+    height:auto;
+    margin:26px var(--gutter) 18px;
+    overflow:visible;
+    clip-path:none;
+    white-space:normal;
+  }
+}
+
+/* Escena orbital: composición basada en la referencia de interfaz. */
+:root {--accent:#00ddeb}
+body {background:#06090d}
+.workspace-page[data-page="atlas"] .atlas {border:0;border-radius:0;background:#06090d}
+.workspace-page[data-page="atlas"] .atlas-layout {display:block}
+.workspace-page[data-page="atlas"] .atlas-scene {width:100%;height:calc(100dvh - 43px);min-height:510px;position:relative;display:flex;flex-direction:column;overflow:hidden;background:#06090d}
+.workspace-page[data-page="atlas"] #map {flex:1;min-height:0;display:flex}
+.workspace-page[data-page="atlas"] .planet-overview {position:relative;display:flex;flex:1;flex-direction:column;padding:0;background:#06090d}
+.workspace-page[data-page="atlas"] .planet-network {flex:1;height:100%;min-height:0;margin:0;background-color:#06090d}
+.workspace-page[data-page="atlas"] .overview-heading {position:absolute;left:12px;top:12px;z-index:5;display:block;padding:10px 12px;border:1px solid #202630;border-radius:13px;background:#0c1018e8;max-width:310px}
+.workspace-page[data-page="atlas"] .overview-heading h2 {font-size:11px;letter-spacing:.02em}
+.workspace-page[data-page="atlas"] .overview-heading h2::before {content:'●';color:#00e4ee;margin-right:7px;text-shadow:0 0 10px #00e4ee}
+.workspace-page[data-page="atlas"] .overview-heading p {font-size:9px;color:#91a0b8;margin-top:4px}
+.orbital-readout {position:absolute;right:10px;top:12px;z-index:5;display:flex;gap:12px;border:1px solid #202630;border-radius:13px;padding:9px 12px;background:#0c1018e8;font:600 10px var(--heading)}
+.orbital-readout div {display:flex;flex-direction:column;gap:4px}
+.orbital-readout small {color:#718096;font-size:7px;font-weight:400;letter-spacing:.08em}
+.orbital-readout output {color:#00e4ee;font-variant-numeric:tabular-nums}
+.workspace-page[data-page="atlas"] .overview-world {top:59%;padding:0;gap:0}
+.workspace-page[data-page="atlas"] .overview-earth {left:50%}
+.workspace-page[data-page="atlas"] .overview-moon {left:11%;top:59%}
+.workspace-page[data-page="atlas"] .overview-mars {left:89%;top:59%}
+.workspace-page[data-page="atlas"] .overview-earth .overview-orb {width:43cqw;height:43cqw;max-width:580px;max-height:580px}
+.workspace-page[data-page="atlas"] .overview-moon .overview-orb,.workspace-page[data-page="atlas"] .overview-mars .overview-orb {width:34cqw;height:34cqw;max-width:440px;max-height:440px}
+.workspace-page[data-page="atlas"] .overview-open-world,.workspace-page[data-page="atlas"] .overview-world>small {display:none}
+.workspace-page[data-page="atlas"] .overview-note,.workspace-page[data-page="atlas"] #overview-help {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0}
+.workspace-page[data-page="atlas"] .atlas-controls {position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:5;border:1px solid #202630;border-radius:10px;background:#0c1018dd;padding:5px 8px;opacity:.25;transition:opacity .2s}
+.workspace-page[data-page="atlas"] .atlas-controls:hover,.workspace-page[data-page="atlas"] .atlas-controls:focus-within {opacity:1}
+.workspace-page[data-page="atlas"] .atlas-scene>.atlas-bar {position:absolute;right:12px;bottom:12px;top:auto;z-index:6}
+@media(max-width:600px) {
+ .orbital-readout {top:78px;font-size:9px}
+ .workspace-page[data-page="atlas"] .atlas-scene {height:calc(100dvh - 90px);min-height:460px}
+ .workspace-page[data-page="atlas"] .overview-earth .overview-orb {width:52cqw;height:52cqw}
+ .workspace-page[data-page="atlas"] .overview-moon {left:6%}
+ .workspace-page[data-page="atlas"] .overview-mars {left:94%}
+ .workspace-page[data-page="atlas"] .atlas-controls {max-width:80%;width:max-content;bottom:50px}
+}
+/* Catálogo lateral sobre la escena orbital. */
+body.catalog-open #catalogo {position:fixed;z-index:40;left:0;top:46px;bottom:0;width:280px;background:#080d14;border-right:1px solid #243141;overflow:hidden;padding:0}
+body.catalog-open #catalogo>.workspace-heading,body.catalog-open .catalog-quick-select,body.catalog-open #atlas-region-filter,body.catalog-open #catalogo .atlas-foot {display:none}
+body.catalog-open .catalog-page-panel {height:100%;border:0;border-radius:0;padding:0;background:transparent}
+body.catalog-open #catalogo .atlas-sidebar {height:100%;padding:0;display:flex;flex-direction:column}
+body.catalog-open #catalogo .atlas-catalog:not(#atlas-sectors) {padding:5px 3px;display:flex;flex-direction:column;flex:1;min-height:0}
+body.catalog-open .atlas-catalog-head {display:flex;align-items:center;gap:5px;padding:4px 0 8px}
+body.catalog-open .atlas-catalog-head h2 {font-size:10px;color:#9cb2cc;font-weight:600;letter-spacing:.05em}
+body.catalog-open .atlas-count {font:9px monospace;margin-left:auto;border:1px solid #243141;border-radius:3px;padding:3px}
+.catalog-close {font-size:16px;padding:0 4px;color:#a2b8cc}
+body.catalog-open .catalog-search {margin:0 0 7px;padding:6px 8px;border:1px solid #263345;border-radius:8px}
+body.catalog-open .catalog-search input {font-size:11px;background:transparent}
+body.catalog-open .catalog-filters {display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}
+body.catalog-open .catalog-filters select {width:100%;min-width:0;height:26px;font-size:10px;padding:3px 5px;background:#080d14;border:1px solid #263345;border-radius:7px}
+body.catalog-open #catalogo #atlas-sites {display:flex;flex-direction:column;flex:1;min-height:0;overflow-y:auto;gap:6px;padding:0;max-height:none}
+body.catalog-open #atlas-sites .catalog-site {display:flex;flex:none;flex-direction:column;align-items:stretch;width:100%;min-height:70px;padding:7px;border:1px solid #243141;border-radius:8px;background:#080d12;text-align:left;gap:5px}
+body.catalog-open #atlas-sites .catalog-site:hover,body.catalog-open #atlas-sites .catalog-site[aria-pressed=true] {border-color:#00ddeb;background:#101b2b}
+.catalog-meta {display:flex;justify-content:space-between;gap:5px;color:#00dded!important;font-size:8px!important;text-transform:uppercase}
+.catalog-status {background:#083028;color:#27e0af;padding:2px 4px;border-radius:3px;text-transform:none;font-size:8px}
+.catalog-bottom {display:flex;justify-content:space-between;gap:5px;font:9px monospace!important;color:#829ab9!important}
+.catalog-bottom small {font:inherit;color:inherit}
+body.catalog-open #atlas-sites strong {font-size:11px;color:#f3f6fb}
+@media(max-width:500px) {body.catalog-open #catalogo {top:90px;width:min(280px,88vw)}}
+
+/* GIS como instrumento lateral de la escena orbital. */
+body.gis-open #gis {position:fixed;z-index:40;right:0;top:46px;bottom:0;width:280px;overflow-y:auto;overflow-x:hidden;padding:7px;background:#080d14;border-left:1px solid #243141;scrollbar-width:thin}
+body.gis-open #gis>.workspace-heading {display:none}
+body.gis-open #gis .panel {padding:7px;margin:0 0 7px;border:1px solid #263345;border-radius:8px;background:#080d12}
+body.gis-open .gis-site-head {display:flex;gap:5px;align-items:center;justify-content:space-between}
+body.gis-open #gis-site-context {font-size:8px;color:#00ddeb}
+body.gis-open #gis-site-title {font-size:11px;margin-top:3px}
+body.gis-open .gis-coordinates {font-size:8px}
+body.gis-open .gis-site-actions {display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+body.gis-open .gis-site-actions button {font-size:8px;padding:4px;min-height:24px}
+body.gis-open .gis-status {font-size:8px}
+body.gis-open .gis-metrics .study-values {display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:9px}
+body.gis-open .gis-metrics .study-values>div {border:1px solid #263345;border-radius:7px;padding:7px}
+body.gis-open .gis-metrics dt {font-size:8px;color:#8197b3;text-transform:uppercase}
+body.gis-open .gis-metrics dd {font-size:12px;margin:4px 0 0;color:#e8f8ff}
+body.gis-open #delimitar>.panel-head,body.gis-open .gis-terrain-panel>.panel-head {display:none}
+body.gis-open .study-layout {display:flex;flex-direction:column;gap:8px}
+body.gis-open .study-map-tools {display:flex;flex-wrap:wrap;gap:3px}
+body.gis-open .study-map-tools button {font-size:9px;padding:5px;min-height:26px}
+body.gis-open .study-map-frame {width:100%;margin-top:5px}
+body.gis-open #study-map {width:100%;height:auto;aspect-ratio:1}
+body.gis-open .study-controls {width:100%;padding:0}
+body.gis-open .gis-layers {display:grid;grid-template-columns:1fr 1fr;gap:4px;padding-top:5px}
+.gis-layer-heading {grid-column:1/-1;display:flex;justify-content:space-between;color:#9cb2cc;font-size:8px;margin-bottom:4px}
+.gis-layer-heading a {color:#ff6736}
+body.gis-open .gis-layer-button {min-height:26px;padding:4px 6px;font-size:9px;text-align:left;border:1px solid #263345;border-radius:4px;background:#0b111b}
+body.gis-open .gis-layer-button[aria-pressed=true] {border-color:#00ddeb;color:#00e5f3}
+body.gis-open .gis-slope-control {margin:9px 0;font-size:9px}
+body.gis-open .gis-slope-control input {width:100%;accent-color:#00ddeb}
+body.gis-open .field label,body.gis-open .study-note,body.gis-open .form-status {font-size:9px}
+body.gis-open .study-toolbar {gap:4px;flex-wrap:wrap}
+body.gis-open .study-toolbar button {font-size:9px;padding:5px;min-height:26px}
+.gis-analysis-tabs {display:flex;gap:8px;border-bottom:1px solid #263345;margin-bottom:8px}
+.gis-analysis-tabs button {background:transparent;color:#9cb2cc;padding:7px 0;font-size:10px}
+.gis-analysis-tabs button[aria-pressed=true] {color:#00ddeb;border-bottom:2px solid #00ddeb}
+#gis-evidence-panel {font-size:10px;line-height:1.6;color:#9cb2cc;padding:8px 0}
+#gis-evidence-panel a {display:block;color:#00ddeb;margin-top:8px}
+body.gis-open #terrain-profile {width:100%;height:150px;background:#06090d;border:1px solid #263345;border-radius:5px}
+body.gis-open .terrain-toolbar {flex-wrap:wrap;font-size:9px}
+body.gis-open #terrain-canvas {width:100%;height:auto}
+body.gis-open .terrain-metrics {font-size:9px}
+@media(max-width:500px) {body.gis-open #gis {top:90px;width:min(280px,90vw)}}
+
+.overview-location-point {pointer-events:auto;cursor:pointer;min-width:12px;min-height:12px}
+.overview-location-point::before {content:'';position:absolute;inset:-6px;border-radius:50%}
+.overview-location-point:hover,.overview-location-point:focus-visible {outline:2px solid #00e3ef;outline-offset:4px;z-index:5}
+.overview-location-point.cluster-member {visibility:hidden;pointer-events:none}
+
+.location-analogs {position:fixed;right:12px;top:62px;bottom:16px;z-index:35;width:min(360px,calc(100vw - 24px));overflow-y:auto;background:#0b121cf5;border:1px solid #2b4859;border-radius:12px;padding:15px;box-shadow:0 15px 50px #0008;font-size:12px;line-height:1.6}
+.location-analogs header {display:flex;justify-content:space-between;gap:12px}
+.location-analogs header small {color:#00ddeb;font-size:9px;letter-spacing:.1em}
+.location-analogs h3 {font-size:19px}
+.location-analogs h4 {color:#00ddeb;margin:18px 0 8px}
+.location-analogs h5 {font-size:13px;margin:0 0 6px}
+.location-analogs p {margin:8px 0}
+.location-analogs article {border:1px solid #25394b;border-radius:8px;padding:10px;margin:8px 0;background:#101c29}
+.location-analogs button {background:#172c3a;color:#8be8ed;border-radius:5px;padding:5px 8px;font-size:11px}
+.location-analogs a {color:#8be8ed;font-size:11px}
+.location-analogs .match-limit {color:#a0b1c2;font-size:11px}
+body.gis-open .location-analogs {right:292px}
+@media(max-width:650px) {body.gis-open .location-analogs {right:12px}.location-analogs {top:100px}}
+
+/* Un único encuadre de página, ajustado a la altura real de la barra. */
+:root {--appbar-height:48px}
+html {overflow-x:clip;scroll-padding-top:var(--appbar-height)}
+body {min-width:0;overflow-x:clip}
+.workspace {min-width:0;max-width:100%;margin-left:0;padding:0;min-height:calc(100dvh - var(--appbar-height))}
+.workspace-page[data-page="atlas"] {margin:0;padding:0;min-width:0}
+.workspace-page[data-page="atlas"] #atlas {height:calc(100dvh - var(--appbar-height));min-height:0;margin:0;border:0;border-radius:0;box-shadow:none;padding:0}
+.workspace-page[data-page="atlas"] .atlas-layout {height:100%;margin:0;padding:0;min-height:0;gap:0}
+.workspace-page[data-page="atlas"] .atlas-scene {height:100%;min-height:0;border:0;border-radius:0;box-shadow:none}
+.workspace-page[data-page="atlas"] .planet-gallery {border:0;border-radius:0;box-shadow:none}
+.workspace-page[data-page="atlas"] .overview-orb {border:0;outline-offset:3px}
+.workspace-page[data-page="atlas"] .overview-orb::after {border:0}
+.workspace-page[data-page="atlas"] .overview-heading,.orbital-readout {border-color:#20263080;box-shadow:none;border-radius:8px}
+.workspace-page[data-page="atlas"] .atlas-controls {border-color:transparent;box-shadow:none}
+body.catalog-open #catalogo,body.gis-open #gis {top:var(--appbar-height);max-height:calc(100dvh - var(--appbar-height));overscroll-behavior:contain}
+.location-analogs {top:calc(var(--appbar-height) + 10px);max-height:calc(100dvh - var(--appbar-height) - 20px);overscroll-behavior:contain}
+.catalog-site,.location-analogs article {overflow-wrap:anywhere}
+.sidebar.appbar {max-width:100%;min-width:0}
+.sidebar.appbar .app-toolbar {min-width:0}
+@media(max-height:600px) {
+ .workspace-page[data-page="atlas"] .overview-earth .overview-orb {width:min(43cqw,62dvh);height:min(43cqw,62dvh)}
+ .workspace-page[data-page="atlas"] .overview-moon .overview-orb,.workspace-page[data-page="atlas"] .overview-mars .overview-orb {width:min(34cqw,48dvh);height:min(34cqw,48dvh)}
+}
+@media(max-width:650px) {
+ .orbital-readout {top:70px;right:8px}
+ body.gis-open .location-analogs {right:8px;width:min(360px,calc(100% - 16px))}
+}
+
+/* Tres esferas completas, con márgenes dentro del área disponible. */
+.workspace-page[data-page="atlas"] .planet-network {container-type:size}
+.workspace-page[data-page="atlas"] .planet-network .overview-world {top:54%;min-width:0;max-width:none;padding:0}
+.workspace-page[data-page="atlas"] .planet-network .overview-moon {left:17%}
+.workspace-page[data-page="atlas"] .planet-network .overview-earth {left:50%}
+.workspace-page[data-page="atlas"] .planet-network .overview-mars {left:83%}
+.workspace-page[data-page="atlas"] .planet-network .overview-world .overview-orb {width:min(29cqw,calc(80cqh - 80px));height:min(29cqw,calc(80cqh - 80px));min-width:0;min-height:0;max-width:520px;max-height:520px}
+.workspace-page[data-page="atlas"] .planet-network .overview-earth .overview-orb {width:min(33cqw,calc(88cqh - 80px));height:min(33cqw,calc(88cqh - 80px));max-width:580px;max-height:580px}
+.workspace-page[data-page="atlas"] .overview-world:hover,.workspace-page[data-page="atlas"] .overview-world:focus-within {transform:translate(-50%,-50%)}
+.workspace-page[data-page="atlas"] .planet-network[data-focused-world]:not([data-focused-world=""]) .overview-world[data-inspecting=true] {left:50%;top:54%;max-width:none}
+.workspace-page[data-page="atlas"] .planet-network[data-focused-world]:not([data-focused-world=""]) .overview-world[data-inspecting=true] .overview-orb {width:min(43cqw,calc(88cqh - 80px));height:min(43cqw,calc(88cqh - 80px))}
+.workspace-page[data-page="atlas"] .planet-network[data-focused-world]:not([data-focused-world=""]) .overview-world[data-inspecting=false] .overview-orb {width:min(22cqw,calc(70cqh - 80px));height:min(22cqw,calc(70cqh - 80px))}
+.workspace-page[data-page="atlas"] .planet-network[data-focused-world="Earth"] .overview-moon,.workspace-page[data-page="atlas"] .planet-network[data-focused-world="Moon"] .overview-earth,.workspace-page[data-page="atlas"] .planet-network[data-focused-world="Mars"] .overview-earth {left:14%}
+.workspace-page[data-page="atlas"] .planet-network[data-focused-world="Earth"] .overview-mars,.workspace-page[data-page="atlas"] .planet-network[data-focused-world="Moon"] .overview-mars,.workspace-page[data-page="atlas"] .planet-network[data-focused-world="Mars"] .overview-moon {left:86%}
+
+.site-evaluation details {border-top:1px solid #263b49;padding:10px 0}
+.site-evaluation summary {color:#91eaf0;font-weight:600}
+.site-evaluation dl>div {display:grid;grid-template-columns:1fr 1.5fr;gap:8px;padding:7px 0;border-bottom:1px solid #1b2c38}
+.site-evaluation dt {font-size:11px;color:#c5d7e0}
+.site-evaluation dd {margin:0;font-size:11px}
+.site-evaluation dd small {display:block;color:#92a7b7;font-size:10px}
+.site-evaluation details>p {color:#92a7b7;font-size:10px}
+
+.mars-operations dl>div {padding:8px 0;border-bottom:1px solid #25394b;display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
+.mars-operations dt {color:#a9bccd;font-size:11px}
+.mars-operations dd {margin:0;color:#f4ceaa;font-size:12px}

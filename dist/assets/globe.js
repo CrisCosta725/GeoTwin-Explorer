@@ -336,7 +336,22 @@ export class PlanetAtlas {
           const marker=document.createElement('span');
           marker.className='overview-location-point '+site.tone;
           marker.dataset.overviewLocation=site.id;
-          marker.setAttribute('aria-hidden','true');
+          marker.setAttribute('role','button');
+          marker.tabIndex=0;
+          marker.setAttribute('aria-label',site.name??site.id);
+          marker.title=site.name??site.id;
+          const activate=event=>{
+            event.preventDefault();event.stopPropagation();
+            this.focusWorld(world);
+            this.viewport.dispatchEvent(new CustomEvent('atlas-location-pick',{bubbles:true,detail:{world,id:site.id,lat:site.lat,lon:site.lon}}));
+          };
+          marker.addEventListener('pointerdown',event=>event.stopPropagation());
+          marker.addEventListener('pointerup',event=>event.stopPropagation());
+          marker.addEventListener('click',activate);
+          marker.addEventListener('keydown',event=>{
+            if (event.key==='Enter'||event.key===' ') activate(event);
+            else event.stopPropagation();
+          });
           marker.hidden=true;
           return marker;
         }));
@@ -427,6 +442,7 @@ export class PlanetAtlas {
     this.syncControls();
   }
   syncControls() {
+    this.syncOrbitalReadout();
     document.getElementById('active-globe-label').textContent=worlds[this.world].label;
     document.getElementById('zoom-in').disabled=this.camera.zoom>=2.4;
     document.getElementById('zoom-out').disabled=this.camera.zoom<=.8;
@@ -436,6 +452,7 @@ export class PlanetAtlas {
     });
   }
   drawOverview(onlyWorld=null) {
+    this.syncOrbitalReadout();
     if (!this.isOverview) return;
     for (const [world,viewer] of this.planets) {
       if (onlyWorld && onlyWorld!==world) continue;
@@ -460,7 +477,7 @@ export class PlanetAtlas {
       for (const [index,site] of (this.overviewLocations[world]??[]).entries()) {
         const point=viewer.project(site.lat,site.lon,view);
         const marker=layer.children[index];
-        marker.hidden=point.z<=.06;
+        marker.hidden=point.z<=.06 || point.x<0 || point.y<0 || point.x>width || point.y>height;
         marker.classList.remove('cluster','cluster-member');
         marker.classList.toggle('selected',Boolean(site.selected));
         marker.removeAttribute('data-cluster-count');
@@ -485,6 +502,14 @@ export class PlanetAtlas {
         leader.marker.dataset.clusterCount=String(cluster.length);
         for (const item of cluster) if (item!==leader) item.marker.classList.add('cluster-member');
       }
+    }
+  }
+  syncOrbitalReadout() {
+    const label=document.getElementById('scene-world-label');
+    if (label) label.textContent=worlds[this.world].label.toLocaleUpperCase('es');
+    for (const [id,value] of [['orbital-lat',this.camera.lat],['orbital-lon',this.camera.lon]]) {
+      const output=document.getElementById(id);
+      if (output) output.textContent=value.toFixed(3)+'°';
     }
   }
   requestOverviewDraw() {
