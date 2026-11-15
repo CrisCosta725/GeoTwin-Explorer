@@ -15,3 +15,8 @@ export function planetaryMatches(site) {
       .sort((a,b)=>Number(b.associated)-Number(a.associated)||b.matches.length-a.matches.length||a.missing.length-b.missing.length)
       .slice(0,3)]));
 }
+
+export function terrestrialMatches(world,areaId,earthSites) {
+  return earthSites.filter(site=>planetaryMatches(site)[world].some(match=>match.area.id===areaId))
+    .map(site=>site.id);
+}

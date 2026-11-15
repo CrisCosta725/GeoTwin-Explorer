@@ -1,4 +1,4 @@
-const CACHE_NAME='geotwin-atlas-without-gis-v3';
+const CACHE_NAME='geotwin-atlas-without-gis-v11';
 const APP_ASSETS=[
   './assets/study-rationale.js',
   './assets/study-rationale-map.js',
@@ -24,11 +24,13 @@ const APP_ASSETS=[
   "./assets/areas.js",
   "./assets/atlas-app.js",
   "./assets/coordinates.js",
+  "./assets/content-en.js",
   "./assets/dm-sans.woff2",
   "./assets/earth-globe.webp",
   "./assets/evaluation-schema.js",
   "./assets/favicon.svg",
   "./assets/globe.js",
+  "./assets/i18n.js",
   "./assets/lunar-matrix.js",
   "./assets/mars-globe.webp",
   "./assets/mars-operations.js",

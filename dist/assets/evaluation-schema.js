@@ -1,3 +1,5 @@
+import {currentLanguage} from './i18n.js';
+
 export const evaluationGroups=[
   {name:'Morfometría',variables:['Diámetro','Profundidad','Pendiente','Circularidad','Relación profundidad/diámetro (d/D)'],method:'Delimitar la estructura y medir perfiles y contornos con un DEM de resolución adecuada.'},
   {name:'Topografía',variables:['Elevación','Rugosidad','Bloques','Relieve'],method:'Registrar resolución del DEM, escala de muestreo e imágenes capaces de resolver los bloques.'},
@@ -17,11 +19,11 @@ export const lunarCraterRationale=[
 
 export function evaluationFor(site={},lunarRow=null) {
   const geological={Basaltos:'basalto',Anortositas:'anortosita',Regolito:'regolito'};
-  const decimal=new Intl.NumberFormat('es',{maximumFractionDigits:3});
+  const decimal=new Intl.NumberFormat(currentLanguage(),{maximumFractionDigits:3});
   const lunarValues=lunarRow?new Map([
     ['Diámetro',decimal.format(lunarRow.diameterKm)+' km'],
     ['Profundidad',decimal.format(lunarRow.depthKm)+' km'],
-    ['Relación profundidad/diámetro (d/D)',new Intl.NumberFormat('es',{minimumFractionDigits:3,maximumFractionDigits:3}).format(lunarRow.depthDiameter)],
+    ['Relación profundidad/diámetro (d/D)',new Intl.NumberFormat(currentLanguage(),{minimumFractionDigits:3,maximumFractionDigits:3}).format(lunarRow.depthDiameter)],
     ['Estructuras',lunarRow.morphology],
     ['Relieve',lunarRow.terrain]
   ].filter(([,value])=>value)):null;

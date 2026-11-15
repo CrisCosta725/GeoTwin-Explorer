@@ -771,7 +771,7 @@ tbody small {margin-top: 4px}
 .planet-network {position:relative;container-type:size;width:100%;height:clamp(340px,38vw,480px);min-height:320px;margin-top:3px;overflow:hidden;background-image:radial-gradient(circle,#d8e8f480 .7px,transparent 1px),radial-gradient(circle,#8fa8c966 .6px,transparent 1px);background-size:113px 97px,167px 139px;background-position:13px 20px,60px 53px}
 .overview-world {position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:100px;padding:4px 8px 7px;color:var(--text);transform:translate(-50%,-50%);transition:left 1.1s cubic-bezier(.42,0,.58,1),top 1.1s cubic-bezier(.42,0,.58,1),min-width 1.1s cubic-bezier(.42,0,.58,1),max-width 1.1s cubic-bezier(.42,0,.58,1),transform .35s ease}
 .overview-world:hover,.overview-world:focus-within {transform:translate(-50%,-50%) scale(1.03)}
-.overview-orb {position:relative;display:grid;place-items:center;width:94px;height:94px;overflow:hidden;padding:0;border:0;border-radius:50%;background:#10202e;box-shadow:0 0 28px #9adbe52b;cursor:grab;touch-action:none;transition:width 1.1s cubic-bezier(.42,0,.58,1),height 1.1s cubic-bezier(.42,0,.58,1),box-shadow .65s ease}
+.overview-orb {position:relative;display:grid;place-items:center;width:94px;height:94px;overflow:hidden;padding:0;border:0;border-radius:50%;background:#10202e;box-shadow:0 0 28px #9adbe52b;cursor:grab;touch-action:none;transform:scale(var(--globe-scale,1));transform-origin:center;transition:width 1.1s cubic-bezier(.42,0,.58,1),height 1.1s cubic-bezier(.42,0,.58,1),box-shadow .65s ease,transform .2s ease}
 .overview-orb.dragging {cursor:grabbing}
 .overview-orb:focus-visible {outline:2px solid #a2e8f5;outline-offset:3px}
 .overview-open-world {padding:0;border:0;background:transparent;color:var(--text);font-size:12px;font-weight:700;letter-spacing:.04em;cursor:pointer}
@@ -779,14 +779,20 @@ tbody small {margin-top: 4px}
 .overview-world small {font-size:9px;color:var(--muted);white-space:nowrap;transition:opacity .25s ease,visibility 0s}
 .overview-texture {position:absolute;top:50%;left:50%;display:block;border-radius:50%;transform:translate(-50%,-50%)}
 .overview-location-points {position:absolute;z-index:1;inset:0;border-radius:50%;pointer-events:none}
-.overview-location-point {position:absolute;display:block;width:5px;height:5px;padding:0;border:1px solid #f3fbff;border-radius:50%;background:var(--tone,#e9fff0);box-shadow:0 0 0 1px #0b1520,0 1px 3px #000b;transform:translate(-50%,-50%)}
-.overview-location-point.selected:not(.cluster) {width:8px;height:8px;box-shadow:0 0 0 2px #0b1520,0 0 0 3px #f4fff8}
+.overview-location-point {position:absolute;z-index:2;display:grid;place-items:center;width:13px;height:13px;min-width:13px;min-height:13px;padding:0;border:1.5px solid #f3fbff;border-radius:50%;appearance:none;background:radial-gradient(circle at 35% 30%,#fff,var(--tone,#e9fff0) 48%);color:#fff;font:700 9px/1 system-ui,sans-serif;box-shadow:0 0 0 2px #0b1520,0 0 10px var(--tone,#e9fff0);transform:translate(calc(-50% + var(--cluster-x,0px)),calc(-50% + var(--cluster-y,0px)));transition:width .16s ease,height .16s ease,box-shadow .16s ease,transform .16s ease}
+.overview-location-point::before {position:absolute;inset:-5px;border:1px solid var(--tone,#e9fff0);border-radius:50%;content:"";opacity:.7;pointer-events:none}
+.overview-location-point::after {width:3px;height:3px;border-radius:50%;background:#fff;content:"";pointer-events:none}
+.overview-location-point:hover,.overview-location-point:focus-visible {z-index:5;transform:translate(calc(-50% + var(--cluster-x,0px)),calc(-50% + var(--cluster-y,0px))) scale(1.28);outline:2px solid #fff;outline-offset:3px}
+.overview-location-point.selected:not(.cluster) {width:17px;height:17px;border-width:2px;box-shadow:0 0 0 2px #0b1520,0 0 0 4px #f4fff8,0 0 14px var(--tone,#e9fff0)}
+.overview-location-point.selected:not(.cluster)::before {inset:-7px;border-color:#fff;animation:location-beacon-pulse 1.8s ease-out infinite}
 .overview-location-points[data-overview-locations="Moon"] .overview-location-point {--tone:#f5dc82}
 .overview-location-points[data-overview-locations="Mars"] .overview-location-point {--tone:#ffb18e}
-.overview-location-points .overview-location-point.cluster {display:grid;place-items:center;width:20px;height:20px;border:1px solid #e8f4fa;background:#172b38;color:#fff;font:700 9px/1 system-ui,sans-serif;box-shadow:0 0 0 2px #0b1520,0 2px 6px #000b}
-.overview-location-point.cluster::after {content:attr(data-cluster-count)}
-.overview-location-point.cluster.selected {width:22px;height:22px;border-color:#fff;background:#dff5e8;color:#11251f;box-shadow:0 0 0 2px #0b1520,0 0 0 4px #dff5e8,0 2px 6px #000b}
-.overview-location-point.cluster-member {opacity:0}
+.overview-location-point.cluster-spread {z-index:3;box-shadow:0 0 0 2px #0b1520,0 0 12px var(--tone,#e9fff0)}
+.overview-location-point.inactive {z-index:1;opacity:.16;filter:grayscale(1);box-shadow:none}
+.overview-location-point.inactive::before {opacity:0}
+.overview-location-point.inactive:hover,.overview-location-point.inactive:focus-visible {opacity:1;filter:none}
+@keyframes location-beacon-pulse {to {transform:scale(1.7);opacity:0}}
+@media(prefers-reduced-motion:reduce) {.overview-location-point {transition:none!important}.overview-location-point.selected::before {animation:none!important}}
 .overview-status {position:absolute;z-index:2;max-width:85%;color:#d1dfeb;font-size:10px;text-align:center;line-height:1.35;pointer-events:none}
 .overview-orb::after {position:absolute;inset:0;border:1px solid #ffffff20;border-radius:50%;content:"";pointer-events:none}
 .overview-earth {left:50%;top:52%}
@@ -868,21 +874,20 @@ tbody small {margin-top: 4px}
 .welcome-star {position:absolute;width:3px;height:3px;border-radius:50%;background:#c9e6ff;box-shadow:0 0 12px 3px #abd7ff6b;animation:welcome-twinkle 3s ease-in-out infinite alternate}
 .welcome-star-one {left:62%;top:19%}.welcome-star-two {left:92%;top:35%;animation-delay:-1s}.welcome-star-three {left:75%;top:82%;animation-delay:-2s}.welcome-star-four {left:48%;top:73%;animation-delay:-.5s}
 .welcome-content {position:relative;z-index:1;width:min(650px,100%);animation:welcome-arrive .8s cubic-bezier(.2,.8,.2,1) both}
-.welcome-brand {display:flex;align-items:center;gap:11px;width:max-content;margin-bottom:clamp(38px,7vh,76px);color:#eaf3f8;font:700 12px/1 var(--heading);letter-spacing:.16em}
+.welcome-project {max-width:650px;margin-bottom:clamp(20px,4vh,36px)}
+.welcome-team {margin:0;color:#81d9d3;font-size:15px;font-weight:750;letter-spacing:.04em}
+.welcome-mission {max-width:650px;margin:8px 0 0;color:#c0cfdb;font-size:clamp(12px,1.1vw,14px);line-height:1.55}
+.welcome-brand {display:flex;align-items:center;gap:11px;width:max-content;margin-bottom:clamp(22px,4vh,42px);color:#eaf3f8;font:700 12px/1 var(--heading);letter-spacing:.16em}
 .welcome-brand strong {color:#81d9d3}
 .welcome-brand-icon {display:grid;place-items:center;width:39px;height:39px;border:1px solid #76d8d27a;border-radius:12px;background:#102b36;color:#a6eee0;box-shadow:0 0 28px #4cd8cb2b}
 .welcome-brand-icon svg {width:23px;height:23px}
-.welcome-eyebrow {margin-bottom:16px;color:#90dcd7;font-size:10px;font-weight:750;letter-spacing:.19em}
 .welcome-content h1 {max-width:650px;font:650 clamp(48px,7.3vw,94px)/.98 var(--heading);letter-spacing:-.075em;text-wrap:balance}
-.welcome-description {max-width:470px;margin-top:22px;color:#c0cfdb;font-size:clamp(15px,1.4vw,18px);line-height:1.65}
 .welcome-worlds {display:flex;align-items:center;gap:14px;margin-top:25px;color:#dce8f1;font-size:12px;font-weight:650}
 .welcome-worlds span {display:flex;align-items:center;gap:6px}.welcome-worlds svg {width:15px;height:15px;color:#94dfdc}
 .welcome-worlds i {width:3px;height:3px;border-radius:50%;background:#7794a7}
 .welcome-actions {display:flex;align-items:center;gap:16px;margin-top:30px}
 .welcome-enter {display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:0 19px;border:1px solid #a1ebdd;border-radius:9px;background:#9be7d4;color:#10241f;font-size:13px;font-weight:750;box-shadow:0 8px 30px #57ccb22c;transition:transform .18s ease,background .18s ease}
 .welcome-enter:hover {transform:translateY(-2px);background:#b4f4e3}.welcome-enter svg {width:17px;height:17px}
-.welcome-skip {padding:8px 0;background:transparent;color:#c1ced8;font-size:12px;text-decoration:underline;text-underline-offset:3px}
-.welcome-skip:hover {color:#fff}
 .welcome-attribution {display:flex;flex-wrap:wrap;gap:0 7px;margin-top:34px;color:#9eafbd;font-size:10px}
 .welcome-attribution a {color:#c7d8e6;text-decoration:underline;text-underline-offset:2px}.welcome-attribution a:hover {color:#fff}
 .welcome-note {max-width:560px;margin-top:9px;color:#8193a1;font-size:9px}
@@ -900,9 +905,9 @@ tbody small {margin-top: 4px}
   .welcome-orbit {left:76%;top:31%;width:110vw}
   .welcome-orbit-two {width:93vw}
   .welcome-content {max-width:560px}
-  .welcome-brand {margin-bottom:30px}
+  .welcome-project {margin-bottom:22px}
+  .welcome-brand {margin-bottom:24px}
   .welcome-content h1 {font-size:clamp(49px,13vw,74px)}
-  .welcome-description {max-width:420px;margin-top:15px;font-size:14px}
   .welcome-worlds {margin-top:17px}
   .welcome-actions {margin-top:20px}
   .welcome-attribution {margin-top:22px}
@@ -1309,6 +1314,8 @@ tbody small {margin-top: 4px}
 .app-action:focus-visible,.app-more summary:focus-visible {outline:2px solid #42d9e8;outline-offset:2px}
 .app-action-primary {border-color:#0395a2;color:#65ebf3}
 .app-action-primary:hover {background:#0d252c}
+.language-toggle {min-width:36px;border-color:#087985;color:#65ebf3;font-weight:800;letter-spacing:.04em}
+.language-toggle:hover {border-color:#10b9c5;background:#0d252c;color:#fff}
 .sidebar .app-toolbar .nav-link {min-height:28px;padding:4px 8px;border-radius:7px;font-size:10px}
 .sidebar .app-toolbar .nav-link[aria-current="page"] {border-color:#263541;background:#080e14;color:#d5e0e9}
 .sidebar .app-toolbar .nav-link[aria-current="page"]::before {display:none}
@@ -1481,7 +1488,7 @@ body {background:#06090d}
 .workspace-page[data-page="atlas"] .overview-heading h2 {font-size:11px;letter-spacing:.02em}
 .workspace-page[data-page="atlas"] .overview-heading h2::before {content:'●';color:#00e4ee;margin-right:7px;text-shadow:0 0 10px #00e4ee}
 .workspace-page[data-page="atlas"] .overview-heading p {font-size:9px;color:#91a0b8;margin-top:4px}
-.orbital-readout {position:absolute;right:10px;top:12px;z-index:5;display:flex;gap:12px;border:1px solid #202630;border-radius:13px;padding:9px 12px;background:#0c1018e8;font:600 10px var(--heading)}
+.orbital-readout {position:static;z-index:5;display:flex;gap:12px;width:max-content;max-width:100%;margin-top:8px;border:1px solid #202630;border-radius:13px;padding:9px 12px;background:#0c1018e8;font:600 10px var(--heading)}
 .orbital-readout div {display:flex;flex-direction:column;gap:4px}
 .orbital-readout small {color:#718096;font-size:7px;font-weight:400;letter-spacing:.08em}
 .orbital-readout output {color:#00e4ee;font-variant-numeric:tabular-nums}
@@ -1497,7 +1504,7 @@ body {background:#06090d}
 .workspace-page[data-page="atlas"] .atlas-controls:hover,.workspace-page[data-page="atlas"] .atlas-controls:focus-within {opacity:1}
 .workspace-page[data-page="atlas"] .atlas-scene>.atlas-bar {position:absolute;right:12px;bottom:12px;top:auto;z-index:6}
 @media(max-width:600px) {
- .orbital-readout {top:78px;font-size:9px}
+ .orbital-readout {font-size:9px}
  .workspace-page[data-page="atlas"] .atlas-scene {height:calc(100dvh - 90px);min-height:460px}
  .workspace-page[data-page="atlas"] .overview-earth .overview-orb {width:52cqw;height:52cqw}
  .workspace-page[data-page="atlas"] .overview-moon {left:6%}
@@ -1571,11 +1578,8 @@ body.gis-open #terrain-canvas {width:100%;height:auto}
 body.gis-open .terrain-metrics {font-size:9px}
 @media(max-width:500px) {body.gis-open #gis {top:90px;width:min(280px,90vw)}}
 
-.overview-location-point {pointer-events:auto;cursor:pointer;min-width:12px;min-height:12px}
-.overview-location-point::before {content:'';position:absolute;inset:-6px;border-radius:50%}
+.overview-location-point {pointer-events:auto;cursor:pointer}
 .overview-location-point:hover,.overview-location-point:focus-visible {outline:2px solid #00e3ef;outline-offset:4px;z-index:5}
-.overview-location-point.cluster-member {visibility:hidden;pointer-events:none}
-
 .location-analogs {position:fixed;right:12px;top:62px;bottom:16px;z-index:35;width:min(360px,calc(100vw - 24px));overflow-y:auto;background:#0b121cf5;border:1px solid #2b4859;border-radius:12px;padding:15px;box-shadow:0 15px 50px #0008;font-size:12px;line-height:1.6}
 .location-analogs header {display:flex;justify-content:space-between;gap:12px}
 .location-analogs header small {color:#00ddeb;font-size:9px;letter-spacing:.1em}
@@ -1614,7 +1618,6 @@ body.catalog-open #catalogo,body.gis-open #gis {top:var(--appbar-height);max-hei
  .workspace-page[data-page="atlas"] .overview-moon .overview-orb,.workspace-page[data-page="atlas"] .overview-mars .overview-orb {width:min(34cqw,48dvh);height:min(34cqw,48dvh)}
 }
 @media(max-width:650px) {
- .orbital-readout {top:70px;right:8px}
  body.gis-open .location-analogs {right:8px;width:min(360px,calc(100% - 16px))}
 }
 
@@ -1644,3 +1647,6 @@ body.catalog-open #catalogo,body.gis-open #gis {top:var(--appbar-height);max-hei
 .mars-operations dl>div {padding:8px 0;border-bottom:1px solid #25394b;display:grid;grid-template-columns:1fr 1.5fr;gap:8px}
 .mars-operations dt {color:#a9bccd;font-size:11px}
 .mars-operations dd {margin:0;color:#f4ceaa;font-size:12px}
+
+.workspace-page[data-page="atlas"] .planet-network .overview-world[data-inspecting="true"] {z-index:4}
+.workspace-page[data-page="atlas"] .planet-network .overview-world[data-inspecting="true"]:focus-within {z-index:4}

@@ -1,18 +1,20 @@
+import {currentLanguage,t} from './i18n.js';
+
 const rad = Math.PI / 180;
 const tau = 2 * Math.PI;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
 export const worlds = {
   Earth: {
-    label: 'Tierra', image: 'earth-globe.webp', lon: -63, lat: 11, tint: [93,166,245],
+    get label() {return t('earth.open');}, image: 'earth-globe.webp', lon: -63, lat: 11, tint: [93,166,245],
     credit: 'NASA · Blue Marble', source: 'https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/'
   },
   Moon: {
-    label: 'Luna', image: 'moon-globe.webp', lon: 8, lat: -46, tint: [169,180,217],
+    get label() {return t('moon.open');}, image: 'moon-globe.webp', lon: 8, lat: -46, tint: [169,180,217],
     credit: 'NASA SVS · LRO', source: 'https://svs.gsfc.nasa.gov/4720/'
   },
   Mars: {
-    label: 'Marte', image: 'mars-globe.webp', lon: 53, lat: 15, tint: [252,141,88],
+    get label() {return t('mars.open');}, image: 'mars-globe.webp', lon: 53, lat: 15, tint: [252,141,88],
     credit: 'NASA/JPL-Caltech · Viking', source: 'https://science.nasa.gov/3d-resources/mars/'
   }
 };
@@ -100,8 +102,8 @@ export class PlanetViewer {
     this.requestDraw();
   }
 
-  zoom(amount) {
-    this.camera.zoom = clamp(this.camera.zoom+amount, .8, 2.4);
+  zoom(amount,maxZoom=2.4) {
+    this.camera.zoom = clamp(this.camera.zoom+amount, .8, maxZoom);
     this.requestDraw();
   }
 
@@ -129,7 +131,7 @@ export class PlanetViewer {
     this.canvas.style.width = diameter+'px';
     this.canvas.style.height = diameter+'px';
     this.status.hidden = entry?.status==='ready';
-    if (entry?.status!=='ready') this.status.textContent = entry?.status==='error' ? 'La textura no está disponible.' : 'Cargando superficie…';
+    if (entry?.status!=='ready') this.status.textContent = entry?.status==='error' ? t('globe.unavailable') : t('loading.sphere');
     if (entry?.status==='ready') {
       if (size!==this.canvas.width || !this.grid) {
         this.canvas.width = this.canvas.height = size;
@@ -181,13 +183,14 @@ export class PlanetViewer {
   drawTexture(target) {
     const entry=this.textures.get(this.world);
     if (entry?.status!=='ready') return false;
-    const rect=target.parentElement.getBoundingClientRect();
+    const orb=target.parentElement;
+    orb.style.setProperty('--globe-scale',String(this.camera.zoom));
+    const rect=orb.getBoundingClientRect();
     if (!rect.width || !rect.height) return false;
-    const size=Math.min(512,Math.max(96,Math.round(Math.min(rect.width,rect.height)*this.camera.zoom*Math.min(globalThis.devicePixelRatio||1,1.6))));
+    const size=Math.min(1200,Math.max(96,Math.round(Math.min(rect.width,rect.height)*Math.min(globalThis.devicePixelRatio||1,1.6))));
     if (target.width!==size || target.height!==size) target.width=target.height=size;
-    // CSS size is relative to the orb, never to the raster buffer's pixels.
-    target.style.width=(100*this.camera.zoom)+'%';
-    target.style.height=(100*this.camera.zoom)+'%';
+    target.style.width='100%';
+    target.style.height='100%';
     this.renderSphere(entry.texture,target,this.camera);
     target.dataset.ready='true';
     return true;
@@ -333,11 +336,10 @@ export class PlanetAtlas {
       const existing=[...layer.children].map(node=>node.dataset.overviewLocation);
       if (existing.join('\0')!==sites.map(site=>site.id).join('\0')) {
         layer.replaceChildren(...sites.map(site=>{
-          const marker=document.createElement('span');
+          const marker=document.createElement('button');
+          marker.type='button';
           marker.className='overview-location-point '+site.tone;
           marker.dataset.overviewLocation=site.id;
-          marker.setAttribute('role','button');
-          marker.tabIndex=0;
           marker.setAttribute('aria-label',site.name??site.id);
           marker.title=site.name??site.id;
           const activate=event=>{
@@ -366,14 +368,23 @@ export class PlanetAtlas {
     let drag=null,suppressClick=false;
     const selectPoint=(x,y)=>{
       const rect=control.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const view={world,zoom:viewer.camera.zoom,radius:Math.min(rect.width,rect.height)*viewer.camera.zoom/2,width:rect.width,height:rect.height};
-      const point=viewer.unproject(x-rect.left,y-rect.top,view);
+      const width=control.clientWidth,height=control.clientHeight;
+      if (!rect.width || !rect.height || !width || !height) return;
+      const scale=rect.width/width;
+      const view={world,zoom:viewer.camera.zoom,radius:Math.min(width,height)/2,width,height};
+      const point=viewer.unproject((x-rect.left)/scale,(y-rect.top)/scale,view);
       if (!point) return;
       this.setOverviewWorld(world);
       this.focusWorld(world,()=>{onActivate(world);onPick(point,world);});
     };
     control.addEventListener('focus',()=>this.setOverviewWorld(world));
+    control.addEventListener('wheel',event=>{
+      event.preventDefault();
+      if(this.focusedWorld!==world)this.focusWorld(world);
+      this.setOverviewWorld(world);
+      const delta=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?300:1);
+      this.zoom(clamp(-delta*.003,-.5,.5));
+    },{passive:false});
     control.addEventListener('pointerdown',event=>{
       if (!event.isPrimary || event.button!==0) return;
       suppressClick=false;
@@ -413,9 +424,15 @@ export class PlanetAtlas {
       const actions={
         ArrowLeft:()=>viewer.rotate(-12,0),ArrowRight:()=>viewer.rotate(12,0),
         ArrowUp:()=>viewer.rotate(0,12),ArrowDown:()=>viewer.rotate(0,-12),
-        '+':()=>viewer.zoom(.2),'=':()=>viewer.zoom(.2),'-':()=>viewer.zoom(-.2),
+        '+':()=>this.zoom(.2),'=':()=>this.zoom(.2),'-':()=>this.zoom(-.2),
         Home:()=>viewer.reset()
       };
+      if (event.key==='Enter'||event.key===' ') {
+        event.preventDefault();
+        this.setOverviewWorld(world);
+        this.focusWorld(world,()=>{onActivate(world);onPick({lat:viewer.camera.lat,lon:viewer.camera.lon},world);});
+        return;
+      }
       const action=actions[event.key];
       if (!action) return;
       event.preventDefault();
@@ -442,9 +459,9 @@ export class PlanetAtlas {
     this.syncControls();
   }
   syncControls() {
-    this.syncOrbitalReadout();
+    this.syncSceneLabel();
     document.getElementById('active-globe-label').textContent=worlds[this.world].label;
-    document.getElementById('zoom-in').disabled=this.camera.zoom>=2.4;
+    document.getElementById('zoom-in').disabled=this.camera.zoom>=this.overviewZoomLimit(this.world)-.005;
     document.getElementById('zoom-out').disabled=this.camera.zoom<=.8;
     this.viewport.querySelectorAll('[data-overview-card]').forEach(card=>{
       card.dataset.active=String(card.dataset.overviewCard===this.world);
@@ -452,64 +469,90 @@ export class PlanetAtlas {
     });
   }
   drawOverview(onlyWorld=null) {
-    this.syncOrbitalReadout();
+    this.syncSceneLabel();
     if (!this.isOverview) return;
     for (const [world,viewer] of this.planets) {
       if (onlyWorld && onlyWorld!==world) continue;
+      const control=this.viewport.querySelector('[data-overview-world="'+world+'"]');
+      const layer=this.viewport.querySelector('[data-overview-locations="'+world+'"]');
+      if (!control || !layer) continue;
+      viewer.camera.zoom=clamp(viewer.camera.zoom,.8,this.overviewZoomLimit(world));
       const canvas=this.viewport.querySelector('[data-overview-texture="'+world+'"]');
       if (canvas) {
         viewer.drawTexture(canvas);
         const entry=viewer.textures.get(world),control=canvas.parentElement,status=control.querySelector('[data-overview-status]');
         control.setAttribute('aria-busy',String(entry?.status==='loading'));
         status.hidden=entry?.status==='ready';
-        status.textContent=entry?.status==='error'?'Esfera no disponible':'Cargando esfera…';
+        status.textContent=entry?.status==='error'?t('globe.unavailable'):t('loading.sphere');
       }
-      const control=this.viewport.querySelector('[data-overview-world="'+world+'"]');
-      const layer=this.viewport.querySelector('[data-overview-locations="'+world+'"]');
-      const {width,height}=control.getBoundingClientRect();
-      const radius=Math.min(width,height)*viewer.camera.zoom/2;
+      const width=control.clientWidth,height=control.clientHeight;
+      const radius=Math.min(width,height)/2;
       if (!radius) continue;
       const view={world,zoom:viewer.camera.zoom,radius,width,height};
       viewer.view=view;
       if (viewer.textures.get(world)?.status==='ready') viewer.onView(view);
       const visible=[];
-      const clusterMargin=Math.min(width,height)/2-12;
       for (const [index,site] of (this.overviewLocations[world]??[]).entries()) {
         const point=viewer.project(site.lat,site.lon,view);
         const marker=layer.children[index];
+        const active=site.active!==false,label=site.name??site.id;
         marker.hidden=point.z<=.06 || point.x<0 || point.y<0 || point.x>width || point.y>height;
-        marker.classList.remove('cluster','cluster-member');
+        marker.classList.remove('cluster','cluster-member','cluster-spread');
+        marker.classList.toggle('inactive',!active);
         marker.classList.toggle('selected',Boolean(site.selected));
         marker.removeAttribute('data-cluster-count');
+        marker.style.removeProperty('--cluster-x');
+        marker.style.removeProperty('--cluster-y');
+        marker.setAttribute('aria-label',active?label:label+' · '+t('marker.unrelated'));
+        marker.title=active?label:label+' · '+t('marker.unrelated');
         if (!marker.hidden) {
           marker.style.left=point.x+'px';
           marker.style.top=point.y+'px';
-          const clusterable=Math.hypot(point.x-width/2,point.y-height/2)<=clusterMargin;
-          visible.push({marker,point,selected:Boolean(site.selected),clusterable});
+          if (active) visible.push({marker,point});
         }
       }
       const clusters=[];
-      for (const item of visible.filter(candidate=>candidate.clusterable)) {
-        const cluster=clusters.find(group=>group.every(other=>Math.hypot(item.point.x-other.point.x,item.point.y-other.point.y)<=11));
+      for (const item of visible) {
+        const cluster=clusters.find(group=>group.every(other=>Math.hypot(item.point.x-other.point.x,item.point.y-other.point.y)<=18));
         if (cluster) cluster.push(item);
         else clusters.push([item]);
       }
       for (const cluster of clusters) {
         if (cluster.length<2) continue;
-        const leader=cluster.find(item=>item.selected)??cluster[0];
-        leader.marker.classList.add('cluster');
-        leader.marker.classList.toggle('selected',cluster.some(item=>item.selected));
-        leader.marker.dataset.clusterCount=String(cluster.length);
-        for (const item of cluster) if (item!==leader) item.marker.classList.add('cluster-member');
+        const center=cluster.reduce((sum,item)=>({x:sum.x+item.point.x/cluster.length,y:sum.y+item.point.y/cluster.length}),{x:0,y:0});
+        const spreadRadius=Math.max(8,15/(2*Math.sin(Math.PI/cluster.length)));
+        const orbitCenter={x:width/2,y:height/2};
+        const centerDistance=Math.hypot(center.x-orbitCenter.x,center.y-orbitCenter.y);
+        const maxCenterDistance=Math.max(0,radius-spreadRadius-16);
+        const shift=Math.max(0,centerDistance-maxCenterDistance);
+        const adjustedCenter=centerDistance>0?{
+          x:center.x-(center.x-orbitCenter.x)*shift/centerDistance,
+          y:center.y-(center.y-orbitCenter.y)*shift/centerDistance
+        }:center;
+        cluster.forEach((item,index)=>{
+          const angle=-Math.PI/2+index*tau/cluster.length;
+          item.marker.classList.add('cluster-spread');
+          item.marker.style.setProperty('--cluster-x',adjustedCenter.x+spreadRadius*Math.cos(angle)-item.point.x+'px');
+          item.marker.style.setProperty('--cluster-y',adjustedCenter.y+spreadRadius*Math.sin(angle)-item.point.y+'px');
+        });
       }
     }
   }
-  syncOrbitalReadout() {
+  syncSceneLabel() {
     const label=document.getElementById('scene-world-label');
-    if (label) label.textContent=worlds[this.world].label.toLocaleUpperCase('es');
-    for (const [id,value] of [['orbital-lat',this.camera.lat],['orbital-lon',this.camera.lon]]) {
+    if (label) label.textContent=worlds[this.world].label.toLocaleUpperCase(currentLanguage());
+  }
+  setSelectedCoordinates(lat,lon) {
+    const decimal=new Intl.NumberFormat(currentLanguage(),{maximumFractionDigits:5});
+    for (const [id,value] of [['orbital-lat',lat],['orbital-lon',lon]]) {
       const output=document.getElementById(id);
-      if (output) output.textContent=value.toFixed(3)+'°';
+      if (output) output.textContent=decimal.format(value)+'°';
+    }
+  }
+  clearSelectedCoordinates() {
+    for (const id of ['orbital-lat','orbital-lon']) {
+      const output=document.getElementById(id);
+      if (output) output.textContent='—';
     }
   }
   requestOverviewDraw() {
@@ -531,6 +574,21 @@ export class PlanetAtlas {
     });
   }
   showOverview() {this.focusedWorld=null;this.viewMode='overview';this.syncMode();this.drawOverview();this.requestDraw();}
+  overviewZoomLimit(world=this.world) {
+    if (this.focusedWorld===world) return 6;
+    const control=this.viewport.querySelector('[data-overview-world="'+world+'"]');
+    const network=control?.closest('.planet-network');
+    if (!control || !network) return 2.4;
+    const bounds=network.getBoundingClientRect(),rect=control.getBoundingClientRect();
+    const width=control.offsetWidth,height=control.offsetHeight;
+    if (!bounds.width || !bounds.height || !width || !height) return 2.4;
+    const centerX=rect.left+rect.width/2-bounds.left;
+    const centerY=rect.top+rect.height/2-bounds.top;
+    const margin=12;
+    const availableWidth=2*Math.min(centerX,bounds.width-centerX)-margin*2;
+    const availableHeight=2*Math.min(centerY,bounds.height-centerY)-margin*2;
+    return clamp(Math.min(availableWidth/width,availableHeight/height),1,2.4);
+  }
   focusWorld(world=this.world,afterFocus) {
     if (!this.planets.has(world)) return;
     this.focusedWorld=world;
@@ -540,7 +598,7 @@ export class PlanetAtlas {
   }
   requestDraw() {for (const viewer of this.planets.values()) viewer.requestDraw();if (this.isOverview) this.requestOverviewDraw();}
   center(lat,lon,zoom) {this.active.center(lat,lon,zoom);this.focusWorld();this.requestOverviewDraw();}
-  zoom(amount) {this.active.zoom(amount);this.refreshOverviewControls();}
+  zoom(amount) {if(amount>0 && this.focusedWorld!==this.world)this.focusWorld(this.world);this.active.zoom(amount,this.overviewZoomLimit(this.world));this.refreshOverviewControls();}
   rotate(lon,lat) {this.active.rotate(lon,lat);this.refreshOverviewControls();}
   reset() {this.active.reset();this.refreshOverviewControls();}
   resetAll() {

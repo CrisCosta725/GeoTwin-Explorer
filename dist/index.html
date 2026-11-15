@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="es"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Identifica y caracteriza análogos terrestres de regiones de la Luna y Marte con datos abiertos.">
+  <meta name="description" content="Identifica y caracteriza análogos terrestres de regiones de la Luna y Marte con datos abiertos." data-i18n-content="meta.description">
   <meta name="theme-color" content="#0d1319">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,95 +49,98 @@
         <span class="welcome-star welcome-star-three"></span><span class="welcome-star welcome-star-four"></span>
       </div>
       <div class="welcome-content">
+        <div class="welcome-project">
+          <p class="welcome-team">Project Artemis</p>
+          <p class="welcome-mission" id="welcome-description">Identify locations on Earth that are analogous to the sites of permanent bases on the Moon and Mars</p>
+        </div>
         <div class="welcome-brand">
           <span class="welcome-brand-icon"><svg aria-hidden="true"><use href="#i-brand"></use></svg></span>
           <span>GEOTWIN <strong>EXPLORER</strong></span>
         </div>
-        <p class="welcome-eyebrow">UN ATLAS · TRES MUNDOS · NUEVAS PERSPECTIVAS</p>
-        <h1 id="welcome-title">La Tierra es solo<br>el comienzo.</h1>
-        <p class="welcome-description" id="welcome-description">Explora paisajes de la Luna y Marte. Encuentra sus análogos en la Tierra y compara el relieve con datos abiertos.</p>
-        <div class="welcome-worlds" aria-label="Mundos explorables">
-          <span><svg aria-hidden="true"><use href="#i-earth"></use></svg>Tierra</span>
-          <i aria-hidden="true"></i><span><svg aria-hidden="true"><use href="#i-moon"></use></svg>Luna</span>
-          <i aria-hidden="true"></i><span><svg aria-hidden="true"><use href="#i-mars"></use></svg>Marte</span>
+        <h1 id="welcome-title" data-i18n="welcome.title">La Tierra es solo el comienzo.</h1>
+        <div class="welcome-worlds" aria-label="Mundos explorables" data-i18n-aria-label="welcome.worlds">
+          <span><svg aria-hidden="true"><use href="#i-earth"></use></svg><span data-i18n="earth.open">Tierra</span></span>
+          <i aria-hidden="true"></i><span><svg aria-hidden="true"><use href="#i-moon"></use></svg><span data-i18n="moon.open">Luna</span></span>
+          <i aria-hidden="true"></i><span><svg aria-hidden="true"><use href="#i-mars"></use></svg><span data-i18n="mars.open">Marte</span></span>
         </div>
         <div class="welcome-actions">
-          <button type="button" class="welcome-enter" data-intro-dismiss="enter">Explorar el atlas <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-          <button type="button" class="welcome-skip" data-intro-dismiss="skip">Omitir introducción</button>
+          <button type="button" class="welcome-enter" data-intro-dismiss="enter"><span data-i18n="welcome.enter">Explorar el atlas</span> <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         </div>
-        <p class="welcome-attribution">Texturas: <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a><span>·</span><a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO</a><span>·</span><a href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL · Marte</a></p>
-        <p class="welcome-note">Visualización comparativa; tamaños y movimientos no representan escalas ni períodos astronómicos.</p>
+        <p class="welcome-attribution"><span data-i18n="welcome.textures">Texturas:</span> <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a><span>·</span><a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO</a><span>·</span><a href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL · Mars</a></p>
+        <p class="welcome-note" data-i18n="welcome.note">Visualización comparativa; tamaños y movimientos no representan escalas ni períodos astronómicos.</p>
       </div>
     </section>
-  <a class="skip-link" href="#contenido" data-intro-background="">Ir al contenido</a>
+  <a class="skip-link" href="#contenido" data-intro-background="" data-i18n="skip">Ir al contenido</a>
     <header class="sidebar appbar" data-intro-background="">
     <div class="brand-section">
-      <a href="#inicio" class="brand" aria-label="GeoTwin Explorer, inicio"><span class="brand-icon"><svg aria-hidden="true"><use href="#i-brand"></use></svg></span><span><strong>GeoTwin Explorer</strong></span></a>
+      <a href="#inicio" class="brand" aria-label="GeoTwin Explorer, inicio" data-i18n-aria-label="brand.home"><span class="brand-icon"><svg aria-hidden="true"><use href="#i-brand"></use></svg></span><span><strong>GeoTwin Explorer</strong></span></a>
       <span class="brand-challenge">NASA SPACE APPS 2026</span>
     </div>
-    <div class="planet-switcher" role="group" aria-label="Enfocar una esfera en la vista conjunta">
-      <button type="button" id="atlas-world-moon" data-world="Moon" data-header-world="" aria-pressed="false"><i class="moon-dot" aria-hidden="true"></i>Luna</button>
-      <button type="button" id="atlas-world-earth" data-world="Earth" data-header-world="" aria-pressed="true"><i class="earth-dot" aria-hidden="true"></i>Tierra</button>
-      <button type="button" id="atlas-world-mars" data-world="Mars" data-header-world="" aria-pressed="false"><i class="mars-dot" aria-hidden="true"></i>Marte</button>
+    <div class="planet-switcher" role="group" aria-label="Enfocar una esfera en la vista conjunta" data-i18n-aria-label="planet.focus">
+      <button type="button" id="atlas-world-moon" data-world="Moon" data-header-world="" aria-pressed="false"><i class="moon-dot" aria-hidden="true"></i><span data-i18n="moon.open">Luna</span></button>
+      <button type="button" id="atlas-world-earth" data-world="Earth" data-header-world="" aria-pressed="true"><i class="earth-dot" aria-hidden="true"></i><span data-i18n="earth.open">Tierra</span></button>
+      <button type="button" id="atlas-world-mars" data-world="Mars" data-header-world="" aria-pressed="false"><i class="mars-dot" aria-hidden="true"></i><span data-i18n="mars.open">Marte</span></button>
     </div>
-    <nav class="app-toolbar" aria-label="Acciones y navegación">
-      <button type="button" id="atlas-overview-view" class="app-action app-action-primary" data-atlas-view="overview" aria-label="Volver a la vista conjunta" title="Volver al encuadre conjunto"><svg aria-hidden="true"><use href="#i-orbit"></use></svg><span>Vista Conjunta</span></button>
-      <span class="rotation-indicator" role="status" aria-label="El giro automático está activo"><i aria-hidden="true"></i>Giro Auto</span>
-      <a class="app-action nav-link" href="#catalogo">Catálogo</a>
+    <nav class="app-toolbar" aria-label="Acciones y navegación" data-i18n-aria-label="navigation">
+      <button type="button" id="atlas-overview-view" class="app-action app-action-primary" data-atlas-view="overview" aria-label="Volver a la vista conjunta" title="Volver al encuadre conjunto" data-i18n-aria-label="overview.return" data-i18n-title="overview.title"><svg aria-hidden="true"><use href="#i-orbit"></use></svg><span data-i18n="overview.label">Vista Conjunta</span></button>
+      <span class="rotation-indicator" role="status" aria-label="El giro automático está activo" data-i18n-aria-label="rotation.active"><i aria-hidden="true"></i><span data-i18n="rotation.label">Giro Auto</span></span>
+      <a class="app-action nav-link" href="#catalogo" data-i18n="catalog">Catálogo</a>
+      <button type="button" class="app-action language-toggle" id="language-toggle" aria-label="Cambiar idioma a inglés" title="Cambiar idioma a inglés" aria-pressed="false">EN</button>
 
-      <button type="button" class="app-action" id="install-app" aria-label="Instalar GeoTwin Explorer" hidden="">Instalar app</button>
+      <button type="button" class="app-action" id="install-app" aria-label="Instalar GeoTwin Explorer" data-i18n-aria-label="install.label" hidden=""><span data-i18n="install">Instalar app</span></button>
 
     </nav>
   </header>
-  <aside id="location-analogs" class="location-analogs" aria-label="Características y semejanzas planetarias" hidden=""></aside>
+  <aside id="location-analogs" class="location-analogs" aria-label="Características y semejanzas planetarias" data-i18n-aria-label="location.panel" hidden=""></aside>
   <main class="workspace" id="contenido" tabindex="-1" data-intro-background="">
     <section class="workspace-page" data-page="atlas" aria-labelledby="title">
-      <h1 class="sr-only" id="title" tabindex="-1">Atlas planetario</h1>
+      <h1 class="sr-only" id="title" tabindex="-1" data-i18n="atlas.title">Atlas planetario</h1>
       <section class="panel atlas" id="atlas" tabindex="-1" aria-labelledby="atlas-title">
         <div class="atlas-layout">
-          <section class="atlas-scene" aria-label="Visor planetario conjunto">
+          <section class="atlas-scene" aria-label="Visor planetario conjunto" data-i18n-aria-label="viewer.aria">
             <div class="atlas-bar">
-              <h2 id="atlas-title"><svg aria-hidden="true"><use href="#i-orbit"></use></svg> Visor planetario</h2>
+              <h2 id="atlas-title"><svg aria-hidden="true"><use href="#i-orbit"></use></svg> <span data-i18n="viewer.title">Visor planetario</span></h2>
 
             </div>
-            <div class="planet-gallery" id="map" role="group" aria-label="Visor conjunto de Tierra, Luna y Marte">
+            <div class="planet-gallery" id="map" role="group" aria-label="Visor conjunto de Tierra, Luna y Marte" data-i18n-aria-label="gallery.aria">
               <section id="planet-overview" class="planet-overview" aria-labelledby="planet-overview-title">
                 <header class="overview-heading" id="inicio">
-                  <div><h2 id="planet-overview-title"><span id="scene-world-label">TIERRA</span> · RED DE ANÁLOGOS</h2><p>Proyección orbital 3D · Clic en baliza o dibujo directo</p></div>
+                  <div><h2 id="planet-overview-title"><span id="scene-world-label">TIERRA</span> · <span data-i18n="overview.network">RED DE ANÁLOGOS</span></h2><p data-i18n="overview.heading">Proyección orbital 3D · Clic en baliza o dibujo directo</p>
+                    <div class="orbital-readout" aria-label="Coordenadas del punto seleccionado" data-i18n-aria-label="selected.coordinates.aria"><div><small data-i18n="latitude">LATITUD</small><output id="orbital-lat">—</output></div><div><small data-i18n="longitude">LONGITUD</small><output id="orbital-lon">—</output></div><div><small data-i18n="mode">MODO</small><span data-i18n="orbit">Órbita</span></div></div>
+                  </div>
                 </header>
-                <div class="orbital-readout" aria-label="Centro de la cámara orbital"><div><small>LATITUD</small><output id="orbital-lat">—</output></div><div><small>LONGITUD</small><output id="orbital-lon">—</output></div><div><small>MODO</small><span>Órbita</span></div></div>
-                <div class="planet-network" role="group" aria-label="Tierra al centro, con la Luna y Marte a los lados">
+                <div class="planet-network" role="group" aria-label="Tierra al centro, con la Luna y Marte a los lados" data-i18n-aria-label="overview.network.aria">
                   <div class="overview-world overview-earth" data-overview-card="Earth">
-                    <button type="button" class="overview-orb" data-overview-world="Earth" aria-label="Seleccionar un punto de la Tierra" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Earth" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Earth"></span><span class="overview-status" data-overview-status="Earth" role="status">Cargando esfera…</span></button>
-                    <button type="button" class="overview-open-world" data-world="Earth">Tierra</button><small>Eje central</small>
+                    <div class="overview-orb" data-overview-world="Earth" role="group" tabindex="0" aria-label="Esfera interactiva de la Tierra" data-i18n-aria-label="earth.sphere" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Earth" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Earth"></span><span class="overview-status" data-overview-status="Earth" role="status" data-i18n="loading.sphere">Cargando esfera…</span></div>
+                    <button type="button" class="overview-open-world" data-world="Earth" data-i18n="earth.open">Tierra</button><small data-i18n="earth.subtitle">Eje central</small>
                   </div>
                   <div class="overview-world overview-moon" data-overview-card="Moon">
-                    <button type="button" class="overview-orb" data-overview-world="Moon" aria-label="Seleccionar un punto de la Luna" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Moon" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Moon"></span><span class="overview-status" data-overview-status="Moon" role="status">Cargando esfera…</span></button>
-                    <button type="button" class="overview-open-world" data-world="Moon">Luna</button><small>Relieve y cráteres</small>
+                    <div class="overview-orb" data-overview-world="Moon" role="group" tabindex="0" aria-label="Esfera interactiva de la Luna" data-i18n-aria-label="moon.sphere" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Moon" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Moon"></span><span class="overview-status" data-overview-status="Moon" role="status" data-i18n="loading.sphere">Cargando esfera…</span></div>
+                    <button type="button" class="overview-open-world" data-world="Moon" data-i18n="moon.open">Luna</button><small data-i18n="moon.subtitle">Relieve y cráteres</small>
                   </div>
                   <div class="overview-world overview-mars" data-overview-card="Mars">
-                    <button type="button" class="overview-orb" data-overview-world="Mars" aria-label="Seleccionar un punto de Marte" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Mars" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Mars"></span><span class="overview-status" data-overview-status="Mars" role="status">Cargando esfera…</span></button>
-                    <button type="button" class="overview-open-world" data-world="Mars">Marte</button><small>Ambientes volcánicos y áridos</small>
+                    <div class="overview-orb" data-overview-world="Mars" role="group" tabindex="0" aria-label="Esfera interactiva de Marte" data-i18n-aria-label="mars.sphere" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Mars" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Mars"></span><span class="overview-status" data-overview-status="Mars" role="status" data-i18n="loading.sphere">Cargando esfera…</span></div>
+                    <button type="button" class="overview-open-world" data-world="Mars" data-i18n="mars.open">Marte</button><small data-i18n="mars.subtitle">Ambientes volcánicos y áridos</small>
                   </div>
                 </div>
-                <p class="overview-note">Los puntos señalan ubicaciones del catálogo y tu selección en la cara visible. El giro automático es visual, sin representar períodos físicos de rotación.</p>
-                <p class="planet-gallery-help" id="overview-help">Explora directamente sobre las tres esferas. Selecciona un planeta para acercarlo; arrastra para girar y pulsa para elegir un punto. Usa las flechas, +, − o Inicio con teclado. El giro continúa mientras inspeccionas y seleccionas puntos. Vista conjunta recupera el encuadre general.</p>
+                <p class="overview-note" data-i18n="overview.note">Los puntos señalan ubicaciones del catálogo y tu selección en la cara visible. El giro automático es visual, sin representar períodos físicos de rotación.</p>
+                <p class="planet-gallery-help" id="overview-help" data-i18n="overview.help">Explora directamente sobre las tres esferas. Selecciona un planeta para acercarlo; arrastra para girar y pulsa para elegir un punto. Usa las flechas, +, − o Inicio con teclado. El giro continúa mientras inspeccionas y seleccionas puntos. Vista conjunta recupera el encuadre general.</p>
               </section>
               <div id="surface-view" hidden="" aria-hidden="true">
               <div class="planet-cards">
                 <section class="planet-card" aria-labelledby="earth-globe-title">
-                  <div class="planet-card-head"><h3 id="earth-globe-title">Tierra</h3><span data-region-count="Earth"></span></div>
-                  <div class="map-viewport" data-globe="Earth" data-world="Earth" tabindex="0" role="region" aria-label="Globo 3D de la Tierra" aria-describedby="globe-help globe-keyboard">
+                  <div class="planet-card-head"><h3 id="earth-globe-title" data-i18n="earth.open">Tierra</h3><span data-region-count="Earth"></span></div>
+                  <div class="map-viewport" data-globe="Earth" data-world="Earth" tabindex="0" role="region" aria-label="Globo 3D de la Tierra" data-i18n-aria-label="earth.globe" aria-describedby="globe-help globe-keyboard">
                     <canvas id="planet-canvas-earth" class="planet-canvas" aria-hidden="true"></canvas>
-                    <svg id="sector-overlay" class="sector-overlay" aria-label="Sectores prospectivos de la Tierra" hidden=""></svg>
+                    <svg id="sector-overlay" class="sector-overlay" aria-label="Sectores prospectivos de la Tierra" data-i18n-aria-label="earth.sectors" hidden=""></svg>
                     <div data-markers="Earth"></div><div class="selection-pin" data-selection-pin="Earth" aria-hidden="true" hidden=""></div>
                     <p data-globe-status="" class="globe-status" role="status"></p>
                     <a class="map-source" href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a>
                   </div>
                 </section>
                 <section class="planet-card" aria-labelledby="moon-globe-title">
-                  <div class="planet-card-head"><h3 id="moon-globe-title">Luna</h3><span data-region-count="Moon"></span></div>
-                  <div class="map-viewport" data-globe="Moon" data-world="Moon" tabindex="0" role="region" aria-label="Globo 3D de la Luna" aria-describedby="globe-help globe-keyboard">
+                  <div class="planet-card-head"><h3 id="moon-globe-title" data-i18n="moon.open">Luna</h3><span data-region-count="Moon"></span></div>
+                  <div class="map-viewport" data-globe="Moon" data-world="Moon" tabindex="0" role="region" aria-label="Globo 3D de la Luna" data-i18n-aria-label="moon.globe" aria-describedby="globe-help globe-keyboard">
                     <canvas id="planet-canvas-moon" class="planet-canvas" aria-hidden="true"></canvas>
                     <div data-markers="Moon"></div><div class="selection-pin" data-selection-pin="Moon" aria-hidden="true" hidden=""></div>
                     <p data-globe-status="" class="globe-status" role="status"></p>
@@ -145,8 +148,8 @@
                   </div>
                 </section>
                 <section class="planet-card" aria-labelledby="mars-globe-title">
-                  <div class="planet-card-head"><h3 id="mars-globe-title">Marte</h3><span data-region-count="Mars"></span></div>
-                  <div class="map-viewport" data-globe="Mars" data-world="Mars" tabindex="0" role="region" aria-label="Globo 3D de Marte" aria-describedby="globe-help globe-keyboard">
+                  <div class="planet-card-head"><h3 id="mars-globe-title" data-i18n="mars.open">Marte</h3><span data-region-count="Mars"></span></div>
+                  <div class="map-viewport" data-globe="Mars" data-world="Mars" tabindex="0" role="region" aria-label="Globo 3D de Marte" data-i18n-aria-label="mars.globe" aria-describedby="globe-help globe-keyboard">
                     <canvas id="planet-canvas-mars" class="planet-canvas" aria-hidden="true"></canvas>
                     <div data-markers="Mars"></div><div class="selection-pin" data-selection-pin="Mars" aria-hidden="true" hidden=""></div>
                     <p data-globe-status="" class="globe-status" role="status"></p>
@@ -154,15 +157,15 @@
                   </div>
                 </section>
               </div>
-              <p class="planet-gallery-help" id="globe-help">Arrastra el globo para ver sus regiones, también las del hemisferio oculto. Pulsa un marcador o un punto de la superficie para seleccionarlo.</p>
-              <span class="sr-only" id="globe-keyboard">Enfoca un globo y usa las flechas para girarlo, + o − para el zoom y Enter para seleccionar el punto central.</span>
+              <p class="planet-gallery-help" id="globe-help" data-i18n="surface.help">Arrastra el globo para ver sus regiones, también las del hemisferio oculto. Pulsa un marcador o un punto de la superficie para seleccionarlo.</p>
+              <span class="sr-only" id="globe-keyboard" data-i18n="keyboard.help">Enfoca un globo y usa las flechas para girarlo, + o − para el zoom y Enter para seleccionar el punto central.</span>
               </div>
-              <div class="atlas-controls" id="atlas-controls" aria-label="Controles de la vista conjunta">
-                <span>Planeta enfocado: <strong id="active-globe-label">Tierra</strong></span>
-                <button type="button" id="zoom-in" aria-label="Acercar" title="Acercar"><svg aria-hidden="true"><use href="#i-plus"></use></svg></button>
-                <button type="button" id="zoom-out" aria-label="Alejar" title="Alejar"><svg aria-hidden="true"><use href="#i-minus"></use></svg></button>
-                <button type="button" id="reset-map" aria-label="Restablecer esfera" title="Restablecer esfera"><svg aria-hidden="true"><use href="#i-cross"></use></svg></button>
-                <button type="button" id="reset-all-globes" class="outline">Restablecer orientación de las esferas</button>
+              <div class="atlas-controls" id="atlas-controls" aria-label="Controles de la vista conjunta" data-i18n-aria-label="controls.aria">
+                <span><span data-i18n="focused.planet">Planeta enfocado:</span> <strong id="active-globe-label">Tierra</strong></span>
+                <button type="button" id="zoom-in" aria-label="Acercar" title="Acercar" data-i18n-aria-label="zoom.in" data-i18n-title="zoom.in"><svg aria-hidden="true"><use href="#i-plus"></use></svg></button>
+                <button type="button" id="zoom-out" aria-label="Alejar" title="Alejar" data-i18n-aria-label="zoom.out" data-i18n-title="zoom.out"><svg aria-hidden="true"><use href="#i-minus"></use></svg></button>
+                <button type="button" id="reset-map" aria-label="Restablecer esfera" title="Restablecer esfera" data-i18n-aria-label="sphere.reset" data-i18n-title="sphere.reset"><svg aria-hidden="true"><use href="#i-cross"></use></svg></button>
+                <button type="button" id="reset-all-globes" class="outline" data-i18n="spheres.reset">Restablecer orientación de las esferas</button>
               </div>
             </div>
           </section>
@@ -173,37 +176,37 @@
     <section class="workspace-page catalog-page" data-page="catalog" id="catalogo" aria-labelledby="catalog-heading" hidden="">
       <header class="workspace-heading">
         <div>
-          <h1 id="catalog-heading">Catálogo</h1>
-          <p class="page-description">Busca zonas por nombre, planeta, región o entorno. Selecciona un sitio para verlo en el gemelo 3D.</p>
+          <h1 id="catalog-heading" data-i18n="catalog">Catálogo</h1>
+          <p class="page-description" data-i18n="catalog.description">Busca zonas por nombre, planeta, región o entorno. Selecciona un sitio para verlo en el gemelo 3D.</p>
         </div>
-        <div class="workspace-actions"><a class="outline" href="#atlas"><svg aria-hidden="true"><use href="#i-orbit"></use></svg> Ver gemelo</a></div>
+        <div class="workspace-actions"><a class="outline" href="#atlas"><svg aria-hidden="true"><use href="#i-orbit"></use></svg> <span data-i18n="twin.view">Ver gemelo</span></a></div>
       </header>
-      <section class="panel catalog-page-panel" aria-label="Catálogo de ubicaciones">
+      <section class="panel catalog-page-panel" aria-label="Catálogo de ubicaciones" data-i18n-aria-label="catalog.locations">
 
-        <aside class="atlas-sidebar" aria-label="Catálogo de ubicaciones">
+        <aside class="atlas-sidebar" aria-label="Catálogo de ubicaciones" data-i18n-aria-label="catalog.locations">
           <div class="atlas-catalog">
             <div class="atlas-catalog-head">
-              <h2>CATÁLOGO DE ANÁLOGOS</h2>
-              <a href="#atlas" class="catalog-close" aria-label="Cerrar catálogo">×</a>
+              <h2 data-i18n="catalog.analogs">CATÁLOGO DE ANÁLOGOS</h2>
+              <a href="#atlas" class="catalog-close" aria-label="Cerrar catálogo" data-i18n-aria-label="catalog.close">×</a>
               <span class="atlas-count" id="atlas-count"></span>
             </div>
             <label class="catalog-search">
               <svg aria-hidden="true"><use href="#i-search"></use></svg>
-              <input type="search" id="atlas-search" autocomplete="off" placeholder="Buscar sitio, país o rasgo" aria-label="Buscar en el catálogo">
+              <input type="search" id="atlas-search" autocomplete="off" placeholder="Buscar sitio, país o rasgo" aria-label="Buscar en el catálogo" data-i18n-placeholder="catalog.search.placeholder" data-i18n-aria-label="catalog.search.aria">
             </label>
             <div class="catalog-filters">
-              <div class="select-wrap"><select id="catalog-body" aria-label="Filtrar por cuerpo"><option value="all">Cuerpo: Todos</option><option value="Earth">Tierra</option><option value="Moon">Luna</option><option value="Mars">Marte</option></select></div>
+              <div class="select-wrap"><select id="catalog-body" aria-label="Filtrar por cuerpo" data-i18n-aria-label="catalog.body.aria"><option value="all" data-i18n="catalog.body.all">Cuerpo: Todos</option><option value="Earth" data-i18n="earth.open">Tierra</option><option value="Moon" data-i18n="moon.open">Luna</option><option value="Mars" data-i18n="mars.open">Marte</option></select></div>
               <div class="select-wrap filter-wrap" id="atlas-region-filter">
-                <select id="atlas-region" aria-label="Filtrar atlas terrestre por región"></select>
+                <select id="atlas-region" aria-label="Filtrar atlas terrestre por región" data-i18n-aria-label="catalog.region.aria"></select>
                 <svg aria-hidden="true"><use href="#i-down"></use></svg>
               </div>
               <div class="select-wrap filter-wrap" id="atlas-environment-filter">
-                <select id="atlas-environment" aria-label="Filtrar catálogo por entorno"></select>
+                <select id="atlas-environment" aria-label="Filtrar catálogo por entorno" data-i18n-aria-label="catalog.environment.aria"></select>
                 <svg aria-hidden="true"><use href="#i-down"></use></svg>
               </div>
             </div>
-            <div class="atlas-sites" id="atlas-sites" role="group" aria-label="Regiones del globo"></div>
-            <p class="catalog-empty" id="atlas-search-empty" role="status" hidden="">No hay ubicaciones que coincidan con estos filtros.</p>
+            <div class="atlas-sites" id="atlas-sites" role="group" aria-label="Regiones del globo" data-i18n-aria-label="catalog.regions.aria"></div>
+            <p class="catalog-empty" id="atlas-search-empty" role="status" data-i18n="catalog.empty" hidden="">No hay ubicaciones que coincidan con estos filtros.</p>
           </div>
 
 
@@ -215,7 +218,7 @@
 
 
 
-    <footer class="workspace-footer">GeoTwin Explorer · NASA Space Apps Challenge 2026</footer>
+    <footer class="workspace-footer" data-i18n="footer">GeoTwin Explorer · NASA Space Apps Challenge 2026</footer>
   </main>
   <div id="viewer-backdrop" class="viewer-backdrop" hidden=""></div>
 
