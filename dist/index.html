@@ -4,12 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Identifica y caracteriza análogos terrestres de regiones de la Luna y Marte con datos abiertos.">
-  <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0d1319">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>GeoTwin Explorer</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="assets/style.css">
   <script type="module" src="assets/app.js"></script>
+  <script type="module" src="assets/pwa.js"></script>
 </head>
 <body>
   <svg class="symbols" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +32,6 @@
     <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M8 16l4-5 3 2 5-7"/></symbol>
     <symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 7h5m4 0h7M4 17h9m4 0h3"/><circle cx="11" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></symbol>
     <symbol id="i-ext" viewBox="0 0 24 24"><path d="M13 5h6v6m0-6-9 9m8 0v5H5V6h5"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3m-4 4v3"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
@@ -78,7 +82,7 @@
       <a class="nav-link" href="#fuentes"><svg aria-hidden="true"><use href="#i-book"/></svg><span>Fuentes</span></a>
     </nav>
     <div class="sidebar-foot">
-      <span class="private"><svg aria-hidden="true"><use href="#i-lock"/></svg> Acceso privado</span>
+      <button type="button" class="outline" id="install-app" aria-label="Instalar GeoTwin Explorer" hidden>Instalar app</button>
       <p>NASA Space Apps<br>Challenge 2026</p>
     </div>
   </header>

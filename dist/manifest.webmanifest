@@ -1,0 +1,32 @@
+{
+  "name": "GeoTwin Explorer",
+  "short_name": "GeoTwin",
+  "description": "Atlas interactivo de la Tierra, la Luna y Marte para explorar análogos geológicos y comparar relieves.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d1319",
+  "theme_color": "#0d1319",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

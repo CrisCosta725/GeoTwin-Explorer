@@ -2,7 +2,7 @@
 
 ## 1. Abrir y presentar la pregunta
 
-Abre `Iniciar_GeoTwin.bat` y entra en http://127.0.0.1:8000/. La introducción presenta GeoTwin Explorer con Tierra, Luna y Marte al fondo y enlaza las fuentes de sus texturas. Entra con **Explorar el atlas**, **Omitir introducción** o **Esc**. Después, el atlas muestra los tres mundos juntos, con la Tierra como eje central de comparación. No hay un área seleccionada al inicio.
+Abre [GeoTwin Explorer en GitHub Pages](https://criscosta725.github.io/GeoTwin-Explorer/). La introducción presenta GeoTwin Explorer con Tierra, Luna y Marte al fondo y enlaza las fuentes de sus texturas. Entra con **Explorar el atlas**, **Omitir introducción** o **Esc**. Después, el atlas muestra los tres mundos juntos, con la Tierra como eje central de comparación. No hay un área seleccionada al inicio. En un navegador compatible, instala la app desde **Instalar app** en el panel lateral.
 
 Las tres superficies son esferas con sombreado y puntos geográficos en la cara visible. Pulsa el nombre de un planeta para acercarlo en la misma escena: los otros dos siguen visibles y el giro automático se pausa. Arrastra para girar, pulsa una superficie para seleccionar un punto o elige una región del catálogo. La selección libre también aparece como un punto destacado. Las flechas, **+**, **−** e **Inicio** controlan la esfera activa; **Restablecer vistas** restablece las tres cámaras. **Vista conjunta** recupera el encuadre general y **Activar giro** reanuda el movimiento ilustrativo. La inspección, la selección y el zoom permanecen en el mismo visor. El relieve espera una región explícita.
 

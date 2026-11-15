@@ -1,2 +1,10 @@
 node_modules/
 entrega/
+Iniciar_GeoTwin.bat
+iniciar_geotwin.mjs
+iniciar_geotwin.py
+package.json
+package-lock.json
+scripts/
+tests/
+VERIFICACION.md

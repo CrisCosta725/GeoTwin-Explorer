@@ -371,8 +371,7 @@ body {
   font-size: 12px;
 }
 .sidebar-foot p {margin-top: 11px;line-height: 1.35}
-.private {display: inline-flex;align-items: center;gap: 6px;color: #c8d5dc}
-.private svg {width: 14px;height: 14px;color: var(--accent)}
+#install-app {width:100%;margin-bottom:10px}
 
 .workspace {
   margin-left: var(--rail-width);
