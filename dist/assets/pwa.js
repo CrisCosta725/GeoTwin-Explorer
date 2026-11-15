@@ -41,7 +41,11 @@ if('serviceWorker' in navigator) {
   }
   const workerUrl=new URL('../service-worker.js',import.meta.url);
   const appScope=new URL('../',import.meta.url).pathname;
-  navigator.serviceWorker.register(workerUrl,{scope:appScope}).catch(error=>{
+  navigator.serviceWorker.register(workerUrl,{scope:appScope}).then(registration=>
+    registration.update().catch(error=>{
+      console.error('No se pudo comprobar si GeoTwin Explorer tiene una actualización.',error);
+    })
+  ).catch(error=>{
     console.error('No se pudo registrar el modo sin conexión de GeoTwin Explorer.',error);
   });
 }
