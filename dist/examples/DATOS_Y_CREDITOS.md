@@ -1,60 +1,41 @@
 # Datos, procedencia y créditos
 
-## Inventario de datos incluidos
+## Datos integrados
 
-| Conjunto | Uso y alcance | Referencia |
+El contexto terrestre muestra una imagen NASA local de 10 × 10 km y, por separado, Google Maps en modo satélite, centrado en la coordenada del catálogo y con acercamiento inicial aproximado de 1 km de ancho. La imagen NASA permanece visible si Google no carga y puede utilizarse sin conexión; su fecha y resolución se indican en la ficha. Google se presenta como un mapa incrustado, con sus controles y atribuciones, sin descargar ni almacenar sus teselas, y requiere conexión. Las fechas, resolución y cobertura dependen del lugar; ninguna de las imágenes determina dimensiones ni precisión de los perfiles. El encuadre del mapa varía con el ancho del visor y el nivel de zoom. [Google Maps: mapas incrustados](https://developers.google.com/maps/faq#mapswithoutapi).
+
+Las imágenes NASA de la tabla se mantienen como respaldo local de 10 × 10 km dentro del desplegable «Imagen NASA sin conexión».
+
+| Recurso | Uso en GeoTwin | Fuente |
 | --- | --- | --- |
-| NASA JPL · NASADEM HGT v001 | Perfiles de elevación locales integrados en 16 sitios terrestres, incluidos los ocho de Perú. Malla nominal ~30 m; referencia vertical EGM96. | [NASA Earthdata / DOI](https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001) |
-| Copernicus GLO-90/GLO-30 | Recortes terrestres; el lector elige el recorte que cubre toda la ventana. Es un modelo de superficie y puede incluir vegetación e infraestructura. | [Copernicus DEM](https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM) |
-| NASA LOLA y MOLA; USGS HRSC–MOLA y CTX | Altimetría lunar y marciana global y regional. El índice registra proyección, resolución nominal y recortes. | [LOLA](https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/), [MOLA](https://pds-geosciences.wustl.edu/missions/mgs/megdr.html), [USGS Marte](https://fdp.astrogeology.usgs.gov/fdp/mars/) |
-| NASA Earthdata Search | Recurso de consulta para descubrir y seleccionar observaciones terrestres por región, fecha y variable. El enlace abre el buscador; no selecciona una colección ni descarga un modelo de elevación. | [NASA Earthdata Search](https://search.earthdata.nasa.gov/search?lat=9.483263807983967&long=-36.80023005098189&zoom=2.6038155321900227) |
-| USGS 3DEP | Recorte de Hawaiʻi remuestreado a 100 m para los casos preparados. | [Servicio 3DEP](https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer) |
-| USGS OFR 2007-1089 | Polígonos geológicos de Hawaiʻi, escala 1:250 000. No cubren Perú. | [Publicación](https://doi.org/10.3133/ofr20071089), [capa](https://geodata.hawaii.gov/arcgis/rest/services/Terrestrial/MapServer/28) |
-| INGEMMET · GEOCATMIN, Geología 100K empalmados | 902 entidades recortadas a Andahua y Huambo, escala 1:100 000, EPSG:4326. Incluye identificadores, códigos, unidades, litologías y hojas originales. | [Servicio oficial, capa 11](https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_MAPAS_GEOLOGICOS/MapServer/11) |
-| Natural Earth | Máscara de tierra y lagos a 1:50 millones. Limita el cribado regional, no sustituye un levantamiento local. | [Natural Earth](https://www.naturalearthdata.com/downloads/50m-physical-vectors/) |
-| Smithsonian GVP | Registros georreferenciados de volcanes; un punto no representa toda la extensión de un depósito. | [GVP](https://volcano.si.edu/) |
-| Köppen–Geiger, Beck et al. | Clasificación terrestre 1980–2016, derivado a 0,083°. | [Publicación](https://doi.org/10.1038/sdata.2018.214) |
-| NSIDC/ILAMB | Clasificación circunártica de permafrost, derivado de aproximadamente 0,25°. No mide directamente hielo somero. | [NSIDC](https://nsidc.org/data/ggd318/versions/2), [ILAMB](https://www.ilamb.org/datasets.html) |
-| Texturas planetarias | Mosaicos para orientar la exploración visual; su iluminación es ilustrativa. | [NASA Blue Marble](https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/), [LRO/SVS](https://svs.gsfc.nasa.gov/4720/), [Marte/Viking](https://science.nasa.gov/3d-resources/mars/) |
+| NASA JPL · NASADEM HGT v001 | Dos perfiles locales de 10 km para cada uno de 16 sitios terrestres, incluidos los ocho de Perú. Malla nominal ~30 m, referencia vertical EGM96, remuestreo bilineal a 31,25 m. | [NASA Earthdata / DOI](https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001) |
+| PGC · ArcticDEM mosaico v3.0 | Perfiles de Haughton, Askja y Utqiaġvik. Malla de 32 m; alturas respecto al elipsoide WGS84. | [ArcticDEM](https://www.pgc.umn.edu/data/arcticdem/), [DOI v3](https://doi.org/10.7910/DVN/OHHUKH) |
+| PGC · REMA mosaico v2.0 | Perfiles de McMurdo. Malla de 32 m; alturas respecto al elipsoide WGS84. | [REMA](https://www.pgc.umn.edu/data/rema/), [DOI v2](https://doi.org/10.7910/DVN/EBW8UC) |
+| NASA GIBS · Landsat WELD | Imágenes históricas en color natural, encuadre de 10 × 10 km para 19 sitios. Capa anual solicitada con fecha GIBS 2000-12-01; no corresponde a una fotografía actual ni a una sola adquisición. | [NASA Worldview](https://worldview.earthdata.nasa.gov/?l=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual), [guía GWELD](https://lpdaac.usgs.gov/documents/2014/GWELD_User_Guide_V31.pdf) |
+| NASA GIBS · MODIS Terra | Imagen de contexto de McMurdo solicitada para 2024-01-15. Resolución regional; las nubes pueden ocultar el terreno. | [NASA GIBS](https://www.earthdata.nasa.gov/data/tools/gibs) |
+| NASA LRO · LOLA LDEM_16 | Transectos lunares regionales. Paso nominal ~1,9 km y radio lunar de referencia 1737,4 km. No resuelve bloques ni paredes de cráteres pequeños. | [NASA PDS · LOLA](https://pds-geosciences.wustl.edu/missions/lro/lola.htm) |
+| NASA MGS · MOLA | Relieve global y perfiles regionales de Marte; consultar la resolución indicada en el visor. | [NASA PDS · MOLA](https://pds-geosciences.wustl.edu/missions/mgs/mola.html) |
+| NOAA ETOPO, derivado local | Textura hipsométrica y batimétrica global terrestre, paso 5 minutos de arco (~9,3 km norte–sur). La versión original exacta requiere trazabilidad adicional; no se presenta como ETOPO 2022 de 15 segundos. | [Procedencia original](https://www.ncei.noaa.gov/products/etopo-global-relief-model) |
+| NASA Blue Marble, NASA SVS/LRO y NASA/JPL Viking | Imágenes de presentación y textura lunar. | [Blue Marble](https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/), [LRO/SVS](https://svs.gsfc.nasa.gov/4720/), [Marte](https://science.nasa.gov/3d-resources/mars/) |
 
-El manifiesto `assets/relief-data/index.json` enumera 164 archivos de elevación global y local. El recorte adicional `hawaii-3dep.json` declara su propio archivo. Las resoluciones nominales no equivalen al error vertical ni a la resolución de una fotografía. La aplicación usa interpolación y registra el paso efectivo de comparación.
+## Recurso de consulta
 
-## Referencias del caso peruano
+[NASA Earthdata Search](https://search.earthdata.nasa.gov/search?lat=9.483263807983967&long=-36.80023005098189&zoom=2.6038155321900227) permite descubrir y seleccionar conjuntos por región, fecha y variable.
 
-El [inventario de las 20 zonas y ubicaciones](ZONAS_Y_UBICACIONES.md) registra países, aplicaciones principales, coordenadas, fuentes y alcance de cada marcador. Isabella–San Juan y Sucre usan coordenadas y cotas aportadas por el usuario, conservando su origen geológico por verificar. Las nuevas referencias de La Joya, Coropuna, Cumbemayo, Nasca–Palpa, Ries y Meteor Crater se enlazan allí. Incorporar una zona al catálogo no añade automáticamente un recorte DEM de alta resolución ni valida su analogía.
+Los recortes NASADEM se obtuvieron de la [copia pública de Planetary Computer](https://planetarycomputer.microsoft.com/dataset/nasadem). Los identificadores, URL y SHA-256 de los recortes se conservan en assets/earth-profiles.js. Las imágenes incluyen capa, fecha solicitada, extensión geográfica, URL y SHA-256 en assets/earth-imagery.js. El registro assets/earth-relief-provenance.json describe la textura global terrestre.
 
-- [Mariño y Zavala, INGEMMET, 2010](https://app.ingemmet.gob.pe/biblioteca/pdf/CPG15-199.pdf): publicación regional. Sus polígonos a 1:50 000 no están digitalizados en el caso de GeoTwin.
-- [Cartografía INGEMMET a 1:100 000](https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_MAPAS_GEOLOGICOS/MapServer/11): capa digital distinta de la publicación a 1:50 000. Consulta del 14 de noviembre de 2026. `assets/peru-geology-provenance.json` registra ventanas, consultas completas, hojas y hash SHA-256. La fecha de descarga no es una fecha de publicación de cada hoja. Se solicitó generalización máxima de 0,00001 grados al servicio y se recortaron geometrías, sin reclasificar unidades. El código Qp-an mantiene la descripción original de lavas andesíticas y basálticas; no representa contornos de conos.
-- [Smithsonian GVP 354004](https://volcano.si.edu/volcano.cfm?vn=354004): referencia regional de Andahua–Orcopampa.
-- [NASA, Scoria Cones on Earth and Mars, 2026](https://science.nasa.gov/earth/earth-observatory/scoria-cones-on-earth-and-mars/): contexto de Ulysses Colles y diferencias de proceso. No constituye una validación del par peruano.
+NASADEM no cubre McMurdo, Haughton, Askja ni Utqiaġvik: sus perfiles utilizan REMA o ArcticDEM en su lugar. Los identificadores y URL de las teselas empleadas están en `assets/polar-profiles.js`. El generador `scripts/build-polar-profiles.mjs` consulta el catálogo STAC oficial y lee las ventanas necesarias de los GeoTIFF; proyecta a EPSG:3031 o EPSG:3413, interpola bilinealmente, incluso entre teselas, y conserva como huecos las muestras sin datos. Son dos transectos de 10 km, con 320 muestras cada uno, aproximados mediante latitud y longitud. Los modelos estereoscópicos representan la superficie, que puede incluir nieve, hielo y otros objetos; la malla no indica precisión vertical y las alturas elipsoidales no son equivalentes a EGM96. Los perfiles se distribuyen localmente para uso sin conexión.
 
-Fuentes científicas del caso revisadas el 14 de noviembre de 2026. Las fichas individuales conservan referencias adicionales. Se distingue publicación, observación regional y propuesta de GeoTwin.
+Los perfiles y fotografías complementan el estudio; no certifican origen de impacto, mineralogía, hielo subsuperficial, seguridad de aterrizaje ni idoneidad de una base. El sombreado y los colores del globo son representaciones visuales, sin desplazamiento geométrico de la esfera.
 
-## Servicios externos opcionales
+## Estudio y catálogo
 
-La imagen detallada puede proceder de Esri World Imagery o NASA Trek. Las elevaciones terrestres adicionales pueden proceder de [Mapzen Terrain Tiles](https://registry.opendata.aws/terrain-tiles/). Estos servicios requieren conexión y mantienen sus propias condiciones de uso. Los casos preparados se calculan con los archivos locales.
+Las ubicaciones, dimensiones y clasificaciones de la matriz lunar, las prioridades marcianas y las justificaciones comparativas proceden de la información aportada por el usuario, incluido el documento «Cuadro comparativo de los análogos terrestres». No se presentan como verificación independiente. Las fuentes regionales se conservan en los registros del catálogo y en ZONAS_Y_UBICACIONES.md. Las cotas aportadas pueden usar una referencia vertical distinta de NASADEM.
 
-## Atribuciones de Copernicus
+## Licencias
 
-Produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
-
-Produced using Copernicus WorldDEM-90 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
-
-## Componentes y licencias
-
-- DM Sans y Space Grotesk: SIL Open Font License; los textos están en `assets/dm-sans-OFL.txt` y `assets/space-grotesk-OFL.txt`.
-- polygon-clipping: licencia MIT. Se incluye su aviso en `assets/vendor/polygon-clipping-LICENSE.md`. [Proyecto y licencia](https://github.com/mfogel/polygon-clipping).
-- Entorno de pruebas: jsdom 26.1.0, licencia MIT, con versiones fijadas en `package-lock.json`. Se usa solo en Node.js para las pruebas DOM; no se carga en la aplicación del navegador. [Proyecto](https://github.com/jsdom/jsdom).
-- Los datos y publicaciones mantienen sus condiciones de origen. Este inventario y los avisos no conceden una licencia nueva sobre fuentes ajenas. Conserva las atribuciones y consulta la referencia original al reutilizar cada conjunto.
-
-## Relieve principal de la Tierra
-
-Los perfiles locales NASADEM se encuentran en `assets/earth-profiles.js` y se muestran en las observaciones de cada sitio terrestre. Se generaron con `scripts/build-earth-profiles.mjs` mediante recortes GeoTIFF de la copia pública de NASADEM en Planetary Computer, remuestreo bilineal y máscara de validez. Para regenerarlos desde la raíz del repositorio, instala las dependencias con `npm ci --prefix scripts` y ejecuta `node scripts/build-earth-profiles.mjs` con Node.js 18 o posterior. Se conservan el identificador de tesela, URL y SHA-256 de cada recorte. Las teselas contiguas se combinan cuando el transecto cruza sus límites. Los perfiles no sustituyen la textura global ni incorporan batimetría. La resolución nominal no certifica precisión vertical, detección de bloques o seguridad operacional.
-
-Fuente: NASA JPL (2020), NASADEM Merged DEM Global 1 arc second V001, NASA LP DAAC. [DOI](https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001), [distribución pública](https://planetarycomputer.microsoft.com/dataset/nasadem). Dos transectos de 10 km por sitio, malla nominal de 1 segundo de arco (~30 m), muestreo de 31,25 m y alturas EGM96. Dieciséis sitios cubiertos; McMurdo, Haughton, Askja y Utqiaġvik están fuera de cobertura.
-
-El globo terrestre usa por defecto una representación de elevación y batimetría derivada de una malla NOAA ETOPO incluida previamente, con paso de 5 minutos de arco (aproximadamente 9,3 km en dirección norte-sur). El color hipsométrico y el sombreado son una visualización sobre la esfera; no hay desplazamiento geométrico ni resolución de ingeniería. No se atribuye a esta malla la resolución de ETOPO 2022 de 15 segundos.
-
-Recurso de consulta: [NASA Earthdata Search](https://search.earthdata.nasa.gov/search?lat=9.483263807983967&long=-36.80023005098189&zoom=2.6038155321900227). Este portal sustituye al enlace de NOAA en la lista de recursos. NASADEM HGT v001 está integrado en los perfiles locales; la textura global conserva la procedencia descrita a continuación.
-
-Procedencia técnica del relieve instalado: [NOAA NCEI · ETOPO Global Relief Model](https://www.ncei.noaa.gov/products/etopo-global-relief-model). El registro local `assets/earth-relief-provenance.json` conserva las dimensiones, paso y procedencia de la malla utilizada. La versión exacta del producto original del derivado local requiere trazabilidad adicional antes de asignar un DOI de versión concreto.
+- ArcticDEM v3.0 y REMA v2.0: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) según el catálogo STAC de PGC. DEM creados por Polar Geospatial Center a partir de imágenes de Vantor. ArcticDEM: DEM proporcionados por Polar Geospatial Center con apoyo NSF-OPP 1043681, 1559691, 1542736, 1810976 y 2129685. REMA: DEM proporcionados por Byrd Polar and Climate Research Center y Polar Geospatial Center con apoyo NSF-OPP 1043681, 1542736, 1543501, 1559691, 1810976 y 2129685. Apoyo geoespacial de Polar Geospatial Center bajo NSF-OPP 1043681, 1559691, 2129685 y 2434541. Véase la [política de reconocimiento](https://www.pgc.umn.edu/guides/user-services/acknowledgement-policy/).
+- DM Sans y Space Grotesk: SIL Open Font License. Avisos en assets/dm-sans-OFL.txt y assets/space-grotesk-OFL.txt.
+- Three.js: MIT. Aviso en assets/three.LICENSE.txt.
+- Las dependencias de desarrollo y sus licencias se registran en package-lock.json y en sus paquetes. No se incluyen en la carga del navegador.
+- Los datos y publicaciones conservan sus condiciones de origen; esta documentación no concede derechos adicionales sobre fuentes ajenas.

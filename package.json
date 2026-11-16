@@ -1,0 +1,17 @@
+{
+  "name": "geotwin-mission-builder",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node iniciar_geotwin.mjs",
+    "test": "node --experimental-vm-modules --test tests/atlas-without-gis.test.mjs tests/mars-elevation.test.mjs",
+    "catalog": "node scripts/build-catalog.mjs"
+  },
+  "devDependencies": {
+    "geotiff": "^3.0.5",
+    "jsdom": "26.1.0",
+    "pngjs": "^7.0.0",
+    "proj4": "^2.20.2",
+    "sharp": "^0.35.5"
+  }
+}

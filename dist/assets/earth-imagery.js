@@ -1,0 +1,222 @@
+export const earthImagery = {
+  "isabella-choten": {
+    file: "earth-imagery/isabella-choten.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -78.50030520895632, -7.31238271729844, -78.40964479104369, -7.222450616034894 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-78.50030520895632%2C-7.31238271729844%2C-78.40964479104369%2C-7.222450616034894&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "70610cf0c591045365e73c8fcc7e6d442d7829f09ab9b97829e34a8a004ebb57"
+  },
+  sucre: {
+    file: "earth-imagery/sucre.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -78.19011051027772, -7.000129939520662, -78.09951171194453, -6.910197838257116 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-78.19011051027772%2C-7.000129939520662%2C-78.09951171194453%2C-6.910197838257116&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "0f8ae80327434e92d27938699fa383f3a6b08222fbda71cbe3be1d8052172fff"
+  },
+  "la-joya": {
+    file: "earth-imagery/la-joya.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -72.05492816798817, -16.739732717298438, -71.96103849867849, -16.649800616034895 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-72.05492816798817%2C-16.739732717298438%2C-71.96103849867849%2C-16.649800616034895&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "28844dd617600ff11d80ec80e09ca25029acaddaf8f026f1e38dc1d37a1dcbb5"
+  },
+  coropuna: {
+    file: "earth-imagery/coropuna.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -72.69667070672853, -15.578299383965106, -72.60332929327149, -15.48836728270156 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-72.69667070672853%2C-15.578299383965106%2C-72.60332929327149%2C-15.48836728270156&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "3f638b22719cc890d94896fd40fc2fe7e75fb2337de14ff92acf166a8537e1b6"
+  },
+  andagua: {
+    file: "earth-imagery/andagua.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -72.37664515256444, -15.464966050631773, -72.28335484743556, -15.375033949368227 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-72.37664515256444%2C-15.464966050631773%2C-72.28335484743556%2C-15.375033949368227&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "d9c803f1617afef73fab44dd5a35ce3464967f8f7dcd7f89736159d38c561349"
+  },
+  huambo: {
+    file: "earth-imagery/huambo.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -72.0492090515309, -15.746633050631774, -71.9557909484691, -15.656700949368227 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-72.0492090515309%2C-15.746633050631774%2C-71.9557909484691%2C-15.656700949368227&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "b8f5ee8d2770ed8120222078d07ae1b35a83b2c5014bad54c2abff11c61b18f1"
+  },
+  cumbemayo: {
+    file: "earth-imagery/cumbemayo.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -78.61925870204688, -7.2375827196317735, -78.52861329795313, -7.147650618368227 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-78.61925870204688%2C-7.2375827196317735%2C-78.52861329795313%2C-7.147650618368227&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "baaa5105cd9b310bef82b171f015ba41ed2d2f2e16fde1daeac921ed7000c996"
+  },
+  "nasca-palpa": {
+    file: "earth-imagery/nasca-palpa.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -75.1964940904043, -14.774966050631773, -75.10350590959571, -14.685033949368227 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-75.1964940904043%2C-14.774966050631773%2C-75.10350590959571%2C-14.685033949368227&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "10365a9f8514c192959609d68d8871171fb2437b8662ac5714f3999be1c99cb5"
+  },
+  atacama: {
+    file: "earth-imagery/atacama.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -69.97925982369337, -24.144966050631773, -69.88074017630665, -24.05503394936823 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-69.97925982369337%2C-24.144966050631773%2C-69.88074017630665%2C-24.05503394936823&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "fc1241bb672e580890d7572dc387be843c97d2fabc6855a5e0ca1768019e28f3"
+  },
+  mcmurdo: {
+    file: "earth-imagery/mcmurdo.png",
+    layer: "MODIS_Terra_CorrectedReflectance_TrueColor",
+    time: "2024-01-15",
+    spanKm: 10,
+    bbox: [ 161.79191902627332, -77.56496605063177, 162.20808097372668, -77.47503394936822 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=161.79191902627332%2C-77.56496605063177%2C162.20808097372668%2C-77.47503394936822&WIDTH=512&HEIGHT=512&TIME=2024-01-15",
+    sha256: "6700bad51fd0690ea7f81303e5948886a0e7df1b3138a713facd7ad3a86a82e2"
+  },
+  haughton: {
+    file: "earth-imagery/haughton.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -89.84814888734019, 75.33503394936822, -89.49185111265982, 75.42496605063177 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-89.84814888734019%2C75.33503394936822%2C-89.49185111265982%2C75.42496605063177&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "6c81c25b69185371ddb1a62d2f70804887bc77d532952e7e4900b16a09a28ae1"
+  },
+  "cinder-lake": {
+    file: "earth-imagery/cinder-lake.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -111.56710604011697, 35.26953394936823, -111.45689395988303, 35.359466050631774 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-111.56710604011697%2C35.26953394936823%2C-111.45689395988303%2C35.359466050631774&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "f184110d8f4172c5ac5fa6e2722fa95a240888d236b17a29ace54736354cc229"
+  },
+  "lava-beds": {
+    file: "earth-imagery/lava-beds.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -121.57749917212986, 41.71419194936823, -121.45693882787013, 41.80412405063177 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-121.57749917212986%2C41.71419194936823%2C-121.45693882787013%2C41.80412405063177&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "c48df7660287241cea4421214bb394da412abb91f002a4fddbace22bc151e6ac"
+  },
+  kilauea: {
+    file: "earth-imagery/kilauea.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -155.32767571563787, 19.36503394936823, -155.23232428436214, 19.45496605063177 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-155.32767571563787%2C19.36503394936823%2C-155.23232428436214%2C19.45496605063177&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "887abddd272e68aae60cd6f003dde973d892758e8cf7bb62ae72b3eba26f652e"
+  },
+  lanzarote: {
+    file: "earth-imagery/lanzarote.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -13.501497038992639, 29.12503394936823, -13.39850296100736, 29.214966050631773 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-13.501497038992639%2C29.12503394936823%2C-13.39850296100736%2C29.214966050631773&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "b09b8cebdbe1e17f5888dcfcb18ca71280c8b1ec1d448052a8ec328daa204deb"
+  },
+  askja: {
+    file: "earth-imagery/askja.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -16.856718390622138, 65.03503394936823, -16.643281609377862, 65.12496605063177 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-16.856718390622138%2C65.03503394936823%2C-16.643281609377862%2C65.12496605063177&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "9df4e6121f8195e0310a2e6a60c5fd5c2a4a31f52c956fcba452254fdf2670e8"
+  },
+  ries: {
+    file: "earth-imagery/ries.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ 10.488563694100169, 48.839200616034894, 10.625325194788722, 48.92913271729844 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=10.488563694100169%2C48.839200616034894%2C10.625325194788722%2C48.92913271729844&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "f729f71fb07cad5c6e8923462f0b4c6ae83a5b8f50a30d87cb9cc4112808a1e9"
+  },
+  "meteor-crater": {
+    file: "earth-imagery/meteor-crater.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -111.07158245865662, 34.98836728270156, -110.96175087467671, 35.0782993839651 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-111.07158245865662%2C34.98836728270156%2C-110.96175087467671%2C35.0782993839651&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "ce39ed3c0f2e6f97b08f6501c9a121de257f198b618fef38195bd30286daaebf"
+  },
+  pilot: {
+    file: "earth-imagery/pilot.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -114.00961679591211, 40.99503394936823, -113.8903832040879, 41.08496605063177 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-114.00961679591211%2C40.99503394936823%2C-113.8903832040879%2C41.08496605063177&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "baa4a099b1e721983b6c87acd86cb62823fef0d9b51c8bfe7e81648205925586"
+  },
+  barrow: {
+    file: "earth-imagery/barrow.png",
+    layer: "Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual",
+    time: "2000-12-01",
+    spanKm: 10,
+    bbox: [ -156.75039695287597, 71.23658394936822, -156.470163047124, 71.32651605063177 ],
+    width: 512,
+    height: 512,
+    sourceURL: "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=Landsat_WELD_CorrectedReflectance_TrueColor_Global_Annual&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=TRUE&SRS=EPSG%3A4326&BBOX=-156.75039695287597%2C71.23658394936822%2C-156.470163047124%2C71.32651605063177&WIDTH=512&HEIGHT=512&TIME=2000-12-01",
+    sha256: "a3315ffbebf60e08f7235b48f85d42b0c315628c505fd0205c800af619dad8a6"
+  }
+};

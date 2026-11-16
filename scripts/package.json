@@ -1,8 +1,0 @@
-{
-  "name": "geotwin-profile-generator",
-  "private": true,
-  "type": "module",
-  "dependencies": {
-    "geotiff": "3.0.5"
-  }
-}
