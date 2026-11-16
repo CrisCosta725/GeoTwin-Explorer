@@ -17,5 +17,5 @@ export function rationaleFor(world,site){
    if(index>=0){table=studyTables[i+1];row=table.rows[index+1];break;}
   }
  }
- return row?table.rows[0].map((label,i)=>({label,value:row[i]})).filter(item=>item.value&&item.label!=='Justificación estratégica para Geo Twin'):[];
+ return row?table.rows[0].map((label,i)=>({label,value:row[i]})).filter(item=>item.value&&item.label!=='N.º'&&item.label!=='Justificación estratégica para Geo Twin'):[];
 }

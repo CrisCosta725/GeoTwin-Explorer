@@ -1,7 +1,7 @@
 export const englishContent={
   Earth:{
     'isabella-choten':{
-      name:'Isabella–Chotén',place:'Chotén · Cajamarca, Peru',region:'South America',country:'Peru',
+      name:'Isabella–San Juan',place:'San Juan · Cajamarca, Peru',region:'South America',country:'Peru',
       biome:'Possible impact structure · origin unverified',application:'Possible impact structure',
       description:'Proposed area for examining a possible impact structure. The location was supplied by the user; its geological origin and outline have not yet been verified.',
       limit:'A circular shape does not prove an impact. Mapping, petrography, and diagnostic shock evidence are needed. The supplied elevation is not a substitute for a DEM measurement.',
@@ -166,7 +166,7 @@ export const englishContent={
 export const englishRationale={
   Earth:{
     'isabella-choten':{
-      'Sitio y ubicación administrativa':'Isabella, Chotén hamlet, San Juan District, Cajamarca Province and Department, Peru. Cerro El Gavilán; approx. 3,900 m above sea level.',
+      'Sitio y ubicación administrativa':'Isabella, San Juan District, Cajamarca Province and Department, Peru. Cerro El Gavilán; approx. 3,900 m above sea level.',
       'Estructura y características geológicas':'Crater-like structure. An impact origin has not been confirmed.',
       'Analogía con Luna o Marte':'Lunar and Martian impact craters; morphological comparison only, not genetic at this stage.'
     },

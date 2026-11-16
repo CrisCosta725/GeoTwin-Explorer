@@ -304,6 +304,9 @@ export class PlanetAtlas {
     this.overviewFrame=0;this.overviewLast=null;
     this.focusedWorld=null;
     this.overviewLocations=Object.fromEntries(Object.keys(worlds).map(world=>[world,[]]));
+    this.overviewConnections=[];
+    this.connectionLayer=root.querySelector('[data-overview-connections]');
+    this.connectionPaths=[];this.connectionTargets=[];this.connectionOrigin=null;
     this.onActivate=onActivate;
     this.planets=new Map();
     for (const world of Object.keys(worlds)) {
@@ -322,6 +325,25 @@ export class PlanetAtlas {
   get isOverview() {return this.viewMode==='overview';}
   get camera() {return this.active.camera;}
   get view() {return this.active.view;}
+  setOverviewConnections(connections) {
+    this.overviewConnections=connections;
+    if (!this.connectionLayer) return;
+    const namespace='http://www.w3.org/2000/svg';
+    this.connectionPaths=connections.map(connection=>{
+      const path=document.createElementNS(namespace,'path');
+      path.classList.add('overview-connection','overview-connection-'+connection.toWorld.toLowerCase());
+      return path;
+    });
+    this.connectionOrigin=connections.length?document.createElementNS(namespace,'circle'):null;
+    this.connectionOrigin?.classList.add('overview-connection-origin');
+    this.connectionTargets=connections.map(connection=>{
+      const target=document.createElementNS(namespace,'circle');
+      target.classList.add('overview-connection-target','overview-connection-target-'+connection.toWorld.toLowerCase());
+      target.setAttribute('r','4');
+      return target;
+    });
+    this.connectionLayer.replaceChildren(...this.connectionPaths,...(this.connectionOrigin?[this.connectionOrigin]:[]),...this.connectionTargets);
+  }
   setOverviewWorld(world) {
     if (!this.isOverview || !this.planets.has(world)) return;
     if (this.world!==world) this.onActivate(world);
@@ -536,6 +558,52 @@ export class PlanetAtlas {
           item.marker.style.setProperty('--cluster-y',adjustedCenter.y+spreadRadius*Math.sin(angle)-item.point.y+'px');
         });
       }
+    }
+    this.drawOverviewConnections();
+  }
+  drawOverviewConnections() {
+    const layer=this.connectionLayer;
+    const network=this.viewport.querySelector('.planet-network');
+    if (!layer || !network) return;
+    const width=network.clientWidth,height=network.clientHeight,rect=network.getBoundingClientRect();
+    if (!width || !height || !rect.width || !rect.height || !this.isOverview || !this.overviewConnections.length) {
+      layer.hidden=true;
+      return;
+    }
+    layer.setAttribute('viewBox','0 0 '+width+' '+height);
+    const position=(world,id)=>{
+      const markerLayer=this.viewport.querySelector('[data-overview-locations="'+world+'"]');
+      const marker=[...(markerLayer?.children??[])].find(node=>node.dataset.overviewLocation===id);
+      if (!marker || marker.hidden) return null;
+      const markerRect=marker.getBoundingClientRect();
+      const scaleX=width/rect.width,scaleY=height/rect.height;
+      return {
+        x:(markerRect.left+markerRect.width/2-rect.left)*scaleX,
+        y:(markerRect.top+markerRect.height/2-rect.top)*scaleY
+      };
+    };
+    let visible=0,origin=null;
+    for (const [index,connection] of this.overviewConnections.entries()) {
+      const from=position(connection.fromWorld,connection.fromId);
+      const to=position(connection.toWorld,connection.toId);
+      const path=this.connectionPaths[index],target=this.connectionTargets[index];
+      if (!from || !to) {
+        path.style.display='none';target.style.display='none';
+        continue;
+      }
+      visible++;
+      origin??=from;
+      path.style.display='';target.style.display='';
+      const bend=Math.min(36,Math.abs(to.x-from.x)*.1);
+      path.setAttribute('d','M '+from.x+' '+from.y+' Q '+((from.x+to.x)/2)+' '+(((from.y+to.y)/2)-bend)+' '+to.x+' '+to.y);
+      target.setAttribute('cx',String(to.x));target.setAttribute('cy',String(to.y));
+    }
+    layer.hidden=visible===0;
+    if (origin && this.connectionOrigin) {
+      this.connectionOrigin.style.display='';
+      this.connectionOrigin.setAttribute('cx',String(origin.x));this.connectionOrigin.setAttribute('cy',String(origin.y));
+    }else if(this.connectionOrigin){
+      this.connectionOrigin.style.display='none';
     }
   }
   syncSceneLabel() {

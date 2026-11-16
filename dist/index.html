@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="es"><head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Identifica y caracteriza análogos terrestres de regiones de la Luna y Marte con datos abiertos." data-i18n-content="meta.description">
@@ -85,7 +85,7 @@
       <button type="button" id="atlas-overview-view" class="app-action app-action-primary" data-atlas-view="overview" aria-label="Volver a la vista conjunta" title="Volver al encuadre conjunto" data-i18n-aria-label="overview.return" data-i18n-title="overview.title"><svg aria-hidden="true"><use href="#i-orbit"></use></svg><span data-i18n="overview.label">Vista Conjunta</span></button>
       <span class="rotation-indicator" role="status" aria-label="El giro automático está activo" data-i18n-aria-label="rotation.active"><i aria-hidden="true"></i><span data-i18n="rotation.label">Giro Auto</span></span>
       <a class="app-action nav-link" href="#catalogo" data-i18n="catalog">Catálogo</a>
-      <button type="button" class="app-action language-toggle" id="language-toggle" aria-label="Cambiar idioma a inglés" title="Cambiar idioma a inglés" aria-pressed="false">EN</button>
+      <button type="button" class="app-action language-toggle" id="language-toggle" aria-label="Switch language to Spanish" title="Switch language to Spanish" aria-pressed="true">ES</button>
 
       <button type="button" class="app-action" id="install-app" aria-label="Instalar GeoTwin Explorer" data-i18n-aria-label="install.label" hidden=""><span data-i18n="install">Instalar app</span></button>
 
@@ -110,6 +110,7 @@
                   </div>
                 </header>
                 <div class="planet-network" role="group" aria-label="Tierra al centro, con la Luna y Marte a los lados" data-i18n-aria-label="overview.network.aria">
+                  <svg class="overview-connections" data-overview-connections aria-hidden="true" focusable="false"></svg>
                   <div class="overview-world overview-earth" data-overview-card="Earth">
                     <div class="overview-orb" data-overview-world="Earth" role="group" tabindex="0" aria-label="Esfera interactiva de la Tierra" data-i18n-aria-label="earth.sphere" aria-describedby="overview-help globe-keyboard"><canvas class="overview-texture" data-overview-texture="Earth" width="320" height="320" aria-hidden="true"></canvas><span class="overview-location-points" data-overview-locations="Earth"></span><span class="overview-status" data-overview-status="Earth" role="status" data-i18n="loading.sphere">Cargando esfera…</span></div>
                     <button type="button" class="overview-open-world" data-world="Earth" data-i18n="earth.open">Tierra</button><small data-i18n="earth.subtitle">Eje central</small>

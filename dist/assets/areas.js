@@ -169,11 +169,11 @@ export const planetaryAreas = {
 for (const group of lunarMatrix) for (const row of group.rows.filter(hasCoordinates)) {
   planetaryAreas.Moon.push({
     id:row.code.toLowerCase(),profile:'impact',name:row.name,lat:row.lat,lon:row.lon,range:row.diameterKm/2,
-    type:'Cráter · '+group.period+' según matriz aportada',source:null,
+    type:'Cráter · período '+group.period,source:null,
     features:[['Matriz del usuario',row.code+' · diámetro '+row.diameterKm+' km · profundidad '+row.depthKm+' km · '+row.morphology],
       ['Coordenadas aportadas',row.lat+'°, '+row.lon+'° · longitud positiva interpretada al este'],
       ['Objetivo propuesto',row.reason??group.purpose]],
-    limit:'Coordenadas aportadas por el usuario. La clasificación temporal, dimensiones, morfología y referencia cartográfica requieren contrastarse con la fuente original.'
+    limit:'Coordenadas aportadas por el usuario. La clasificación temporal, morfología y referencia cartográfica requieren contrastarse con la fuente original.'
   });
 }
 

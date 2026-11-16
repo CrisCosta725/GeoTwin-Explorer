@@ -4,7 +4,7 @@ import {terrain} from './terrain.js';
 const siteCatalog = [
   {
     "id": "isabella-choten",
-    "place": "Chotén · Cajamarca, Perú",
+    "place": "San Juan · Cajamarca, Perú",
     "region": "América del Sur",
     "lat": -7.267416666666667,
     "lon": -78.454975,
@@ -22,7 +22,7 @@ const siteCatalog = [
     "reference": "https://www.gob.pe/institucion/ign/pages/22245-consulta-el-nomenclator-geografico-del-peru",
     "referenceLabel": "IGN · consulta de topónimos",
     "evidence": "Origen por verificar",
-    "name": "Isabella–Chotén",
+    "name": "Isabella–San Juan",
     "country": "Perú",
     "application": "Posible estructura de impacto",
     "catalogNumber": 1

@@ -6,7 +6,7 @@ La lista conserva el orden, países y aplicaciones principales solicitados por e
 
 | N.º | Sitio | País | Aplicación principal | Latitud, longitud (grados decimales) | Cota aportada | Alcance |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Isabella–Chotén | Perú | Posible estructura de impacto | -7.2674167, -78.4549750 | 3664 m · aportada | Origen por verificar |
+| 1 | Isabella–San Juan | Perú | Posible estructura de impacto | -7.2674167, -78.4549750 | 3664 m · aportada | Origen por verificar |
 | 2 | Sucre | Perú | Estructura crateriforme por verificar | -6.9551639, -78.1448111 | 3189 m · aportada | Origen por verificar |
 | 3 | Pampas de La Joya | Perú | Operaciones en ambiente marciano árido | -16.6947667, -72.0079833 | — | Referencia regional |
 | 4 | Coropuna | Perú | Permafrost y hielo subsuperficial | -15.5333333, -72.6500000 | — | Referencia regional |
@@ -27,11 +27,11 @@ La lista conserva el orden, países y aplicaciones principales solicitados por e
 | 19 | Pilot Valley | EE. UU. | Evaporitas y depósitos salinos | 41.0400000, -113.9500000 | — | Referencia regional |
 | 20 | Utqiaġvik–Barrow | EE. UU. | Permafrost y ambientes árticos | 71.2815500, -156.6102800 | — | Referencia regional |
 
-Las coordenadas y cotas de Isabella–Chotén y Sucre fueron aportadas y asignadas por el usuario. Se conservan como datos proporcionados: su datum, referencia vertical, contorno y origen geológico requieren verificación. Las cotas no sustituyen las elevaciones del DEM.
+Las coordenadas y cotas de Isabella–San Juan y Sucre fueron aportadas y asignadas por el usuario. Se conservan como datos proporcionados: su datum, referencia vertical, contorno y origen geológico requieren verificación. Las cotas no sustituyen las elevaciones del DEM.
 
 Los demás marcadores son referencias de los sitios y no delimitan parcelas de ensayo ni garantizan una cobertura DEM local de detalle. Nasca–Palpa usa una referencia regional aproximada; La Joya usa el centro calculado del cuadrángulo publicado.
 
-### 1. Isabella–Chotén
+### 1. Isabella–San Juan
 
 Coordenadas y cota aportadas por el usuario: 7°16′02.70″ S, 78°27′17.91″ O; 3664 m. Datum y referencia vertical por confirmar.
 

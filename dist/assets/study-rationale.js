@@ -10,7 +10,7 @@ export const studyTables = [
       ],
       [
         "1",
-        "Isabella Caserío Chotén, distrito de San Juan, provincia y departamento de Cajamarca, Perú. Cerro El Gavilán; aprox. 3.900 m s. n. m.",
+        "Isabella, distrito de San Juan, provincia y departamento de Cajamarca, Perú. Cerro El Gavilán; aprox. 3.900 m s. n. m.",
         "Estructura de aspecto crateriforme. Su origen de impacto no está confirmado.",
         "Cráteres de impacto lunares y marcianos; comparación morfológica, no genética por ahora.",
         "Es un sitio prioritario porque permite desarrollar un protocolo peruano de identificación de estructuras de impacto. Comparar diámetro, circularidad, relación profundidad/diámetro, borde, brechas, deformación y posibles minerales de choque. No clasificar como cráter de impacto confirmado hasta encontrar evidencias diagnósticas."

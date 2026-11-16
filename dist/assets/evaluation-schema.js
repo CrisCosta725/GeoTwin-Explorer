@@ -29,7 +29,8 @@ export function evaluationFor(site={},lunarRow=null) {
   ].filter(([,value])=>value)):null;
   return evaluationGroups.map(group=>({...group,variables:group.variables.map(name=>{
     if(lunarValues?.has(name)) {
-      return {name,value:lunarValues.get(name),status:'Datos aportados · '+lunarRow.period+' · verificación pendiente',source:null};
+      const measurement=['Diámetro','Profundidad','Relación profundidad/diámetro (d/D)'].includes(name);
+      return {name,value:lunarValues.get(name),status:measurement?'Datos aportados':'Datos aportados · '+lunarRow.period+' · verificación pendiente',source:null};
     }
     let value=null,status='Pendiente de datos',source=null;
     if(name==='Elevación' && Number.isFinite(site.elevationM)) {

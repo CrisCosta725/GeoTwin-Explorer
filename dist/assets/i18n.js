@@ -79,6 +79,24 @@ const messages={
     'site.limit.fallback':'Verificar la parcela, escala y fuentes antes de extrapolar resultados.',
     'site.source':'Fuente del lugar',
     'site.evaluation':'Datos a evaluar',
+    'guide.welcome':'Hola, vamos a explorar {name}.',
+    'guide.why':'¿Por qué nos interesa? {detail}',
+    'guide.lunar.reason':'Aquí se propone investigar lo siguiente: {detail}',
+    'guide.lunar.aristarchus':'¿Cómo podríamos saber si tiene un pico central o paredes escalonadas? Busquemos esas formas en imágenes e investiguemos si hay materiales excavados y cómo se relaciona con el entorno volcánico. Abre «Ver observaciones, fuentes y datos» para empezar.',
+    'guide.lunar.period':'¿Cuándo pudo formarse este cráter? Se ha clasificado en el período {period}; consulta los datos y las fuentes para contrastar esa clasificación.',
+    'guide.unknown.intro':'Todavía no tenemos una ficha específica para este punto.',
+    'guide.unknown.compare':'Si quieres explorar sus posibles semejanzas, elige una ubicación del catálogo.',
+    'guide.unknown.limit':'Antes de sacar conclusiones, necesitamos datos locales y fuentes que permitan evaluar este lugar.',
+    'guide.earth.application':'Este lugar puede ayudarnos a ensayar analogías en la Tierra. Una aplicación propuesta es «{application}»; no se trata de una base lunar o marciana.',
+    'guide.earth.unverified':'Aún no se ha confirmado el origen de esta estructura. Primero necesitamos estudiar su geología y delimitarla antes de compararla con otros lugares.',
+    'guide.moon.measures':'¿Qué te dicen sus dimensiones? Los datos registran {diameter} km de diámetro, {depth} km de profundidad y una forma de «{shape}». Elige otro cráter para comparar sus dimensiones.',
+    'guide.moon.general':'Aquí podemos estudiar el terreno y compararlo con lugares de la Tierra. Una semejanza no basta para saber si sería seguro instalar una base.',
+    'guide.mars.operation':'La valoración aportada para una base es «{habitat}». Como posible tema de investigación se propone «{laboratory}». Aún hay que verificar las condiciones operativas.',
+    'guide.mars.general':'Este lugar puede servir para estudiar características de Marte y compararlas con análogos terrestres. Para evaluar una base harían falta datos locales más detallados.',
+    'guide.caution':'Antes de sacar conclusiones, tengamos en cuenta esto: {limit} ¿Quieres seguir explorando? Abre «Ver observaciones, fuentes y datos» y descubramos más sobre este lugar.',
+    'earth.summary.heading':'Cuadro terrestre aportado',
+    'earth.summary.note':'Datos del cuadro de los 20 lugares terrestres aportado por el usuario; requieren verificación y pueden referirse a escalas o sectores distintos.',
+    'earth.summary.andagua':'El cuadro indica 60 × 25 km; el estudio anterior indica 60 × 60 km. Verificar la delimitación de ambos valores.',
     'lunar.rationale':'Justificación de selección lunar',
     'lunar.reason':'Motivo de selección:',
     'mars.evaluation':'Evaluación operativa aportada',
@@ -169,6 +187,24 @@ const messages={
     'site.limit.fallback':'Verify the site, scale, and sources before extrapolating results.',
     'site.source':'Site source',
     'site.evaluation':'Data to evaluate',
+    'guide.welcome':'Hello! Let’s explore {name}.',
+    'guide.why':'Why is it interesting? {detail}',
+    'guide.lunar.reason':'Here is what we could investigate: {detail}',
+    'guide.lunar.aristarchus':'How could we tell whether it has a central peak or terraced walls? Let’s look for those shapes in images and investigate possible excavated materials and its relationship to the volcanic setting. Open “View observations, sources and data” to get started.',
+    'guide.lunar.period':'When might this crater have formed? It has been classified as {period}; check the data and sources to verify that classification.',
+    'guide.unknown.intro':'We don’t have a specific profile for this point yet.',
+    'guide.unknown.compare':'To explore possible similarities, choose a location from the catalog.',
+    'guide.unknown.limit':'Before drawing conclusions, we need local data and sources to assess this place.',
+    'guide.earth.application':'This place could help us test analogies on Earth. One proposed use is “{application}”; it is not a lunar or Martian base.',
+    'guide.earth.unverified':'The origin of this structure has not yet been confirmed. First we need to study its geology and outline before comparing it with other places.',
+    'guide.moon.measures':'What do its dimensions tell you? The data record a diameter of {diameter} km, a depth of {depth} km, and a “{shape}” shape. Choose another crater to compare their dimensions.',
+    'guide.moon.general':'Here we can study the terrain and compare it with places on Earth. A similarity alone does not tell us whether it would be safe to establish a base.',
+    'guide.mars.operation':'The supplied assessment for a base is “{habitat}”. One proposed research topic is “{laboratory}”. Operational conditions still need to be verified.',
+    'guide.mars.general':'This place could help us study Martian features and compare them with terrestrial analogs. Assessing a base would require more detailed local data.',
+    'guide.caution':'Before drawing conclusions, let’s keep this in mind: {limit} Want to explore further? Open “View observations, sources and data” and let’s discover more about this place.',
+    'earth.summary.heading':'Supplied terrestrial summary',
+    'earth.summary.note':'Data from the user-supplied table of 20 terrestrial sites; verification is needed and values may refer to different scales or areas.',
+    'earth.summary.andagua':'The table gives 60 × 25 km; the earlier study gives 60 × 60 km. Verify the boundaries used for both values.',
     'lunar.rationale':'Lunar site-selection rationale',
     'lunar.reason':'Selection rationale:',
     'mars.evaluation':'Supplied operational assessment',
@@ -263,11 +299,11 @@ const terms={
   'Relieve polar · horizonte y comunicaciones':'Polar relief · horizon and communications',
   'Meseta polar · región estudiada':'Polar plateau · studied region',
   'Cresta polar · región de referencia':'Polar ridge · reference region',
-  'Cráter · Nectárico según matriz aportada':'Crater · Nectarian according to supplied matrix',
-  'Cráter · Eratosteniano según matriz aportada':'Crater · Eratosthenian according to supplied matrix',
-  'Cráter · Copernicano según matriz aportada':'Crater · Copernican according to supplied matrix',
+  'Cráter · período Nectárico':'Crater · Nectarian period',
+  'Cráter · período Eratosteniano':'Crater · Eratosthenian period',
+  'Cráter · período Copernicano':'Crater · Copernican period',
   'Nectárico':'Nectarian','Eratosteniano':'Eratosthenian','Copernicano':'Copernican',
-  'Coordenadas aportadas por el usuario. La clasificación temporal, dimensiones, morfología y referencia cartográfica requieren contrastarse con la fuente original.':'Coordinates supplied by the user. The temporal classification, dimensions, morphology, and cartographic reference must be checked against the original source.',
+  'Coordenadas aportadas por el usuario. La clasificación temporal, morfología y referencia cartográfica requieren contrastarse con la fuente original.':'Coordinates supplied by the user. The temporal classification, morphology, and cartographic reference must be checked against the original source.',
   'Datos aportados':'Supplied data',
   'verificación pendiente':'verification pending',
   'Datos aportados · verificación pendiente':'Supplied data · verification pending',
@@ -325,14 +361,14 @@ const terms={
   'Comparar una estructura de embudo en el mismo entorno regional.':'Compare a funnel-shaped structure in the same regional setting.',
   'Comparar diferencias de geometría en un cráter de mayor diámetro en terrenos de mare.':'Compare geometry differences in a larger-diameter crater in mare terrain.',
   'Laboratorio de vulcanismo y modificación superficial':'Volcanism and surface-modification laboratory',
-  'Investigar pico central, paredes escalonadas, materiales excavados y contexto volcánico; rasgos propuestos por el usuario.':'Investigate the central peak, terraced walls, excavated materials, and volcanic context; features proposed by the user.',
+  'El posible pico central, las paredes escalonadas, los materiales excavados y el contexto volcánico. Estos rasgos aún deben verificarse.':'The possible central peak, terraced walls, excavated materials, and volcanic context. These features still need to be verified.',
   'Estudiar morfología de impacto.':'Study impact morphology.',
   'Laboratorio de impactos recientes y exposición de materiales profundos':'Recent-impact and deep-material exposure laboratory',
   'No se pudo determinar una semejanza':'A similarity could not be determined'
 };
 
 export function currentLanguage(){
-  return localStorage.getItem('geotwin-language')==='en'?'en':'es';
+  return document.documentElement.lang==='es'?'es':'en';
 }
 
 export function t(key,values={}){
@@ -393,7 +429,7 @@ export function bindLanguageToggle(onChange){
   updateDocument();
   const toggle=document.getElementById('language-toggle');
   toggle.addEventListener('click',()=>{
-    localStorage.setItem('geotwin-language',currentLanguage()==='es'?'en':'es');
+    document.documentElement.lang=currentLanguage()==='es'?'en':'es';
     updateDocument();
     onChange?.(currentLanguage());
   });

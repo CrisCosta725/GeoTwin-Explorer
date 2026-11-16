@@ -15,7 +15,7 @@ const suppliedCoordinates={
  CSC19:{lat:21.73420,lon:17.92040},
  CSC06:{lat:-79.40668,lon:24.04089}
 };
-// Transcripción de la matriz del usuario. Edades, medidas y morfologías pendientes de fuente.
+// Transcripción de la matriz del usuario. Edades y morfologías pendientes de fuente.
 export const lunarMatrix=[
  {period:'Nectárico',purpose:'Laboratorio de evolución y degradación',rows:[
  ['Manzinus T','CSN215',21.29,1.929,'Tazón',null,'Referencia para estudiar una estructura de mayor diámetro con borde irregular.'],
@@ -31,7 +31,7 @@ export const lunarMatrix=[
  ['Ibn Battuta','CSE16',12.52,1.164,'Tazón','Mar lunar'],
  ['Theon Senior','CSE07',18.62,2.940,'Cono','Tierras altas']]},
  {period:'Copernicano',purpose:'Laboratorio de impactos recientes y exposición de materiales profundos',rows:[
- ['Aristarchus','CSC13',63.02,3.479,'Tazón',null,'Investigar pico central, paredes escalonadas, materiales excavados y contexto volcánico; rasgos propuestos por el usuario.'],
+ ['Aristarchus','CSC13',63.02,3.479,'Tazón',null,'El posible pico central, las paredes escalonadas, los materiales excavados y el contexto volcánico. Estos rasgos aún deben verificarse.'],
  ['Triesnecker','CSC16',25.91,1.801,'Tazón',null,'Estudiar morfología de impacto.'],
  ['Menelaus','CSC25',26.81,2.906,'Embudo'],
  ['Bessel','CSC19',15.33,1.288,'Tazón'],

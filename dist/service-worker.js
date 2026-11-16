@@ -1,5 +1,11 @@
-const CACHE_NAME='geotwin-atlas-without-gis-v11';
+const CACHE_NAME='geotwin-atlas-without-gis-v30';
 const APP_ASSETS=[
+ './assets/earth-summary.js',
+ './assets/astronaut-3d.js',
+ './assets/astronaut-model.js',
+ './assets/astronaut-fallback.js',
+ './assets/astronaut-motion.js',
+ './assets/three.module.min.js',
   './assets/study-rationale.js',
   './assets/study-rationale-map.js',
   "./",
@@ -45,7 +51,7 @@ const APP_ASSETS=[
 
 self.addEventListener('install',event=>{
   event.waitUntil(Promise.all([
-    caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_ASSETS)),
+    caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_ASSETS.map(url=>new Request(url,{cache:'reload'})))),
     self.skipWaiting()
   ]));
 });
@@ -65,7 +71,7 @@ self.addEventListener('fetch',event=>{
 
   event.respondWith((async()=>{
     try {
-      const response=await fetch(request);
+      const response=await fetch(request,{cache:'no-cache'});
       if(response.ok) {
         const cache=await caches.open(CACHE_NAME);
         await cache.put(request,response.clone());
