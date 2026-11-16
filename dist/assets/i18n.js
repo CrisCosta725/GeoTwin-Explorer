@@ -366,7 +366,6 @@ const terms = {
   "Pendiente de datos": "Data pending",
   "Sin datos": "No data",
   "Registrado en la ficha": "Recorded in the site profile",
-  "Cota aportada · referencia vertical por confirmar": "Supplied elevation · vertical datum to be confirmed",
   "Evidencia regional · verificar en la parcela": "Regional evidence · verify at the site",
   "Aplicación: ": "Application: ",
   "Evaluación operativa aportada": "Supplied operational assessment",

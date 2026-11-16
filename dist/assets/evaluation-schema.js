@@ -76,7 +76,7 @@ export function evaluationFor(site = {}, lunarRow = null) {
       let value = null, status = "Pendiente de datos", source = null;
       if (name === "Elevación" && Number.isFinite(site.elevationM)) {
         value = site.elevationM + " m";
-        status = "Cota aportada · referencia vertical por confirmar";
+        status = "Cota aportada";
       }
       if (name === "Pendiente" && Number.isFinite(site.slope)) {
         value = site.slope + "°";

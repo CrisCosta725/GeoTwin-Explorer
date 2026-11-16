@@ -4,7 +4,9 @@ import { earthProfile } from "./earth-profile.js";
 
 import { earthImage, bindEarthImage } from "./earth-image.js";
 
-import { marsTransects } from "./mars-elevation.js";
+import { marsElevation, marsTransects } from "./mars-elevation.js";
+
+import { catalogElevation } from "./catalog-elevation.js";
 
 import { marsProfile } from "./mars-profile.js";
 
@@ -53,6 +55,46 @@ const catalog = {
 let selected = null;
 
 let elevationRequest = 0;
+
+let catalogMarsElevations = null, catalogMarsLoading = false, catalogMarsFailed = false;
+
+function catalogElevationText(site) {
+  const en = currentLanguage() === "en";
+  const elevation = site.world === "Mars" ? catalogMarsElevations?.get(site.id) : catalogElevation(site.world, site);
+  if (!elevation) {
+    if (site.world === "Mars" && !catalogMarsFailed) return en ? "Loading elevation…" : "Cargando cota…";
+    return en ? "Elevation unavailable" : "Cota no disponible";
+  }
+  const value = new Intl.NumberFormat(currentLanguage(), { maximumFractionDigits: 0 }).format(elevation.value);
+  const labels = {
+    supplied: en ? "supplied" : "aportada",
+    NASADEM: "NASADEM · EGM96",
+    ArcticDEM: "ArcticDEM · WGS84",
+    REMA: "REMA · WGS84",
+    LOLA: en ? "LOLA · lunar radius 1,737.4 km" : "LOLA · radio lunar 1737,4 km",
+    MOLA: en ? "MOLA · areoid" : "MOLA · areoide"
+  };
+  return (elevation.source === "supplied" ? "" : "≈ ") + value + " m · " + labels[elevation.source];
+}
+
+function loadCatalogMarsElevations() {
+  if (catalogMarsElevations || catalogMarsLoading) return;
+  catalogMarsLoading = true;
+  catalogMarsFailed = false;
+  Promise.all(catalog.Mars.map(site => marsElevation(site.lat, site.lon).then(value => [ site.id, { value, source: "MOLA" } ])))
+    .then(entries => { catalogMarsElevations = new Map(entries); })
+    .catch(error => {
+      catalogMarsFailed = true;
+      console.error("MOLA catalog elevations unavailable:", error);
+    })
+    .finally(() => {
+      catalogMarsLoading = false;
+      for (const site of catalog.Mars) {
+        const node = el("atlas-sites").querySelector('[data-site="' + site.id + '"][data-site-world="Mars"] [data-catalog-elevation]');
+        if (node) node.textContent = catalogElevationText({ ...site, world: "Mars" });
+      }
+    });
+}
 
 const viewer = new PlanetAtlas(el("map"), pick, world => {
   viewer.show(world);
@@ -131,10 +173,15 @@ function showCatalog(open) {
   el("catalogo").hidden = !open;
   document.body.classList.toggle("catalog-open", open);
   document.querySelector('[data-page="atlas"]').hidden = false;
+  if (open) loadCatalogMarsElevations();
   renderCatalog();
 }
 
+let catalogFilterKey = '';
+
 function renderCatalog() {
+  const list=el('atlas-sites');
+  const scrollTop=list.scrollTop;
   const query = el("atlas-search").value.trim().toLocaleLowerCase(currentLanguage());
   const body = el("catalog-body").value;
   const sites = (body === "all" ? Object.keys(catalog) : [ body ]).flatMap(world => catalog[world].map(site => ({
@@ -149,6 +196,7 @@ function renderCatalog() {
     return new Option(tx(display.biome ?? display.type ?? value), value);
   }));
   environment.value = values.includes(prior) ? prior : "";
+  const filterKey=JSON.stringify([query,body,environment.value,currentLanguage()]);
   const shown = sites.filter(s => {
     const display = localizedSite(s.world, s);
     const searchable = [ s.name, s.place, s.country, s.application, s.biome, s.type, display.name, display.place, display.application, display.biome, display.type, tx(s.biome ?? s.type) ].join(" ").toLocaleLowerCase(currentLanguage());
@@ -158,8 +206,10 @@ function renderCatalog() {
   el("atlas-search-empty").hidden = shown.length > 0;
   el("atlas-sites").innerHTML = shown.map(s => {
     const display = localizedSite(s.world, s);
-    return '<button class="outline catalog-site" data-site="' + s.id + '" data-site-world="' + s.world + '" aria-pressed="' + (selected?.id === s.id && selected?.world === s.world) + '"><span class="catalog-meta">' + esc(display.place ?? worlds[s.world].label) + "</span><strong>" + esc(tx(display.name ?? s.name)) + '</strong><span class="catalog-bottom">' + esc(tx(display.biome ?? display.type)) + "<small>" + (Number.isFinite(s.elevationM) ? s.elevationM + " m" : tx("Cota sin registrar")) + "</small></span></button>";
+    return '<button class="outline catalog-site" data-site="' + s.id + '" data-site-world="' + s.world + '" aria-pressed="' + (selected?.id === s.id && selected?.world === s.world) + '"><span class="catalog-meta">' + esc(display.place ?? worlds[s.world].label) + "</span><strong>" + esc(tx(display.name ?? s.name)) + '</strong><span class="catalog-bottom">' + esc(tx(display.biome ?? display.type)) + '<small data-catalog-elevation>' + esc(catalogElevationText(s)) + "</small></span></button>";
   }).join("");
+  list.scrollTop=filterKey===catalogFilterKey?scrollTop:0;
+  catalogFilterKey=filterKey;
 }
 
 const source = (url, label = tx("Fuente")) => url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(label) + " ↗</a>" : "";

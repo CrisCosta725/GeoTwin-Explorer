@@ -19,6 +19,7 @@ The project supports science communication, comparative research, and study plan
 - **Site comparisons:** recorded characteristics, analog associations, selection rationales, and limitations of the available evidence.
 - **Terrestrial satellite context:** a locally stored NASA image covering 10 × 10 km and an embedded Google Satellite map with an initial view approximately 1 km across, adjusted for latitude and viewport width.
 - **Topographic profiles:** terrestrial, lunar, and Martian transects with source, resolution, and elevation reference information.
+- **Catalog elevations:** approximate model elevations at site coordinates, with their dataset and vertical reference; previously supplied elevations remain identified separately.
 - **3D astronaut guide:** location-specific explanations, animated gestures, autonomous movement, and drag and keyboard controls.
 - **English and Spanish interface**, with installation and offline capabilities through a progressive web app.
 
