@@ -1,5 +1,11 @@
-const CACHE_NAME='geotwin-atlas-without-gis-v30';
+const CACHE_NAME='geotwin-nasadem-profiles-v1';
 const APP_ASSETS=[
+ './assets/earth-profile.js',
+ './assets/earth-profiles.js',
+ './assets/earth-relief.png',
+ './assets/earth-relief-provenance.json',
+ './assets/lunar-profiles.js',
+ './assets/crater-profile.js',
  './assets/earth-summary.js',
  './assets/astronaut-3d.js',
  './assets/astronaut-model.js',

@@ -1,3 +1,5 @@
+import {craterProfile} from './crater-profile.js';
+import {earthProfile} from './earth-profile.js';
 import {PlanetAtlas,worlds} from './globe.js';
 import {animateAstronaut,moveAstronaut} from './astronaut-motion.js';
 import {analogs,tags} from './analogs.js';
@@ -105,7 +107,9 @@ function inspect(world,site,focus=true){
  viewer.setSelectedCoordinates(site.lat,site.lon);
  if(focus){viewer.show(world);viewer.center(site.lat,site.lon);}
  markers();renderCatalog();
- const panel=el('location-analogs');panel.hidden=false;
+ const panel=el('location-analogs');
+ const evidenceOpen=!focus&&panel.querySelector('.guide-evidence')?.open===true;
+ panel.hidden=false;
  const display=localizedSite(world,site);
  const lunarRow=world==='Moon'?lunarMatrix.flatMap(g=>g.rows).find(r=>r.code.toLowerCase()===site.id):null;
  const number=new Intl.NumberFormat(currentLanguage(),{maximumFractionDigits:5});
@@ -156,6 +160,10 @@ function inspect(world,site,focus=true){
  panel.classList.add('astronaut-guide');
  panel.innerHTML='<div class="astronaut-character" aria-hidden="true"><svg viewBox="0 0 120 160" fill="none"><path d="M27 77h66v59H27z" fill="#64788a"/><rect x="30" y="70" width="60" height="62" rx="22" fill="#e9eff4"/><path d="M36 122l-5 27h22l7-24 7 24h22l-5-27M31 80L15 114l12 7 16-30M89 80l16 34-12 7-16-30" fill="#d1dfe9" stroke="#6d859b" stroke-width="3"/><circle cx="60" cy="45" r="34" fill="#f1f6fa" stroke="#8ca6b9" stroke-width="3"/><rect x="34" y="25" width="52" height="39" rx="19" fill="#102e43" stroke="#00ddeb" stroke-width="2"/><path d="M43 35q12-9 27-2" stroke="#b1eaf3" stroke-width="4" stroke-linecap="round"/><rect x="44" y="82" width="32" height="24" rx="5" fill="#193e52"/><circle cx="52" cy="93" r="3" fill="#00e3ed"/><path d="M61 92h8M61 98h8" stroke="#d6f5ff" stroke-width="2"/></svg></div>'+
  '<section class="astronaut-speech"><header><div><small>'+ (en?'MISSION GUIDE':'GUÍA DE MISIÓN')+'</small><h3>'+esc(display.name??site.name)+'</h3></div><button data-close-info aria-label="'+esc(t('site.close'))+'">×</button></header><p id="guide-speech" aria-live="polite"></p><nav class="guide-navigation" aria-label="'+(en?'Guide explanations':'Explicaciones del guía')+'"><button data-guide-step="-1">←</button><span id="guide-progress"></span><button data-guide-step="1">'+(en?'Next':'Continuar')+' →</button></nav><details class="guide-evidence"><summary>'+(en?'View observations, sources and data':'Ver observaciones, fuentes y datos')+'</summary>'+html+'</details></section>';
+ const evidence=panel.querySelector('.guide-evidence');
+ evidence.open=evidenceOpen;
+ if(lunarRow)evidence.querySelector('summary').insertAdjacentHTML('afterend',craterProfile(lunarRow,currentLanguage()));
+ if(world==='Earth')evidence.querySelector('summary').insertAdjacentHTML('afterend',earthProfile(site.id,currentLanguage()));
  updateGuide();
  animateAstronaut(panel,world);
 }
@@ -192,3 +200,4 @@ bindLanguageToggle(()=>{
   markers();renderCatalog();
  }
 });
+

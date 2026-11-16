@@ -66,8 +66,29 @@
         <div class="welcome-actions">
           <button type="button" class="welcome-enter" data-intro-dismiss="enter"><span data-i18n="welcome.enter">Explorar el atlas</span> <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
         </div>
-        <p class="welcome-attribution"><span data-i18n="welcome.textures">Texturas:</span> <a href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a><span>·</span><a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO</a><span>·</span><a href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL · Mars</a></p>
+        <p class="welcome-attribution"><span data-i18n="welcome.textures">Texturas:</span> <a href="https://svs.gsfc.nasa.gov/4720/" target="_blank" rel="noopener">NASA SVS · LRO</a><span>·</span><a href="https://science.nasa.gov/3d-resources/mars/" target="_blank" rel="noopener">NASA/JPL · Mars</a></p>
         <p class="welcome-note" data-i18n="welcome.note">Visualización comparativa; tamaños y movimientos no representan escalas ni períodos astronómicos.</p>
+      </div>
+      <div class="welcome-launch">
+        <div class="welcome-rocket" aria-hidden="true">
+          <svg viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="rocket-hull" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#7795ad"/><stop offset=".35" stop-color="#f2faff"/><stop offset=".72" stop-color="#d5e9f4"/><stop offset="1" stop-color="#536f89"/></linearGradient>
+              <linearGradient id="rocket-flame" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#fffbd0"/><stop offset=".3" stop-color="#ffbb4a"/><stop offset=".65" stop-color="#ff6334"/><stop offset="1" stop-color="#ff6334" stop-opacity="0"/></linearGradient>
+            </defs>
+            <g class="rocket-flame"><path d="M47 148 Q45 183 60 218 Q75 183 73 148Z" fill="url(#rocket-flame)"/><path d="M54 148 Q54 174 60 190 Q66 174 66 148Z" fill="#fff3c0"/></g>
+            <path d="M39 105 L22 133 L23 160 L43 148 M81 105 L98 133 L97 160 L77 148" fill="#345670" stroke="#91cadb" stroke-width="2"/>
+            <path d="M42 145 L44 156 H76 L78 145Z" fill="#1e3e55" stroke="#8abccc" stroke-width="2"/>
+            <path d="M60 8 C42 22 38 47 38 76 L40 140 Q60 150 80 140 L82 76 C82 47 78 22 60 8Z" fill="url(#rocket-hull)" stroke="#d7eff8" stroke-width="2"/>
+            <path d="M47 30 Q60 12 73 30" fill="none" stroke="#7ee5e2" stroke-width="3"/>
+            <circle cx="60" cy="68" r="15" fill="#173d56" stroke="#9cdde6" stroke-width="3"/>
+            <circle cx="60" cy="68" r="10" fill="#48b9ca"/><path d="M54 65 Q59 59 65 62" fill="none" stroke="#d9ffff" stroke-width="2" stroke-linecap="round"/>
+            <path d="M43 114 H77 M43 121 H77" stroke="#6590a3" stroke-width="2"/>
+            <path d="M56 126 H64 V136 H56Z" fill="#49d6d0"/>
+          </svg>
+        </div>
+        <div class="welcome-launch-glow" aria-hidden="true"></div>
+        <p class="welcome-launch-status" role="status" aria-live="polite"></p>
       </div>
     </section>
   <a class="skip-link" href="#contenido" data-intro-background="" data-i18n="skip">Ir al contenido</a>
@@ -136,7 +157,6 @@
                     <svg id="sector-overlay" class="sector-overlay" aria-label="Sectores prospectivos de la Tierra" data-i18n-aria-label="earth.sectors" hidden=""></svg>
                     <div data-markers="Earth"></div><div class="selection-pin" data-selection-pin="Earth" aria-hidden="true" hidden=""></div>
                     <p data-globe-status="" class="globe-status" role="status"></p>
-                    <a class="map-source" href="https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/" target="_blank" rel="noopener">NASA · Blue Marble</a>
                   </div>
                 </section>
                 <section class="planet-card" aria-labelledby="moon-globe-title">

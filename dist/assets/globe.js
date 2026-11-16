@@ -6,8 +6,8 @@ const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
 export const worlds = {
   Earth: {
-    get label() {return t('earth.open');}, image: 'earth-globe.webp', lon: -63, lat: 11, tint: [93,166,245],
-    credit: 'NASA · Blue Marble', source: 'https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-topography-bathymetry/'
+    get label() {return t('earth.open');}, image: 'earth-relief.png', lon: -63, lat: 11, tint: [93,166,245],
+    credit: 'NOAA · ETOPO', source: 'https://www.ncei.noaa.gov/products/etopo-global-relief-model'
   },
   Moon: {
     get label() {return t('moon.open');}, image: 'moon-globe.webp', lon: 8, lat: -46, tint: [169,180,217],

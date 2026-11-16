@@ -1,10 +1,15 @@
 node_modules/
+.cache/
 entrega/
 Iniciar_GeoTwin.bat
 iniciar_geotwin.mjs
 iniciar_geotwin.py
 package.json
 package-lock.json
-scripts/
+!dist/assets/package.json
+scripts/*
+!scripts/build-earth-profiles.mjs
+!scripts/package.json
+!scripts/package-lock.json
 tests/
 VERIFICACION.md

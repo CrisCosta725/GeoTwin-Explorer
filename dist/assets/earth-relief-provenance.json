@@ -1,0 +1,19 @@
+{
+  "source": "NOAA ETOPO · existing local derived grid",
+  "sourceURL": "https://www.ncei.noaa.gov/products/etopo-global-relief-model",
+  "grid": {
+    "projection": "geographic",
+    "west": -180,
+    "north": 90,
+    "dx": 0.08333333333333333,
+    "dy": 0.08333333333333333,
+    "periodic": true,
+    "resolution": 9266,
+    "source": "etopo",
+    "file": "earth",
+    "width": 4320,
+    "height": 2161,
+    "chunk": 540
+  },
+  "visualization": "Hypsometric and bathymetric color with illustrative hillshade. Not displaced geometry or engineering-resolution data."
+}

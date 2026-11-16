@@ -2,7 +2,7 @@
 
 ## 1. Abrir y presentar la pregunta
 
-Abre [GeoTwin Explorer en GitHub Pages](https://criscosta725.github.io/GeoTwin-Explorer/). La introducción presenta GeoTwin Explorer con Tierra, Luna y Marte al fondo y enlaza las fuentes de sus texturas. Entra con **Explorar el atlas** o **Esc**. Después, el atlas muestra los tres mundos juntos, con la Tierra como eje central de comparación. No hay un área seleccionada al inicio. En un navegador compatible, instala la app desde **Instalar app** en el panel lateral.
+Abre [GeoTwin Explorer en GitHub Pages](https://criscosta725.github.io/GeoTwin-Explorer/). La introducción presenta GeoTwin Explorer con Tierra, Luna y Marte al fondo y enlaza las fuentes de sus texturas. Al pulsar **Explorar el atlas**, un cohete enciende sus motores y despega antes de mostrar el atlas. **Esc** permite entrar directamente; con movimiento reducido, la entrada también es inmediata. Después, el atlas muestra los tres mundos juntos, con la Tierra como eje central de comparación. No hay un área seleccionada al inicio. En un navegador compatible, instala la app desde **Instalar app** en el panel lateral.
 
 La interfaz inicia en inglés. El botón **ES** de la barra superior cambia a español; al iniciar la app de nuevo, vuelve a mostrarse en inglés.
 
