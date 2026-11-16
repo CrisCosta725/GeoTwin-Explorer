@@ -1,6 +1,6 @@
 # Guía de GeoTwin Explorer
 
-1. Ejecuta Iniciar_GeoTwin.bat o npm start y abre la dirección indicada.
+1. Abre [GeoTwin Explorer](https://criscosta725.github.io/GeoTwin-Explorer/) en tu navegador.
 2. Explora Tierra, Luna y Marte desde la vista conjunta. Arrastra una esfera para girarla y usa los controles para acercar o restablecer la orientación.
 3. Pulsa un marcador o elige un sitio en el catálogo. Primero aparece la guía de misión; pulsa «Ver observaciones, fuentes y datos» para desplegar la ficha.
 4. En los sitios terrestres, las observaciones muestran una imagen NASA local de 10 × 10 km y Google Satellite centrado en la coordenada del catálogo, con un encuadre inicial aproximado de 1 km de ancho. Puedes ampliar, desplazar o abrir el mapa en Google Maps. Google Satellite requiere conexión.

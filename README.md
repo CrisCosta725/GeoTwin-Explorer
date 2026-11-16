@@ -56,7 +56,7 @@ NASA context images are distributed locally and remain available offline; their 
 
 Lunar profiles use regional [NASA LRO LOLA](https://pds-geosciences.wustl.edu/missions/lro/lola.htm) data. Their spatial resolution limits the representation of small craters, crater walls, and obstacles.
 
-The Mars globe displays a shaded elevation visualization derived from [NASA PDS MOLA MEGDR](https://pds-geosciences.wustl.edu/missions/mgs/mola.html). Selecting a Martian point displays an approximate elevation relative to the areoid. See the [data sources and credits](dist/examples/DATOS_Y_CREDITOS.md) and the [Mars terrain generation script](scripts/build-mars-relief.mjs) for resolution, limitations, and resource regeneration details.
+The Mars globe displays a shaded elevation visualization derived from [NASA PDS MOLA MEGDR](https://pds-geosciences.wustl.edu/missions/mgs/mola.html). Selecting a Martian point displays an approximate elevation relative to the areoid. See the [data sources and credits](dist/examples/DATOS_Y_CREDITOS.md) for resolution and limitations.
 
 ## Technology Stack
 
@@ -65,37 +65,30 @@ The Mars globe displays a shaded elevation visualization derived from [NASA PDS 
 | User interface | HTML, CSS, and JavaScript with ES modules; no frontend framework. |
 | Planetary viewer and profiles | Custom spherical renderer using Canvas 2D, with SVG charts. |
 | 3D astronaut | Three.js r160 and WebGL, with a fallback renderer when WebGL is unavailable. |
-| Data processing | Node.js, GeoTIFF.js, Proj4js, Sharp, and PNGJS. |
+| NASADEM profile generation | Node.js and GeoTIFF.js. |
 | Installation and offline support | PWA, web app manifest, and service worker. |
-| Local server | Node.js or Python; no application backend or custom API. |
+| Local server | Any static web server; no application backend or custom API. |
 | Storage | Local JSON files, JavaScript data modules, and binary files; no database management system. |
-| Packaging and deployment | PowerShell, Git, GitHub Pages, and a GitHub Actions deployment workflow. |
+| Deployment | GitHub Pages and a GitHub Actions deployment workflow. |
 
 ## Running and Developing the Application
 
-To run the application locally, use **Node.js 18 or later**:
+To run a local copy of the application, serve `dist` with a static web server. For example, with Python 3:
 
 ```sh
-npm start
+python -m http.server 8000 --directory dist
 ```
 
-On Windows, you can also run `Iniciar_GeoTwin.bat`. The launcher supports Python 3.10 or later as an alternative for serving local files.
+Open `http://localhost:8000/` in your browser.
 
-To install development dependencies and regenerate data or imagery, use **Node.js 20.9 or later**, as required by the included Sharp version:
-
-```sh
-npm ci
-npm test
-```
-
-Regenerate terrestrial profiles with:
+To regenerate the NASADEM profiles, use Node.js 18 or later:
 
 ```sh
+npm ci --prefix scripts
 node scripts/build-earth-profiles.mjs
-node scripts/build-polar-profiles.mjs
 ```
 
-The generation scripts access external data sources and require an internet connection. The deployed application serves prepared datasets from the `dist` directory.
+The generator accesses external data sources and requires an internet connection. The deployed application serves prepared datasets from the `dist` directory.
 
 ## Installation and Offline Use
 
